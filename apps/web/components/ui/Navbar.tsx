@@ -25,7 +25,7 @@ const navByRole: Record<NavRole, NavItem[]> = {
   ],
   patient: [
     { label: 'Accueil', href: '/' },
-    { label: 'Mes rendez-vous', href: '/patient/rendez-vous' },
+    { label: 'Mes rendez-vous', href: '/mes-rendez-vous' },
     { label: 'Rechercher', href: '/recherche' },
   ],
   praticien: [

@@ -23,6 +23,33 @@ appointments_bp = Blueprint("appointments", __name__, url_prefix="/api/v1/appoin
 
 def serialize_appointment(appt: Any) -> dict[str, Any]:
     """Helper de sérialisation pour le modèle Appointment."""
+    patient_info = {}
+    if appt.patient:
+        patient_info = {
+            "first_name": appt.patient.first_name,
+            "last_name": appt.patient.last_name,
+            "phone": appt.patient.phone,
+            "email": appt.patient.email,
+        }
+        if appt.patient.patient_profile:
+            patient_info["date_of_birth"] = appt.patient.patient_profile.date_of_birth.isoformat() if appt.patient.patient_profile.date_of_birth else None
+            patient_info["address"] = appt.patient.patient_profile.address
+            patient_info["phone_secondary"] = appt.patient.patient_profile.phone_secondary
+
+    doctor_info = {}
+    if appt.doctor:
+        doctor_info = {
+            "first_name": appt.doctor.first_name,
+            "last_name": appt.doctor.last_name,
+            "phone": appt.doctor.phone,
+            "email": appt.doctor.email,
+        }
+        if appt.doctor.doctor_profile:
+            doctor_info["specialty"] = appt.doctor.doctor_profile.specialty
+            doctor_info["cabinet_name"] = appt.doctor.doctor_profile.cabinet_name
+            doctor_info["address"] = appt.doctor.doctor_profile.address
+            doctor_info["fee"] = float(appt.doctor.doctor_profile.fee) if appt.doctor.doctor_profile.fee else None
+
     return {
         "id": str(appt.id),
         "doctor_id": str(appt.doctor_id),
@@ -36,6 +63,8 @@ def serialize_appointment(appt: Any) -> dict[str, Any]:
         "version_token": appt.version_token,
         "created_at": appt.created_at.isoformat() if appt.created_at else None,
         "updated_at": appt.updated_at.isoformat() if appt.updated_at else None,
+        "patient": patient_info,
+        "doctor": doctor_info,
     }
 
 

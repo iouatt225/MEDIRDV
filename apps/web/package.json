@@ -9,13 +9,19 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.21",
+    "@fullcalendar/daygrid": "^6.1.21",
+    "@fullcalendar/interaction": "^6.1.21",
+    "@fullcalendar/react": "^7.0.2",
+    "@fullcalendar/timegrid": "^6.1.21",
+    "@tanstack/react-query": "^5",
+    "lucide-react": "^0.500",
     "next": "16.2.12",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "@tanstack/react-query": "^5",
-    "zustand": "^5",
+    "recharts": "^3.10.1",
     "zod": "^3",
-    "lucide-react": "^0.500"
+    "zustand": "^5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -24,8 +30,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "prettier": "^3",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "prettier": "^3"
+    "typescript": "^5"
   }
 }

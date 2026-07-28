@@ -18,8 +18,20 @@ export interface Appointment {
   doctor?: {
     first_name: string;
     last_name: string;
+    phone: string;
+    email: string | null;
     specialty: string;
     cabinet_name: string;
     address: string;
+    fee: number | null;
+  };
+  patient?: {
+    first_name: string;
+    last_name: string;
+    phone: string;
+    email: string | null;
+    date_of_birth?: string | null;
+    address?: string | null;
+    phone_secondary?: string | null;
   };
 }
