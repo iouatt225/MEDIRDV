@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Menu, X, ChevronDown, User as UserIcon, LogOut } from 'lucide-react';
+import { Menu, X, ChevronDown, User as UserIcon, LogOut, Bell } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { apiClient } from '@/lib/api/client';
 import Button from '@/components/ui/Button';
 import { useAuthStore } from '@/stores/useAuthStore';
 
@@ -35,6 +37,15 @@ const navByRole: Record<NavRole, NavItem[]> = {
   ],
 };
 
+interface InAppNotification {
+  id: string;
+  appointment_id: string;
+  type: string;
+  trigger: string;
+  status: string;
+  created_at: string | null;
+}
+
 export default function Navbar() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
@@ -42,6 +53,16 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
 
   const { user, isAuthenticated, logout } = useAuthStore();
+
+  const [notifsOpen, setNotifsOpen] = useState(false);
+
+  // Fetch notifications with auto-refresh every 15s
+  const { data: notifications } = useQuery<InAppNotification[]>({
+    queryKey: ['navbar-notifications'],
+    queryFn: () => apiClient.get('/api/v1/notifications'),
+    enabled: mounted && isAuthenticated,
+    refetchInterval: 15000,
+  });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -175,6 +196,83 @@ export default function Navbar() {
               </>
             ) : (
               <div className="flex items-center gap-3">
+                {/* Notifications Bell Cloche */}
+                <div className="relative mr-2">
+                  <button
+                    onClick={() => setNotifsOpen(!notifsOpen)}
+                    className="
+                      p-2 rounded-full
+                      text-white/70 hover:text-white hover:bg-divider-dark
+                      transition-colors duration-200
+                      cursor-pointer relative
+                    "
+                    title="Notifications"
+                  >
+                    <Bell className="w-5 h-5" />
+                    {notifications && notifications.length > 0 && (
+                      <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-accent animate-pulse" />
+                    )}
+                  </button>
+
+                  {notifsOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl border border-divider shadow-lg py-2 z-50 text-primary">
+                      <div className="px-4 py-2 border-b border-divider font-bold text-sm text-primary flex justify-between items-center bg-secondary/30">
+                        <span>Notifications</span>
+                        <span className="text-[10px] text-accent uppercase font-bold">in-app</span>
+                      </div>
+                      <div className="max-h-[300px] overflow-y-auto">
+                        {(!notifications || notifications.length === 0) ? (
+                          <div className="p-4 text-center text-xs text-text/60 italic">
+                            Aucune notification récente.
+                          </div>
+                        ) : (
+                          notifications.map((notif) => {
+                            const dateStr = notif.created_at
+                              ? new Date(notif.created_at).toLocaleDateString('fr-FR', {
+                                  day: 'numeric',
+                                  month: 'short',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                })
+                              : '';
+                            
+                            let iconColor = 'bg-secondary text-text';
+                            let text = 'Notification';
+                            if (notif.trigger === 'confirm') {
+                              iconColor = 'bg-success/10 text-success border-success/20';
+                              text = 'Rendez-vous confirmé';
+                            } else if (notif.trigger === 'cancellation') {
+                              iconColor = 'bg-error/10 text-error border-error/20';
+                              text = 'Rendez-vous annulé';
+                            } else if (notif.trigger === 'h1' || notif.trigger === 'j1') {
+                              iconColor = 'bg-info/10 text-info border-info/20';
+                              text = 'Rappel de consultation';
+                            } else if (notif.trigger === 'post_consultation') {
+                              iconColor = 'bg-accent/10 text-accent border-accent/20';
+                              text = 'Récapitulatif disponible';
+                            }
+
+                            return (
+                              <div key={notif.id} className="p-3 hover:bg-secondary/40 border-b border-divider last:border-0 text-left flex gap-3 items-start transition-colors">
+                                <div className={`w-8 h-8 rounded-full border flex items-center justify-center flex-shrink-0 ${iconColor}`}>
+                                  <Bell className="w-3.5 h-3.5" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-semibold text-primary truncate">{text}</p>
+                                  <p className="text-[10px] text-text/70 mt-0.5 truncate">
+                                    Canal : {notif.type === 'email' ? 'E-mail' : 'SMS'} — {notif.status === 'sent' ? 'envoyé' : 'échec'}
+                                  </p>
+                                  <p className="text-[9px] text-text/50 mt-1">{dateStr}</p>
+                                </div>
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 <div className="flex items-center gap-2 text-white/90">
                   <UserIcon className="w-4 h-4" />
                   <span className="text-sm font-medium">{userName}</span>
