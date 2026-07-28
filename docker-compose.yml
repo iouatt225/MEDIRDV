@@ -1,0 +1,135 @@
+# ===========================================================
+# MediRDV CI — Docker Compose (développement local)
+# ===========================================================
+# Démarre l'ensemble de la stack backend en une commande :
+#   docker-compose up --build
+# ===========================================================
+
+services:
+  # --------------------------------------------------------- #
+  #  API Flask
+  # --------------------------------------------------------- #
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: medirdv-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./apps/api:/app
+    env_file:
+      - ./apps/api/.env
+    environment:
+      - FLASK_APP=wsgi.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://medirdv:medirdv@postgres:5432/medirdv
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - MINIO_ENDPOINT=minio:9000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # --------------------------------------------------------- #
+  #  Worker Celery
+  # --------------------------------------------------------- #
+  worker:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: medirdv-worker
+    command: celery -A celery_worker.celery worker --loglevel=info
+    volumes:
+      - ./apps/api:/app
+    env_file:
+      - ./apps/api/.env
+    environment:
+      - FLASK_APP=wsgi.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://medirdv:medirdv@postgres:5432/medirdv
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # --------------------------------------------------------- #
+  #  PostgreSQL 15
+  # --------------------------------------------------------- #
+  postgres:
+    image: postgres:15-alpine
+    container_name: medirdv-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: medirdv
+      POSTGRES_PASSWORD: medirdv
+      POSTGRES_DB: medirdv
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medirdv"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # --------------------------------------------------------- #
+  #  Redis 7
+  # --------------------------------------------------------- #
+  redis:
+    image: redis:7-alpine
+    container_name: medirdv-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # --------------------------------------------------------- #
+  #  Minio (S3-compatible)
+  # --------------------------------------------------------- #
+  minio:
+    image: minio/minio:latest
+    container_name: medirdv-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+
+  # --------------------------------------------------------- #
+  #  Frontend Next.js (référencé, sera configuré séparément)
+  # --------------------------------------------------------- #
+  # web:
+  #   build:
+  #     context: ./apps/web
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - api
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:

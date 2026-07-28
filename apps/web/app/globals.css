@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* ============================================
+   MediRDV CI — Design System Tokens (Pluxes)
+   ============================================ */
+
+@theme inline {
+  /* --- Colors --- */
+  --color-primary: #08363B;
+  --color-primary-light: #0A4A51;
+  --color-secondary: #EDF9FC;
+  --color-secondary-dark: #D5EFF5;
+  --color-accent: #00A8BC;
+  --color-accent-dark: #008A9A;
+  --color-accent-light: #33BFCF;
+  --color-text: #67787A;
+  --color-divider: rgba(8, 54, 59, 0.1);
+  --color-divider-dark: rgba(255, 255, 255, 0.1);
+  --color-error: rgb(230, 87, 87);
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+
+  /* --- Typography --- */
+  --font-sans: "Rethink Sans", system-ui, sans-serif;
+
+  /* --- Border Radius --- */
+  --radius-pluxes: 30px;
+  --radius-pluxes-sm: 14px;
+  --radius-pluxes-xs: 10px;
+  --radius-pluxes-btn: 5px;
+
+  /* --- Shadows --- */
+  --shadow-card: 0 4px 30px rgba(8, 54, 59, 0.08);
+  --shadow-card-hover: 0 8px 40px rgba(8, 54, 59, 0.15);
+  --shadow-nav: 0 2px 20px rgba(8, 54, 59, 0.1);
+
+  /* --- Animations --- */
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out;
+  --animate-slide-in-right: slide-in-right 0.4s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+}
+
+/* --- Keyframes --- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fill-right {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Base Styles (from Pluxes) --- */
+html,
+body {
+  width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1em;
+  color: var(--color-text);
+  background: #ffffff;
+}
+
+::selection {
+  color: #ffffff;
+  background-color: var(--color-accent);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2em;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+p {
+  line-height: 1.7em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* --- Scrollbar (Pluxes style) --- */
+::-webkit-scrollbar-track {
+  background-color: var(--color-primary);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: var(--color-accent);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+}
