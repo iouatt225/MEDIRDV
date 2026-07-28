@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   ],
 };
 
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,9 +37,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${rethinkSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <ReactQueryProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </ReactQueryProvider>
       </body>
     </html>
   );
