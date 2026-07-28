@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown, User, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Menu, X, ChevronDown, User as UserIcon, LogOut } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useAuthStore } from '@/stores/useAuthStore';
 
-type UserRole = 'visitor' | 'patient' | 'praticien';
+type NavRole = 'visitor' | 'patient' | 'praticien';
 
 interface NavItem {
   label: string;
@@ -14,7 +16,7 @@ interface NavItem {
   children?: NavItem[];
 }
 
-const navByRole: Record<UserRole, NavItem[]> = {
+const navByRole: Record<NavRole, NavItem[]> = {
   visitor: [
     { label: 'Accueil', href: '/' },
     { label: 'Rechercher un médecin', href: '/recherche' },
@@ -33,16 +35,17 @@ const navByRole: Record<UserRole, NavItem[]> = {
   ],
 };
 
-interface NavbarProps {
-  role?: UserRole;
-  userName?: string;
-}
-
-export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
+export default function Navbar() {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  const { user, isAuthenticated, logout } = useAuthStore();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -54,7 +57,26 @@ export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const items = navByRole[role];
+  const handleLogout = () => {
+    logout();
+    setMobileOpen(false);
+    router.push('/');
+  };
+
+  // Safe SSR check for active role and name
+  const activeRole: NavRole =
+    mounted && isAuthenticated && user
+      ? user.role === 'patient'
+        ? 'patient'
+        : 'praticien'
+      : 'visitor';
+
+  const userName =
+    mounted && isAuthenticated && user
+      ? `${user.first_name} ${user.last_name}`
+      : '';
+
+  const items = navByRole[activeRole];
 
   return (
     <header
@@ -132,7 +154,7 @@ export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            {role === 'visitor' ? (
+            {activeRole === 'visitor' ? (
               <>
                 <Link
                   href="/connexion"
@@ -145,17 +167,20 @@ export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
                 >
                   Connexion
                 </Link>
-                <Button variant="primary" size="sm">
-                  <Link href="/inscription">S&apos;inscrire</Link>
-                </Button>
+                <Link href="/inscription">
+                  <Button variant="primary" size="sm">
+                    S&apos;inscrire
+                  </Button>
+                </Link>
               </>
             ) : (
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 text-white/90">
-                  <User className="w-4 h-4" />
+                  <UserIcon className="w-4 h-4" />
                   <span className="text-sm font-medium">{userName}</span>
                 </div>
                 <button
+                  onClick={handleLogout}
                   className="
                     p-2 rounded-full
                     text-white/70 hover:text-white hover:bg-divider-dark
@@ -163,6 +188,7 @@ export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
                     cursor-pointer
                   "
                   aria-label="Déconnexion"
+                  title="Déconnexion"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -215,7 +241,7 @@ export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
             </Link>
           ))}
           <div className="border-t border-white/20 mt-3 pt-3">
-            {role === 'visitor' ? (
+            {activeRole === 'visitor' ? (
               <>
                 <Link
                   href="/connexion"
@@ -234,6 +260,7 @@ export default function Navbar({ role = 'visitor', userName }: NavbarProps) {
               </>
             ) : (
               <button
+                onClick={handleLogout}
                 className="
                   flex items-center gap-2 px-4 py-3
                   text-white font-medium
