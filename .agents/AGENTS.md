@@ -1,3 +1,3 @@
 # Règles du Projet MediRDV CI
 
-- **Commits automatiques** : Après avoir complété et validé chaque bloc (par ex. Bloc 1, Bloc 2, etc.), l'agent de développement doit effectuer automatiquement un commit git en respectant la convention Conventional Commits.
+- **Commits automatiques** : L'agent de développement doit effectuer automatiquement un commit git en respectant la convention Conventional Commits, et ce **après chaque modification ou petite tâche complétée** (et non plus seulement après de grands blocs).
