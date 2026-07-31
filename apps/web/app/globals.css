@@ -4,17 +4,22 @@
    MediRDV CI — Design System Tokens (Pluxes)
    ============================================ */
 
-@theme inline {
+@theme {
   /* --- Colors --- */
-  --color-primary: #08363B;
-  --color-primary-light: #0A4A51;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-primary: #0284C7;
+  --color-primary-light: #38BDF8;
+  --color-tertiary: #08363B;
+  --color-tertiary-light: #0A4A51;
   --color-secondary: #EDF9FC;
   --color-secondary-dark: #D5EFF5;
   --color-accent: #00A8BC;
   --color-accent-dark: #008A9A;
   --color-accent-light: #33BFCF;
-  --color-text: #67787A;
-  --color-divider: rgba(8, 54, 59, 0.1);
+  --color-text: #374151;
+  --color-divider: rgba(2, 132, 199, 0.1);
   --color-divider-dark: rgba(255, 255, 255, 0.1);
   --color-error: rgb(230, 87, 87);
   --color-success: #22C55E;

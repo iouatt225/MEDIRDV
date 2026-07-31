@@ -514,7 +514,7 @@ export default function InscriptionPage() {
         )}
 
         <div className="mt-8 pt-6 border-t border-divider-dark text-center">
-          <p className="text-white/60 text-sm">
+          <p className="text-white opacity-80 text-sm">
             Déjà inscrit ?{' '}
             <Link
               href="/connexion"

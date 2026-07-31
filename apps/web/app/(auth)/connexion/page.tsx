@@ -98,7 +98,7 @@ function ConnexionForm() {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">Connexion</h1>
-          <p className="text-white/60">Ravi de vous revoir sur MediRDV CI</p>
+          <p className="text-white opacity-80">Ravi de vous revoir sur MediRDV CI</p>
         </div>
 
         {expired && (
@@ -122,7 +122,7 @@ function ConnexionForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             error={errors.phone}
-            className="text-white placeholder:text-white/40"
+            className="text-white placeholder:text-white placeholder:opacity-50"
           />
 
           <Input
@@ -133,7 +133,7 @@ function ConnexionForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             error={errors.password}
-            className="text-white placeholder:text-white/40"
+            className="text-white placeholder:text-white placeholder:opacity-50"
           />
 
           <div className="flex justify-end">
@@ -151,7 +151,7 @@ function ConnexionForm() {
         </form>
 
         <div className="mt-8 pt-6 border-t border-divider-dark text-center">
-          <p className="text-white/60 text-sm">
+          <p className="text-white opacity-80 text-sm">
             Nouveau sur la plateforme ?{' '}
             <Link
               href="/inscription"

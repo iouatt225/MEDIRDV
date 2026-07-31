@@ -48,7 +48,7 @@ export default function Footer() {
                 className="
                   inline-flex items-center gap-2
                   text-sm font-medium text-white
-                  bg-divider-dark backdrop-blur-[30px]
+                  bg-tertiary backdrop-blur-[30px]
                   rounded-full px-5 py-2.5 pl-9
                   relative mb-4
                 "
@@ -112,7 +112,7 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-white/60 hover:text-accent transition-colors duration-300"
+                        className="text-white opacity-80 hover:opacity-100 hover:text-accent transition-all duration-300"
                       >
                         {link.label}
                       </Link>
@@ -127,7 +127,7 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-white/60 hover:text-accent transition-colors duration-300"
+                        className="text-white opacity-80 hover:opacity-100 hover:text-accent transition-all duration-300"
                       >
                         {link.label}
                       </Link>
@@ -142,7 +142,7 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-white/60 hover:text-accent transition-colors duration-300"
+                        className="text-white opacity-80 hover:opacity-100 hover:text-accent transition-all duration-300"
                       >
                         {link.label}
                       </Link>
@@ -158,7 +158,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-t border-divider-dark">
         <div className="max-w-[1300px] mx-auto px-4 lg:px-[15px] py-6">
-          <p className="text-center text-white/50 text-sm">
+          <p className="text-center text-white opacity-60 text-sm">
             Copyright © {currentYear} MediRDV CI. Tous droits réservés.
           </p>
         </div>
