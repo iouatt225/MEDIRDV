@@ -33,7 +33,7 @@ export default function Footer() {
   return (
     <footer
       className="
-        bg-primary bg-[url('/images/dark-section-bg-image.png')]
+        bg-brand-light
         bg-no-repeat bg-top bg-cover
         rounded-t-pluxes
         mt-auto
@@ -47,16 +47,16 @@ export default function Footer() {
               <span
                 className="
                   inline-flex items-center gap-2
-                  text-sm font-medium text-white
-                  bg-divider-dark backdrop-blur-[30px]
+                  text-sm font-medium text-tertiary
+                  bg-tertiary/10 backdrop-blur-[30px]
                   rounded-full px-5 py-2.5 pl-9
                   relative mb-4
                 "
               >
-                <span className="absolute left-5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-accent" />
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-tertiary" />
                 Votre santé, notre priorité
               </span>
-              <h2 className="text-5xl lg:text-6xl font-semibold text-white mt-4">
+              <h2 className="text-5xl lg:text-6xl font-semibold text-tertiary mt-4">
                 <Link href="/contact" className="hover:text-accent transition-colors duration-300">
                   Prenez rendez-vous
                 </Link>
@@ -67,12 +67,13 @@ export default function Footer() {
           {/* Links Section */}
           <div className="lg:col-span-7">
             {/* Footer Header */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-divider-dark">
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-tertiary/20">
               <Image
                 src="/images/logo.svg"
                 alt="MediRDV"
                 width={140}
                 height={40}
+                className="brightness-0" 
               />
               <div className="flex gap-3">
                 {socialLinks.map((social) => (
@@ -84,8 +85,8 @@ export default function Footer() {
                       w-10 h-10
                       flex items-center justify-center
                       rounded-full
-                      border border-divider-dark
-                      text-white opacity-70 hover:opacity-100 hover:border-accent hover:bg-accent
+                      border border-tertiary/20
+                      text-tertiary opacity-70 hover:opacity-100 hover:border-tertiary hover:bg-tertiary/10
                       transition-all duration-300
                     "
                   >
@@ -106,13 +107,13 @@ export default function Footer() {
             {/* Footer Links Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-8">
               <div>
-                <h3 className="text-lg font-bold text-white mb-4">Liens rapides</h3>
+                <h3 className="text-lg font-bold text-tertiary mb-4">Liens rapides</h3>
                 <ul className="space-y-3">
                   {quickLinks.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-white opacity-80 hover:opacity-100 hover:text-accent transition-all duration-300"
+                        className="text-tertiary opacity-80 hover:opacity-100 transition-all duration-300"
                       >
                         {link.label}
                       </Link>
@@ -121,13 +122,13 @@ export default function Footer() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-4">Spécialités</h3>
+                <h3 className="text-lg font-bold text-tertiary mb-4">Spécialités</h3>
                 <ul className="space-y-3">
                   {serviceLinks.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-white opacity-80 hover:opacity-100 hover:text-accent transition-all duration-300"
+                        className="text-tertiary opacity-80 hover:opacity-100 transition-all duration-300"
                       >
                         {link.label}
                       </Link>
@@ -136,13 +137,13 @@ export default function Footer() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-4">Support</h3>
+                <h3 className="text-lg font-bold text-tertiary mb-4">Support</h3>
                 <ul className="space-y-3">
                   {supportLinks.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-white opacity-80 hover:opacity-100 hover:text-accent transition-all duration-300"
+                        className="text-tertiary opacity-80 hover:opacity-100 transition-all duration-300"
                       >
                         {link.label}
                       </Link>
@@ -156,9 +157,9 @@ export default function Footer() {
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-divider-dark">
+      <div className="border-t border-tertiary/20">
         <div className="max-w-[1300px] mx-auto px-4 lg:px-[15px] py-6">
-          <p className="text-center text-white opacity-60 text-sm">
+          <p className="text-center text-tertiary opacity-80 text-sm">
             Copyright © {currentYear} MediRDV CI. Tous droits réservés.
           </p>
         </div>
