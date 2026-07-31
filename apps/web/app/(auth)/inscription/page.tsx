@@ -210,19 +210,18 @@ export default function InscriptionPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-primary bg-cover bg-center relative px-4 py-12"
-      style={{ backgroundImage: "url('/images/hero-bg-image.jpg')" }}
+      className="min-h-screen flex items-center justify-center bg-brand-light relative px-4 py-12"
     >
-      <div className="absolute inset-0 bg-primary/70 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-brand-light/70 backdrop-blur-sm" />
 
       <Card
         hoverable={false}
-        variant="dark"
-        className="w-full max-w-2xl relative z-10 p-8 lg:p-12 bg-primary/80 border border-divider-dark backdrop-blur-md rounded-pluxes shadow-card-hover"
+        variant="light"
+        className="w-full max-w-2xl relative z-10 p-8 lg:p-12 bg-white/60 border border-tertiary/20 backdrop-blur-md rounded-pluxes shadow-card-hover"
       >
         {/* Progress header */}
-        <div className="flex justify-between items-center mb-8 border-b border-divider-dark pb-4">
-          <h1 className="text-2xl lg:text-3xl font-bold text-white">Inscription</h1>
+        <div className="flex justify-between items-center mb-8 border-b border-tertiary/20 pb-4">
+          <h1 className="text-2xl lg:text-3xl font-bold text-tertiary">Inscription</h1>
           <Badge variant="info" dot={false}>
             Étape {step} sur 3
           </Badge>
@@ -237,15 +236,15 @@ export default function InscriptionPage() {
         {/* STEP 1: Role selection */}
         {step === 1 && (
           <div>
-            <h2 className="text-xl font-bold text-white text-center mb-6">Choisissez votre profil</h2>
+            <h2 className="text-xl font-bold text-tertiary text-center mb-6">Choisissez votre profil</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <button
                 type="button"
                 onClick={() => setRole('patient')}
                 className={`flex flex-col items-center justify-center p-6 rounded-pluxes-sm border transition-all duration-300 ${
                   role === 'patient'
-                    ? 'border-accent bg-accent/20 text-white'
-                    : 'border-divider-dark bg-transparent text-white/60 hover:text-white hover:border-white/40'
+                    ? 'border-tertiary bg-tertiary/10 text-tertiary'
+                    : 'border-tertiary/20 bg-transparent text-tertiary opacity-70 hover:opacity-100 hover:border-tertiary/40'
                 }`}
               >
                 <User className="w-10 h-10 mb-3" />
@@ -257,8 +256,8 @@ export default function InscriptionPage() {
                 onClick={() => setRole('medecin')}
                 className={`flex flex-col items-center justify-center p-6 rounded-pluxes-sm border transition-all duration-300 ${
                   role === 'medecin'
-                    ? 'border-accent bg-accent/20 text-white'
-                    : 'border-divider-dark bg-transparent text-white/60 hover:text-white hover:border-white/40'
+                    ? 'border-tertiary bg-tertiary/10 text-tertiary'
+                    : 'border-tertiary/20 bg-transparent text-tertiary opacity-70 hover:opacity-100 hover:border-tertiary/40'
                 }`}
               >
                 <Stethoscope className="w-10 h-10 mb-3" />
@@ -270,8 +269,8 @@ export default function InscriptionPage() {
                 onClick={() => setRole('secretaire')}
                 className={`flex flex-col items-center justify-center p-6 rounded-pluxes-sm border transition-all duration-300 ${
                   role === 'secretaire'
-                    ? 'border-accent bg-accent/20 text-white'
-                    : 'border-divider-dark bg-transparent text-white/60 hover:text-white hover:border-white/40'
+                    ? 'border-tertiary bg-tertiary/10 text-tertiary'
+                    : 'border-tertiary/20 bg-transparent text-tertiary opacity-70 hover:opacity-100 hover:border-tertiary/40'
                 }`}
               >
                 <Briefcase className="w-10 h-10 mb-3" />
@@ -288,11 +287,11 @@ export default function InscriptionPage() {
         {/* STEP 2: Common basic fields */}
         {step === 2 && (
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-white mb-4">Informations personnelles</h2>
+            <h2 className="text-xl font-bold text-tertiary mb-4">Informations personnelles</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                variant="dark"
+                variant="light"
                 label="Prénom"
                 placeholder="Ex: Kouassi"
                 value={firstName}
@@ -300,7 +299,7 @@ export default function InscriptionPage() {
                 error={errors.first_name}
               />
               <Input
-                variant="dark"
+                variant="light"
                 label="Nom"
                 placeholder="Ex: Koffi"
                 value={lastName}
@@ -310,7 +309,7 @@ export default function InscriptionPage() {
             </div>
 
             <Input
-              variant="dark"
+              variant="light"
               label="Téléphone"
               type="tel"
               placeholder="Ex: +225 0708091011"
@@ -320,7 +319,7 @@ export default function InscriptionPage() {
             />
 
             <Input
-              variant="dark"
+              variant="light"
               label="Email (optionnel)"
               type="email"
               placeholder="Ex: nom@domaine.ci"
@@ -330,7 +329,7 @@ export default function InscriptionPage() {
             />
 
             <Input
-              variant="dark"
+              variant="light"
               label="Mot de passe"
               type="password"
               placeholder="••••••••"
@@ -340,7 +339,7 @@ export default function InscriptionPage() {
             />
 
             <div className="flex justify-between mt-8">
-              <Button variant="secondary" className="border-white! text-white! hover:bg-white/10!" onClick={() => setStep(1)}>
+              <Button variant="secondary" className="border-tertiary! text-tertiary! hover:bg-tertiary/10!" onClick={() => setStep(1)}>
                 Retour
               </Button>
               <Button onClick={handleNextStep}>Continuer</Button>
@@ -351,13 +350,13 @@ export default function InscriptionPage() {
         {/* STEP 3: Role-specific details */}
         {step === 3 && (
           <form onSubmit={handleSubmit} className="space-y-6">
-            <h2 className="text-xl font-bold text-white mb-4">Complétez votre profil</h2>
+            <h2 className="text-xl font-bold text-tertiary mb-4">Complétez votre profil</h2>
 
             {/* Patient Fields */}
             {role === 'patient' && (
               <div className="space-y-6">
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Date de naissance"
                   type="date"
                   value={dateOfBirth}
@@ -366,7 +365,7 @@ export default function InscriptionPage() {
                 />
 
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Téléphone secondaire (optionnel)"
                   type="tel"
                   placeholder="Autre numéro"
@@ -376,7 +375,7 @@ export default function InscriptionPage() {
                 />
 
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Adresse"
                   placeholder="Ex: Cocody, Abidjan"
                   value={address}
@@ -390,9 +389,9 @@ export default function InscriptionPage() {
                     id="gdpr_consent"
                     checked={gdprConsent}
                     onChange={(e) => setGdprConsent(e.target.checked)}
-                    className="w-5 h-5 rounded border-divider-dark bg-transparent text-accent accent-accent mt-0.5 focus:ring-0 focus:outline-none"
+                    className="w-5 h-5 rounded border-tertiary/20 bg-white/60 text-accent accent-accent mt-0.5 focus:ring-0 focus:outline-none"
                   />
-                  <label htmlFor="gdpr_consent" className="text-sm text-white/80 leading-normal">
+                  <label htmlFor="gdpr_consent" className="text-sm text-tertiary opacity-80 leading-normal">
                     J&apos;accepte la collecte de mes données personnelles nécessaires à la gestion de mes rendez-vous médicaux.
                   </label>
                 </div>
@@ -406,7 +405,7 @@ export default function InscriptionPage() {
             {role === 'medecin' && (
               <div className="space-y-6">
                 <Select
-                  variant="dark"
+                  variant="light"
                   label="Spécialité"
                   placeholder="Sélectionner une spécialité"
                   options={specialties}
@@ -416,7 +415,7 @@ export default function InscriptionPage() {
                 />
 
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Nom du cabinet"
                   placeholder="Ex: Clinique des Deux Plateaux"
                   value={cabinetName}
@@ -425,7 +424,7 @@ export default function InscriptionPage() {
                 />
 
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Adresse du cabinet"
                   placeholder="Ex: Boulevard Latrille, Cocody"
                   value={doctorAddress}
@@ -434,7 +433,7 @@ export default function InscriptionPage() {
                 />
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-white">Langues parlées</label>
+                  <label className="block text-sm font-semibold text-tertiary">Langues parlées</label>
                   <div className="flex flex-wrap gap-2">
                     {availableLanguages.map((lang) => {
                       const isSelected = languages.includes(lang.value);
@@ -446,7 +445,7 @@ export default function InscriptionPage() {
                           className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-200 ${
                             isSelected
                               ? 'bg-accent border-accent text-white'
-                              : 'border-divider-dark bg-transparent text-white/60 hover:text-white'
+                              : 'border-tertiary/20 bg-transparent text-tertiary opacity-70 hover:opacity-100 hover:border-tertiary/40'
                           }`}
                         >
                           {lang.label}
@@ -460,7 +459,7 @@ export default function InscriptionPage() {
                 </div>
 
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Tarif consultation (FCFA)"
                   type="number"
                   placeholder="Ex: 15000"
@@ -470,13 +469,13 @@ export default function InscriptionPage() {
                 />
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-white">Biographie courte</label>
+                  <label className="block text-sm font-semibold text-tertiary">Biographie courte</label>
                   <textarea
                     rows={4}
                     placeholder="Présentez votre parcours..."
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
-                    className="w-full text-base font-normal leading-[1.25em] rounded-pluxes-xs px-5 py-5 bg-divider-dark border-none outline-none text-white placeholder:text-white/40 focus:ring-0"
+                    className="w-full text-base font-normal leading-[1.25em] rounded-pluxes-xs px-5 py-5 bg-white/60 border-tertiary/20 outline-none text-tertiary placeholder:text-tertiary placeholder:opacity-40 focus:ring-accent"
                   />
                   {errors.bio && (
                     <p className="text-sm font-medium text-error mt-1">{errors.bio}</p>
@@ -489,21 +488,21 @@ export default function InscriptionPage() {
             {role === 'secretaire' && (
               <div className="space-y-6">
                 <Input
-                  variant="dark"
+                  variant="light"
                   label="Code d'invitation médecin (optionnel)"
                   placeholder="Ex: SEC-123456"
                   value={invitationCode}
                   onChange={(e) => setInvitationCode(e.target.value)}
                   error={errors.invitation_code}
                 />
-                <p className="text-xs text-white/50 leading-relaxed">
+                <p className="text-xs text-tertiary opacity-60 leading-relaxed">
                   Le code d&apos;invitation permet de rattacher directement votre compte à l&apos;agenda du médecin. Vous pouvez aussi le renseigner ultérieurement.
                 </p>
               </div>
             )}
 
             <div className="flex justify-between mt-8">
-              <Button variant="secondary" className="border-white! text-white! hover:bg-white/10!" onClick={() => setStep(2)}>
+              <Button variant="secondary" className="border-tertiary! text-tertiary! hover:bg-tertiary/10!" onClick={() => setStep(2)}>
                 Retour
               </Button>
               <Button type="submit" loading={loading}>
@@ -513,8 +512,8 @@ export default function InscriptionPage() {
           </form>
         )}
 
-        <div className="mt-8 pt-6 border-t border-divider-dark text-center">
-          <p className="text-white/60 text-sm">
+        <div className="mt-8 pt-6 border-t border-tertiary/20 text-center">
+          <p className="text-tertiary opacity-70 text-sm">
             Déjà inscrit ?{' '}
             <Link
               href="/connexion"
