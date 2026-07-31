@@ -86,19 +86,18 @@ function ConnexionForm() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-primary bg-cover bg-center relative px-4 py-12"
-      style={{ backgroundImage: "url('/images/hero-bg-image.jpg')" }}
+      className="min-h-screen flex items-center justify-center bg-brand-light relative px-4 py-12"
     >
-      <div className="absolute inset-0 bg-primary/70 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-brand-light/70 backdrop-blur-sm" />
 
       <Card
         hoverable={false}
-        variant="dark"
-        className="w-full max-w-lg relative z-10 p-8 lg:p-12 bg-primary/80 border border-divider-dark backdrop-blur-md rounded-pluxes shadow-card-hover"
+        variant="light"
+        className="w-full max-w-lg relative z-10 p-8 lg:p-12 bg-white/60 border border-tertiary/20 backdrop-blur-md rounded-pluxes shadow-card-hover"
       >
         <div className="text-center mb-8">
-          <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">Connexion</h1>
-          <p className="text-white/60">Ravi de vous revoir sur MediRDV CI</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-tertiary mb-2">Connexion</h1>
+          <p className="text-tertiary opacity-70">Ravi de vous revoir sur MediRDV CI</p>
         </div>
 
         {expired && (
@@ -115,25 +114,25 @@ function ConnexionForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
-            variant="dark"
+            variant="light"
             label="Numéro de téléphone"
             type="tel"
             placeholder="Ex: +225 0708091011"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             error={errors.phone}
-            className="text-white placeholder:text-white/40"
+            className="text-tertiary placeholder:text-tertiary placeholder:opacity-40"
           />
 
           <Input
-            variant="dark"
+            variant="light"
             label="Mot de passe"
             type="password"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             error={errors.password}
-            className="text-white placeholder:text-white/40"
+            className="text-tertiary placeholder:text-tertiary placeholder:opacity-40"
           />
 
           <div className="flex justify-end">
@@ -150,8 +149,8 @@ function ConnexionForm() {
           </Button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-divider-dark text-center">
-          <p className="text-white/60 text-sm">
+        <div className="mt-8 pt-6 border-t border-tertiary/20 text-center">
+          <p className="text-tertiary opacity-70 text-sm">
             Nouveau sur la plateforme ?{' '}
             <Link
               href="/inscription"
@@ -170,7 +169,7 @@ export default function ConnexionPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-primary">
+        <div className="min-h-screen flex items-center justify-center bg-brand-light">
           <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin" />
         </div>
       }
