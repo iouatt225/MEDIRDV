@@ -210,10 +210,9 @@ export default function InscriptionPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-brand-light bg-cover bg-center bg-no-repeat relative px-4 py-12"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative px-4 py-12"
       style={{ backgroundImage: "url('/images/hero-bg-image.jpg')" }}
     >
-      <div className="absolute inset-0 bg-brand-light/75 backdrop-blur-md" />
 
       <Card
         hoverable={false}
