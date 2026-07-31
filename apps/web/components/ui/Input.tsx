@@ -15,7 +15,7 @@ const variantStyles: Record<InputVariant, string> = {
   light:
     'bg-white text-primary border border-divider placeholder:text-text/50 focus:border-accent',
   dark:
-    'bg-divider-dark text-white backdrop-blur-[50px] border-none placeholder:text-white/60',
+    'bg-divider-dark text-white backdrop-blur-[50px] border-none placeholder:text-white placeholder:opacity-60',
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

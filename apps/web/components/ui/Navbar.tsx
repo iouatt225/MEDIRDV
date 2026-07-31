@@ -133,7 +133,7 @@ export default function Navbar() {
                     flex items-center gap-1
                     px-3 py-3
                     text-base font-medium capitalize
-                    text-white/90 hover:text-accent
+                    text-white opacity-90 hover:opacity-100 hover:text-accent
                     transition-colors duration-300
                   "
                 >
@@ -181,7 +181,7 @@ export default function Navbar() {
                   href="/connexion"
                   className="
                     px-4 py-2.5
-                    text-base font-medium text-white/90
+                    text-base font-medium text-white opacity-90 hover:opacity-100
                     hover:text-accent
                     transition-colors duration-300
                   "
@@ -202,7 +202,7 @@ export default function Navbar() {
                     onClick={() => setNotifsOpen(!notifsOpen)}
                     className="
                       p-2 rounded-full
-                      text-white/70 hover:text-white hover:bg-divider-dark
+                      text-white opacity-70 hover:opacity-100 hover:bg-divider-dark
                       transition-colors duration-200
                       cursor-pointer relative
                     "
@@ -273,7 +273,7 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 text-white/90">
+                <div className="flex items-center gap-2 text-white opacity-90">
                   <UserIcon className="w-4 h-4" />
                   <span className="text-sm font-medium">{userName}</span>
                 </div>
@@ -281,7 +281,7 @@ export default function Navbar() {
                   onClick={handleLogout}
                   className="
                     p-2 rounded-full
-                    text-white/70 hover:text-white hover:bg-divider-dark
+                    text-white opacity-70 hover:opacity-100 hover:bg-divider-dark
                     transition-colors duration-200
                     cursor-pointer
                   "

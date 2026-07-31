@@ -48,7 +48,7 @@ export default function Footer() {
                 className="
                   inline-flex items-center gap-2
                   text-sm font-medium text-white
-                  bg-tertiary backdrop-blur-[30px]
+                  bg-divider-dark backdrop-blur-[30px]
                   rounded-full px-5 py-2.5 pl-9
                   relative mb-4
                 "
@@ -85,7 +85,7 @@ export default function Footer() {
                       flex items-center justify-center
                       rounded-full
                       border border-divider-dark
-                      text-white/70 hover:text-white hover:border-accent hover:bg-accent
+                      text-white opacity-70 hover:opacity-100 hover:border-accent hover:bg-accent
                       transition-all duration-300
                     "
                   >
