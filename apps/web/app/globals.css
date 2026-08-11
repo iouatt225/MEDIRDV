@@ -9,16 +9,16 @@
   --color-white: #ffffff;
   --color-black: #000000;
   --color-transparent: transparent;
-  --color-primary: #08363B;
-  --color-primary-light: #0A4A51;
-  --color-brand-light: #0cb3c5;
-  --color-secondary: #EDF9FC;
-  --color-secondary-dark: #D5EFF5;
-  --color-accent: #00A8BC;
-  --color-accent-dark: #008A9A;
-  --color-accent-light: #33BFCF;
-  --color-text: #374151;
-  --color-divider: rgba(8, 54, 59, 0.1);
+  --color-primary: #0f172a;
+  --color-primary-light: #334155;
+  --color-brand-light: #ccfbf1;
+  --color-secondary: #f8fafc;
+  --color-secondary-dark: #e2e8f0;
+  --color-accent: #0f766e;
+  --color-accent-dark: #115e59;
+  --color-accent-light: #14b8a6;
+  --color-text: #475569;
+  --color-divider: rgba(15, 23, 42, 0.1);
   --color-divider-dark: rgba(255, 255, 255, 0.1);
   --color-error: rgb(230, 87, 87);
   --color-success: #22C55E;
@@ -28,15 +28,15 @@
   --font-sans: "Rethink Sans", system-ui, sans-serif;
 
   /* --- Border Radius --- */
-  --radius-pluxes: 30px;
-  --radius-pluxes-sm: 14px;
-  --radius-pluxes-xs: 10px;
-  --radius-pluxes-btn: 5px;
+  --radius-pluxes: 12px;
+  --radius-pluxes-sm: 10px;
+  --radius-pluxes-xs: 8px;
+  --radius-pluxes-btn: 8px;
 
   /* --- Shadows --- */
-  --shadow-card: 0 4px 30px rgba(8, 54, 59, 0.08);
-  --shadow-card-hover: 0 8px 40px rgba(8, 54, 59, 0.15);
-  --shadow-nav: 0 2px 20px rgba(8, 54, 59, 0.1);
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.06), 0 14px 40px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 2px 4px rgba(15, 23, 42, 0.08), 0 18px 48px rgba(15, 23, 42, 0.1);
+  --shadow-nav: 0 10px 30px rgba(15, 23, 42, 0.08);
 
   /* --- Animations --- */
   --animate-fade-in: fade-in 0.6s ease-out;
