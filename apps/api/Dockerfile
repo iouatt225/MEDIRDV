@@ -16,7 +16,7 @@ RUN apt-get update && \
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir --user -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt
 
 # ===========================================================
 # Stage 2 — Runtime
@@ -27,7 +27,6 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH=/root/.local/bin:$PATH \
     FLASK_APP=wsgi.py
 
 # Dépendances légères de production
@@ -36,15 +35,15 @@ RUN apt-get update && \
         libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Récupération des packages python compilés
-COPY --from=builder /root/.local /root/.local
+# Récupération des packages Python et des binaires installés par pip
+COPY --from=builder /usr/local /usr/local
 
 # Code source
 COPY . .
 
 # Création et configuration de l'utilisateur non-root pour la sécurité
-RUN useradd -u 10001 appuser && \
-    chown -R appuser:appuser /app
+RUN useradd -m -u 10001 appuser && \
+    chown -R appuser:appuser /app /home/appuser
 
 USER appuser
 

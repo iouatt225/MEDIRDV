@@ -51,7 +51,7 @@ function ConnexionForm() {
         access_token: string;
         user: {
           id: string;
-          role: 'patient' | 'medecin' | 'secretaire';
+          role: 'patient' | 'medecin' | 'secretaire' | 'admin';
           first_name: string;
           last_name: string;
         };
@@ -69,6 +69,8 @@ function ConnexionForm() {
       // Redirect based on role or search parameter
       if (redirect) {
         router.push(decodeURIComponent(redirect));
+      } else if (res.user.role === 'admin') {
+        router.push('/admin/dashboard');
       } else if (res.user.role === 'medecin') {
         router.push('/praticien/dashboard');
       } else if (res.user.role === 'secretaire') {
@@ -92,7 +94,7 @@ function ConnexionForm() {
 
       <Card
         hoverable={false}
-        variant="light"
+        variant="secondary"
         className="w-full max-w-lg relative z-10 p-8 lg:p-12 bg-white/60 border border-tertiary/20 backdrop-blur-md rounded-pluxes shadow-card-hover"
       >
         <div className="text-center mb-8">
@@ -178,4 +180,3 @@ export default function ConnexionPage() {
     </Suspense>
   );
 }
-

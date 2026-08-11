@@ -2,7 +2,7 @@
 
 import { create } from 'zustand';
 
-export type UserRole = 'patient' | 'medecin' | 'secretaire';
+export type UserRole = 'patient' | 'medecin' | 'secretaire' | 'admin';
 
 export interface User {
   id: string;

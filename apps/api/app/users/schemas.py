@@ -13,6 +13,7 @@ class UpdateUserSchema(Schema):
     first_name = fields.Str(required=False, validate=validate.Length(min=1, max=100))
     last_name = fields.Str(required=False, validate=validate.Length(min=1, max=100))
     email = fields.Email(required=False, allow_none=True)
+    phone = fields.Str(required=False, allow_none=True, validate=validate.Length(min=6, max=30))
 
 
 class UpdatePatientProfileSchema(Schema):

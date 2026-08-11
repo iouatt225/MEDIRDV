@@ -4,13 +4,15 @@ MediRDV CI — Routes et contrôleurs du module ``users``.
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, current_app, jsonify, request, send_from_directory
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import EXCLUDE, ValidationError
 from werkzeug.exceptions import Forbidden, NotFound
+from werkzeug.utils import secure_filename
 
 from app.auth.decorators import require_role
 from app.extensions import db
@@ -25,6 +27,28 @@ from app.users.schemas import (
 from app.users.services import get_upcoming_slots, search_doctors, update_user_profile
 
 users_bp = Blueprint("users", __name__, url_prefix="/api/v1")
+
+ALLOWED_AVATAR_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
+
+
+def _is_allowed_avatar(filename: str) -> bool:
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_AVATAR_EXTENSIONS
+
+
+def _doctor_avatar_base_dir() -> Path:
+    return Path(current_app.instance_path) / "uploads" / "doctor-avatars"
+
+
+def _remove_existing_doctor_avatars(user_id: UUID) -> None:
+    avatar_dir = _doctor_avatar_base_dir()
+    if not avatar_dir.exists():
+        return
+
+    for avatar_path in avatar_dir.glob(f"{user_id.hex}.*"):
+        try:
+            avatar_path.unlink()
+        except FileNotFoundError:
+            continue
 
 
 @users_bp.route("/users/me", methods=["GET"])
@@ -76,6 +100,85 @@ def get_me() -> Any:
         }
 
     return jsonify(response_data), 200
+
+
+@users_bp.route("/users/me/photo", methods=["POST"])
+@jwt_required()
+def upload_me_photo() -> Any:
+    """Upload l'avatar du médecin vers le stockage local du backend."""
+    user_id = get_jwt_identity()
+    user = db.session.get(User, UUID(user_id))
+
+    if user is None:
+        raise NotFound("Utilisateur introuvable.")
+
+    if user.role != UserRole.MEDECIN:
+        raise Forbidden("Seuls les médecins peuvent téléverser une photo de profil.")
+
+    if user.doctor_profile is None:
+        raise NotFound("Profil médecin introuvable.")
+
+    file = request.files.get("photo")
+    if file is None or not file.filename:
+        return jsonify({"error": "bad_request", "message": "Aucun fichier fourni."}), 400
+
+    if not _is_allowed_avatar(file.filename):
+        return (
+            jsonify(
+                {
+                    "error": "bad_request",
+                    "message": "Format non supporté. Utilisez PNG, JPG, JPEG ou WEBP.",
+                }
+            ),
+            400,
+        )
+
+    original_name = secure_filename(file.filename)
+    suffix = original_name.rsplit(".", 1)[1].lower()
+    filename = f"{user.id.hex}.{suffix}"
+
+    target_dir = _doctor_avatar_base_dir()
+    target_dir.mkdir(parents=True, exist_ok=True)
+    _remove_existing_doctor_avatars(user.id)
+    target_path = target_dir / filename
+    file.save(target_path)
+
+    photo_url = f"/api/v1/uploads/doctor-avatars/{filename}"
+    if user.doctor_profile:
+        user.doctor_profile.photo_url = photo_url
+        db.session.commit()
+
+    return jsonify({"message": "Photo téléversée avec succès.", "photo_url": photo_url}), 200
+
+
+@users_bp.route("/users/me/photo", methods=["DELETE"])
+@jwt_required()
+def delete_me_photo() -> Any:
+    """Supprime l'avatar du médecin et remet le profil à un état sans photo."""
+    user_id = get_jwt_identity()
+    user = db.session.get(User, UUID(user_id))
+
+    if user is None:
+        raise NotFound("Utilisateur introuvable.")
+
+    if user.role != UserRole.MEDECIN:
+        raise Forbidden("Seuls les médecins peuvent supprimer une photo de profil.")
+
+    if user.doctor_profile is None:
+        raise NotFound("Profil médecin introuvable.")
+
+    _remove_existing_doctor_avatars(user.id)
+    user.doctor_profile.photo_url = None
+    db.session.commit()
+
+    return jsonify({"message": "Photo de profil supprimée avec succès.", "photo_url": None}), 200
+
+
+@users_bp.route("/uploads/doctor-avatars/<path:filename>", methods=["GET"])
+def serve_doctor_avatar(filename: str) -> Any:
+    """Expose les avatars du médecin téléversés localement."""
+    directory = _doctor_avatar_base_dir()
+    return send_from_directory(directory, filename)
 
 
 @users_bp.route("/users/me", methods=["PUT"])
@@ -275,4 +378,3 @@ def delete_me() -> Any:
 
     db.session.commit()
     return jsonify({"message": "Vos données ont été anonymisées avec succès."}), 200
-

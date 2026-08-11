@@ -4,6 +4,7 @@ MediRDV CI — Tests d'intégration pour le module ``users``.
 
 from __future__ import annotations
 
+from io import BytesIO
 from datetime import datetime, time, timedelta, timezone
 from uuid import UUID
 
@@ -65,6 +66,36 @@ class TestUsersIntegration:
         get_data2 = get_resp2.get_json()
         assert get_data2["first_name"] == "Alassane K."
         assert get_data2["patient_profile"]["address"] == "Cocody, Rue des Ministres"
+
+    def test_doctor_avatar_upload_updates_profile(self, client: FlaskClient) -> None:
+        """Téléverse un avatar médecin et vérifie la persistance du lien public."""
+        register_payload = {
+            "role": "medecin",
+            "first_name": "Mariam",
+            "last_name": "Kone",
+            "phone": "+22500000011",
+            "password": "Password123",
+            "specialty": "Dermatologie",
+            "address": "Cocody",
+            "cabinet_name": "Cabinet Soleil",
+        }
+        headers = self._get_auth_headers(client, register_payload)
+
+        upload_resp = client.post(
+            "/api/v1/users/me/photo",
+            data={
+                "photo": (BytesIO(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR"), "avatar.png"),
+            },
+            headers=headers,
+            content_type="multipart/form-data",
+        )
+        assert upload_resp.status_code == 200
+        upload_data = upload_resp.get_json()
+        assert upload_data["photo_url"].startswith("/api/v1/uploads/doctor-avatars/")
+
+        get_resp = client.get("/api/v1/users/me", headers=headers)
+        assert get_resp.status_code == 200
+        assert get_resp.get_json()["doctor_profile"]["photo_url"] == upload_data["photo_url"]
 
     def test_doctor_search_by_specialty_and_city(self, client: FlaskClient) -> None:
         """Recherche de médecins par spécialité et adresse (ville)."""

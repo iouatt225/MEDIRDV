@@ -216,7 +216,7 @@ export default function InscriptionPage() {
 
       <Card
         hoverable={false}
-        variant="light"
+        variant="secondary"
         className="w-full max-w-2xl relative z-10 p-8 lg:p-12 bg-white/60 border border-tertiary/20 backdrop-blur-md rounded-pluxes shadow-card-hover"
       >
         {/* Progress header */}

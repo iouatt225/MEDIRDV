@@ -10,12 +10,17 @@ import { apiClient } from '@/lib/api/client';
 import Button from '@/components/ui/Button';
 import { useAuthStore } from '@/stores/useAuthStore';
 
-type NavRole = 'visitor' | 'patient' | 'praticien';
+type NavRole = 'visitor' | 'patient' | 'praticien' | 'admin';
 
 interface NavItem {
   label: string;
   href: string;
   children?: NavItem[];
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
 }
 
 const navByRole: Record<NavRole, NavItem[]> = {
@@ -32,10 +37,39 @@ const navByRole: Record<NavRole, NavItem[]> = {
   ],
   praticien: [
     { label: 'Tableau de bord', href: '/praticien/dashboard' },
+    { label: 'Profil', href: '/praticien/profil' },
     { label: 'Agenda', href: '/praticien/agenda' },
     { label: 'Patients', href: '/praticien/patients' },
+    { label: 'Paramètres', href: '/praticien/parametres' },
+  ],
+  admin: [
+    { label: 'Tableau de bord', href: '/admin/dashboard' },
   ],
 };
+
+const praticienSections: NavSection[] = [
+  {
+    title: 'Mon compte',
+    items: [
+      { label: 'Profil', href: '/praticien/profil' },
+      { label: 'Aperçu public', href: '/praticien/profil/public' },
+    ],
+  },
+  {
+    title: 'Consultation',
+    items: [
+      { label: 'Paramètres', href: '/praticien/parametres' },
+      { label: 'Agenda', href: '/praticien/agenda' },
+    ],
+  },
+  {
+    title: 'Activité',
+    items: [
+      { label: 'Tableau de bord', href: '/praticien/dashboard' },
+      { label: 'Patients', href: '/praticien/patients' },
+    ],
+  },
+];
 
 interface InAppNotification {
   id: string;
@@ -56,11 +90,20 @@ export default function Navbar() {
 
   const [notifsOpen, setNotifsOpen] = useState(false);
 
+  const activeRole: NavRole =
+    mounted && isAuthenticated && user
+      ? user.role === 'patient'
+        ? 'patient'
+        : user.role === 'admin'
+          ? 'admin'
+          : 'praticien'
+      : 'visitor';
+
   // Fetch notifications with auto-refresh every 15s
   const { data: notifications } = useQuery<InAppNotification[]>({
     queryKey: ['navbar-notifications'],
     queryFn: () => apiClient.get('/api/v1/notifications'),
-    enabled: mounted && isAuthenticated,
+    enabled: mounted && isAuthenticated && activeRole !== 'admin',
     refetchInterval: 15000,
   });
 
@@ -83,14 +126,6 @@ export default function Navbar() {
     setMobileOpen(false);
     router.push('/');
   };
-
-  // Safe SSR check for active role and name
-  const activeRole: NavRole =
-    mounted && isAuthenticated && user
-      ? user.role === 'patient'
-        ? 'patient'
-        : 'praticien'
-      : 'visitor';
 
   const userName =
     mounted && isAuthenticated && user
@@ -125,52 +160,79 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-2">
-            {items.map((item) => (
-              <div key={item.href} className="relative group">
-                <Link
-                  href={item.href}
-                  className="
-                    flex items-center gap-1
-                    px-3 py-3
-                    text-base font-medium capitalize
-                    text-white opacity-90 hover:opacity-100 hover:text-accent
-                    transition-colors duration-300
-                  "
-                >
-                  {item.label}
-                  {item.children && <ChevronDown className="w-3.5 h-3.5" />}
-                </Link>
-
-                {/* Dropdown */}
-                {item.children && (
-                  <div
-                    className="
-                      absolute left-0 top-full pt-1
-                      opacity-0 invisible
-                      group-hover:opacity-100 group-hover:visible
-                      transition-all duration-300
-                    "
-                  >
-                    <div className="bg-accent rounded-pluxes-sm py-1 min-w-[235px]">
-                      {item.children.map((child) => (
+            {activeRole === 'praticien' ? (
+              <div className="flex items-stretch gap-4">
+                {praticienSections.map((section, index) => (
+                  <div key={section.title} className={`pr-4 ${index < praticienSections.length - 1 ? 'border-r border-white/10' : ''}`}>
+                    <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.32em] text-white/45">
+                      {section.title}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      {section.items.map((item) => (
                         <Link
-                          key={child.href}
-                          href={child.href}
+                          key={item.href}
+                          href={item.href}
                           className="
-                            block px-5 py-2
-                            text-base font-medium text-white
-                            hover:text-primary hover:pl-6
-                            transition-all duration-300
+                            rounded-full px-3 py-2
+                            text-sm font-medium
+                            text-white opacity-90 hover:opacity-100 hover:text-accent
+                            transition-colors duration-300
                           "
                         >
-                          {child.label}
+                          {item.label}
                         </Link>
                       ))}
                     </div>
                   </div>
-                )}
+                ))}
               </div>
-            ))}
+            ) : (
+              items.map((item) => (
+                <div key={item.href} className="relative group">
+                  <Link
+                    href={item.href}
+                    className="
+                      flex items-center gap-1
+                      px-3 py-3
+                      text-base font-medium capitalize
+                      text-white opacity-90 hover:opacity-100 hover:text-accent
+                      transition-colors duration-300
+                    "
+                  >
+                    {item.label}
+                    {item.children && <ChevronDown className="w-3.5 h-3.5" />}
+                  </Link>
+
+                  {item.children && (
+                    <div
+                      className="
+                        absolute left-0 top-full pt-1
+                        opacity-0 invisible
+                        group-hover:opacity-100 group-hover:visible
+                        transition-all duration-300
+                      "
+                    >
+                      <div className="bg-accent rounded-pluxes-sm py-1 min-w-[235px]">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="
+                              block px-5 py-2
+                              text-base font-medium text-white
+                              hover:text-primary hover:pl-6
+                              transition-all duration-300
+                            "
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
           </div>
 
           {/* Desktop CTA */}
@@ -197,7 +259,8 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center gap-3">
                 {/* Notifications Bell Cloche */}
-                <div className="relative mr-2">
+                {activeRole !== 'admin' && (
+                  <div className="relative mr-2">
                   <button
                     onClick={() => setNotifsOpen(!notifsOpen)}
                     className="
@@ -212,7 +275,7 @@ export default function Navbar() {
                     {notifications && notifications.length > 0 && (
                       <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-accent animate-pulse" />
                     )}
-                  </button>
+                    </button>
 
                   {notifsOpen && (
                     <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl border border-divider shadow-lg py-2 z-50 text-primary">
@@ -271,7 +334,8 @@ export default function Navbar() {
                       </div>
                     </div>
                   )}
-                </div>
+                  </div>
+                )}
 
                 <div className="flex items-center gap-2 text-white opacity-90">
                   <UserIcon className="w-4 h-4" />
@@ -323,21 +387,50 @@ export default function Navbar() {
         `}
       >
         <div className="max-w-[1300px] mx-auto px-4">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className="
-                block px-4 py-3
-                text-base font-medium text-white
-                hover:text-primary
-                transition-colors duration-300
-              "
-            >
-              {item.label}
-            </Link>
-          ))}
+          {activeRole === 'praticien' ? (
+            <div className="space-y-4">
+              {praticienSections.map((section) => (
+                <div key={section.title} className="rounded-2xl border border-white/15 bg-white/5 p-4">
+                  <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.32em] text-white/55">
+                    {section.title}
+                  </p>
+                  <div className="space-y-1">
+                    {section.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="
+                          block rounded-xl px-3 py-2
+                          text-base font-medium text-white
+                          hover:bg-white/10
+                          transition-colors duration-300
+                        "
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="
+                  block px-4 py-3
+                  text-base font-medium text-white
+                  hover:text-primary
+                  transition-colors duration-300
+                "
+              >
+                {item.label}
+              </Link>
+            ))
+          )}
           <div className="border-t border-white/20 mt-3 pt-3">
             {activeRole === 'visitor' ? (
               <>

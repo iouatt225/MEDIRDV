@@ -68,6 +68,7 @@ def _register_blueprints(app: Flask) -> None:
     from .teleconsult.routes import teleconsult_bp
     from .notifications.routes import notifications_bp
     from .dashboard.routes import dashboard_bp
+    from .admin.routes import admin_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(users_bp)
@@ -76,6 +77,7 @@ def _register_blueprints(app: Flask) -> None:
     app.register_blueprint(teleconsult_bp)
     app.register_blueprint(notifications_bp)
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(admin_bp)
 
 
 # --------------------------------------------------------------------- #

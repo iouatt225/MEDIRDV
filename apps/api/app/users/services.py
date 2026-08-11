@@ -180,6 +180,8 @@ def update_user_profile(user_id: UUID, data: dict[str, Any]) -> User:
         user.last_name = data["last_name"]
     if "email" in data:
         user.email = data["email"]
+    if "phone" in data:
+        user.phone = data["phone"]
 
     # Mise à jour du profil spécifique selon le rôle
     if user.role == UserRole.PATIENT and user.patient_profile:

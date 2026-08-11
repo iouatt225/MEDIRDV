@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Rethink_Sans } from 'next/font/google';
-import Navbar from '@/components/ui/Navbar';
-import Footer from '@/components/ui/Footer';
+import AppChrome from '@/components/layout/AppChrome';
 import './globals.css';
 
 const rethinkSans = Rethink_Sans({
@@ -38,9 +37,7 @@ export default function RootLayout({
     <html lang="fr" className={`${rethinkSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <ReactQueryProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <AppChrome>{children}</AppChrome>
         </ReactQueryProvider>
       </body>
     </html>

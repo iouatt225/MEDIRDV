@@ -13,6 +13,7 @@ import enum
 class UserRole(str, enum.Enum):
     """Rôles utilisateurs de la plateforme."""
 
+    ADMIN = "admin"
     MEDECIN = "medecin"
     SECRETAIRE = "secretaire"
     PATIENT = "patient"

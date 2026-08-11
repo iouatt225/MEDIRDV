@@ -1,0 +1,1814 @@
+Structure de : C:\MEDIRDV
+==================================================
+├── .agents
+│   └── AGENTS.md
+├── apps
+│   ├── api
+│   │   ├── .pytest_cache
+│   │   │   ├── v
+│   │   │   │   └── cache
+│   │   │   │       ├── lastfailed
+│   │   │   │       ├── nodeids
+│   │   │   │       └── stepwise
+│   │   │   ├── .gitignore
+│   │   │   ├── CACHEDIR.TAG
+│   │   │   └── README.md
+│   │   ├── app
+│   │   │   ├── agenda
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   └── services.py
+│   │   │   ├── appointments
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   └── services.py
+│   │   │   ├── auth
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── decorators.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   └── services.py
+│   │   │   ├── dashboard
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   └── services.py
+│   │   │   ├── middleware
+│   │   │   │   └── audit.py
+│   │   │   ├── models
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── audit.py
+│   │   │   │   ├── base.py
+│   │   │   │   └── enums.py
+│   │   │   ├── notifications
+│   │   │   │   ├── providers
+│   │   │   │   │   ├── sendgrid_client.py
+│   │   │   │   │   └── twilio_client.py
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   ├── services.py
+│   │   │   │   └── tasks.py
+│   │   │   ├── teleconsult
+│   │   │   │   ├── providers
+│   │   │   │   │   └── daily_client.py
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   └── services.py
+│   │   │   ├── users
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── routes.py
+│   │   │   │   ├── schemas.py
+│   │   │   │   └── services.py
+│   │   │   ├── __init__.py
+│   │   │   └── extensions.py
+│   │   ├── instance
+│   │   │   └── medirdv.db
+│   │   ├── migrations
+│   │   │   ├── versions
+│   │   │   │   └── .gitkeep
+│   │   │   ├── __init__.py
+│   │   │   ├── alembic.ini
+│   │   │   ├── env.py
+│   │   │   └── script.py.mako
+│   │   ├── tests
+│   │   │   ├── integration
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── test_agenda.py
+│   │   │   │   ├── test_appointments.py
+│   │   │   │   ├── test_auth.py
+│   │   │   │   ├── test_dashboard.py
+│   │   │   │   ├── test_health.py
+│   │   │   │   ├── test_notifications.py
+│   │   │   │   ├── test_security.py
+│   │   │   │   ├── test_teleconsult.py
+│   │   │   │   └── test_users.py
+│   │   │   ├── unit
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── test_models.py
+│   │   │   ├── __init__.py
+│   │   │   └── conftest.py
+│   │   ├── .dockerignore
+│   │   ├── .env.example
+│   │   ├── .gitignore
+│   │   ├── celery_worker.py
+│   │   ├── config.py
+│   │   ├── Dockerfile
+│   │   ├── init_db.py
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   └── wsgi.py
+│   └── web
+│       ├── .next
+│       │   ├── cache
+│       │   │   ├── .previewinfo
+│       │   │   ├── .rscinfo
+│       │   │   └── .tsbuildinfo
+│       │   ├── dev
+│       │   │   ├── cache
+│       │   │   │   ├── images
+│       │   │   │   │   ├── 3H5FiJeh3jqfx5aWoIv_WVos1IF4sn6D96BkXhaOhcs
+│       │   │   │   │   │   └── 14400.1785510863325.smvq6s78A3fmVl95W1lE2mjYKF9WGl3xqoAtnD4Hg_Q.Vy8iMzUwNDktMTlkNjE5NGIxYTAi.webp
+│       │   │   │   │   ├── aptbYwO1KMXm61NSpUyNONegUlv-sW0oyFJ7l0fr4O4
+│       │   │   │   │   │   └── 14400.1785510863323.L4Z37shZ9UcKwnl08X8RizX4l5Qv-i65pzR1s4UoOSk.Vy8iMzFkYmMtMTlkNjE5NGIxYTAi.webp
+│       │   │   │   │   ├── cTe1kN9SG4c17OfeN-D_SJWVs8bhT0Evbq-T7Btxa28
+│       │   │   │   │   │   └── 14400.1785510863326.sJhzC1D7F1JilzgMPj6QBOiyaSIuV_cCls-VHYDmTqU.Vy8iMzk0NmQtMTlkNjE5NGIxYTAi.webp
+│       │   │   │   │   ├── IU3AQVSfC-9x_KZu7yvGlkk4TzRYa8xX8zMxf6Vktvs
+│       │   │   │   │   │   └── 14400.1785510859086.QdjGEMn6UnnTGWhpCcCEsORLB5ALxFUt5ymA3yQua74.Vy8iMTNjYi0xOWQ2MTk0NjM4MCI.webp
+│       │   │   │   │   ├── M5VuRa3oIB-vWNi5ckfLiuQsnML9RwSqzSP70QwvdXY
+│       │   │   │   │   │   └── 14400.1785510859089.SQ7aas8YXqrhU4L_AIDJb4ShEBqbEk7NejDndaMQfyU.Vy8iMTRjNi0xOWQ2MTk0NjM4MCI.webp
+│       │   │   │   │   ├── QrEC2PQNIT9CPTePwye_K2LJon53dIZzGkPECtpD17c
+│       │   │   │   │   │   └── 14400.1785510863322.pAoJAXnyw3mOsUS8vp8dimDIU9xUTodHEbAxVV00c00.Vy8iMzMyZTYtMTlkNjE5NGIxYTAi.webp
+│       │   │   │   │   └── QvGXMF2KvxSzSs30cdhy4KuCiLfSdyxoLWfeh7_mVEs
+│       │   │   │   │       └── 14400.1785510859089.YfBaa6Ql9qURrD76wQWRdV_AHdvguLbNolxGHCWavC8.Vy8iMWUzYy0xOWQ2MTk0NjM4MCI.webp
+│       │   │   │   ├── turbopack
+│       │   │   │   │   └── v16.2.12
+│       │   │   │   │       ├── 00000001.sst
+│       │   │   │   │       ├── 00000003.sst
+│       │   │   │   │       ├── 00000004.sst
+│       │   │   │   │       ├── 00000005.meta
+│       │   │   │   │       ├── 00000006.meta
+│       │   │   │   │       ├── 00000008.meta
+│       │   │   │   │       ├── 00000013.sst
+│       │   │   │   │       ├── 00000014.sst
+│       │   │   │   │       ├── 00000015.sst
+│       │   │   │   │       ├── 00000016.meta
+│       │   │   │   │       ├── 00000017.meta
+│       │   │   │   │       ├── 00000019.meta
+│       │   │   │   │       ├── 00000024.sst
+│       │   │   │   │       ├── 00000025.sst
+│       │   │   │   │       ├── 00000026.sst
+│       │   │   │   │       ├── 00000027.meta
+│       │   │   │   │       ├── 00000028.meta
+│       │   │   │   │       ├── 00000030.meta
+│       │   │   │   │       ├── 00000031.sst
+│       │   │   │   │       ├── 00000033.sst
+│       │   │   │   │       ├── 00000034.meta
+│       │   │   │   │       ├── 00000035.meta
+│       │   │   │   │       ├── 00000041.sst
+│       │   │   │   │       ├── 00000042.sst
+│       │   │   │   │       ├── 00000043.sst
+│       │   │   │   │       ├── 00000044.meta
+│       │   │   │   │       ├── 00000045.meta
+│       │   │   │   │       ├── 00000047.meta
+│       │   │   │   │       ├── 00000055.sst
+│       │   │   │   │       ├── 00000056.sst
+│       │   │   │   │       ├── 00000057.sst
+│       │   │   │   │       ├── 00000058.meta
+│       │   │   │   │       ├── 00000059.meta
+│       │   │   │   │       ├── 00000061.meta
+│       │   │   │   │       ├── 00000063.sst
+│       │   │   │   │       ├── 00000064.sst
+│       │   │   │   │       ├── 00000065.sst
+│       │   │   │   │       ├── 00000066.meta
+│       │   │   │   │       ├── 00000067.meta
+│       │   │   │   │       ├── 00000069.meta
+│       │   │   │   │       ├── 00000070.sst
+│       │   │   │   │       ├── 00000072.sst
+│       │   │   │   │       ├── 00000073.meta
+│       │   │   │   │       ├── 00000074.meta
+│       │   │   │   │       ├── 00000076.sst
+│       │   │   │   │       ├── 00000078.sst
+│       │   │   │   │       ├── 00000079.meta
+│       │   │   │   │       ├── 00000080.meta
+│       │   │   │   │       ├── 00000083.sst
+│       │   │   │   │       ├── 00000084.sst
+│       │   │   │   │       ├── 00000085.meta
+│       │   │   │   │       ├── 00000086.meta
+│       │   │   │   │       ├── 00000088.sst
+│       │   │   │   │       ├── 00000090.sst
+│       │   │   │   │       ├── 00000091.meta
+│       │   │   │   │       ├── 00000092.meta
+│       │   │   │   │       ├── 00000094.sst
+│       │   │   │   │       ├── 00000096.sst
+│       │   │   │   │       ├── 00000097.meta
+│       │   │   │   │       ├── 00000098.meta
+│       │   │   │   │       ├── 00000100.sst
+│       │   │   │   │       ├── 00000102.sst
+│       │   │   │   │       ├── 00000103.meta
+│       │   │   │   │       ├── 00000104.meta
+│       │   │   │   │       ├── 00000106.sst
+│       │   │   │   │       ├── 00000108.sst
+│       │   │   │   │       ├── 00000109.meta
+│       │   │   │   │       ├── 00000110.meta
+│       │   │   │   │       ├── 00000113.sst
+│       │   │   │   │       ├── 00000114.sst
+│       │   │   │   │       ├── 00000115.meta
+│       │   │   │   │       ├── 00000116.meta
+│       │   │   │   │       ├── 00000119.sst
+│       │   │   │   │       ├── 00000120.sst
+│       │   │   │   │       ├── 00000121.meta
+│       │   │   │   │       ├── 00000122.meta
+│       │   │   │   │       ├── 00000125.sst
+│       │   │   │   │       ├── 00000126.sst
+│       │   │   │   │       ├── 00000127.meta
+│       │   │   │   │       ├── 00000128.meta
+│       │   │   │   │       ├── 00000131.sst
+│       │   │   │   │       ├── 00000132.sst
+│       │   │   │   │       ├── 00000133.meta
+│       │   │   │   │       ├── 00000134.meta
+│       │   │   │   │       ├── 00000137.sst
+│       │   │   │   │       ├── 00000138.sst
+│       │   │   │   │       ├── 00000139.meta
+│       │   │   │   │       ├── 00000140.meta
+│       │   │   │   │       ├── 00000142.sst
+│       │   │   │   │       ├── 00000144.sst
+│       │   │   │   │       ├── 00000145.meta
+│       │   │   │   │       ├── 00000146.meta
+│       │   │   │   │       ├── 00000149.sst
+│       │   │   │   │       ├── 00000150.sst
+│       │   │   │   │       ├── 00000151.meta
+│       │   │   │   │       ├── 00000152.meta
+│       │   │   │   │       ├── 00000155.sst
+│       │   │   │   │       ├── 00000156.sst
+│       │   │   │   │       ├── 00000157.meta
+│       │   │   │   │       ├── 00000158.meta
+│       │   │   │   │       ├── 00000161.sst
+│       │   │   │   │       ├── 00000162.sst
+│       │   │   │   │       ├── 00000163.meta
+│       │   │   │   │       ├── 00000165.meta
+│       │   │   │   │       ├── 00000167.sst
+│       │   │   │   │       ├── 00000168.sst
+│       │   │   │   │       ├── 00000169.meta
+│       │   │   │   │       ├── 00000170.meta
+│       │   │   │   │       ├── 00000173.sst
+│       │   │   │   │       ├── 00000174.sst
+│       │   │   │   │       ├── 00000175.meta
+│       │   │   │   │       ├── 00000177.meta
+│       │   │   │   │       ├── 00000179.sst
+│       │   │   │   │       ├── 00000180.sst
+│       │   │   │   │       ├── 00000181.meta
+│       │   │   │   │       ├── 00000182.meta
+│       │   │   │   │       ├── 00000184.sst
+│       │   │   │   │       ├── 00000186.sst
+│       │   │   │   │       ├── 00000187.meta
+│       │   │   │   │       ├── 00000188.meta
+│       │   │   │   │       ├── 00000190.sst
+│       │   │   │   │       ├── 00000192.sst
+│       │   │   │   │       ├── 00000193.meta
+│       │   │   │   │       ├── 00000195.meta
+│       │   │   │   │       ├── 00000197.sst
+│       │   │   │   │       ├── 00000198.sst
+│       │   │   │   │       ├── 00000199.meta
+│       │   │   │   │       ├── 00000200.meta
+│       │   │   │   │       ├── 00000202.sst
+│       │   │   │   │       ├── 00000204.sst
+│       │   │   │   │       ├── 00000205.meta
+│       │   │   │   │       ├── 00000206.meta
+│       │   │   │   │       ├── 00000209.sst
+│       │   │   │   │       ├── 00000210.sst
+│       │   │   │   │       ├── 00000211.meta
+│       │   │   │   │       ├── 00000213.meta
+│       │   │   │   │       ├── 00000215.sst
+│       │   │   │   │       ├── 00000216.sst
+│       │   │   │   │       ├── 00000217.sst
+│       │   │   │   │       ├── 00000218.meta
+│       │   │   │   │       ├── 00000219.meta
+│       │   │   │   │       ├── 00000220.meta
+│       │   │   │   │       ├── 00000222.sst
+│       │   │   │   │       ├── 00000224.sst
+│       │   │   │   │       ├── 00000225.meta
+│       │   │   │   │       ├── 00000226.meta
+│       │   │   │   │       ├── 00000229.sst
+│       │   │   │   │       ├── 00000230.sst
+│       │   │   │   │       ├── 00000231.meta
+│       │   │   │   │       ├── 00000232.meta
+│       │   │   │   │       ├── 00000235.sst
+│       │   │   │   │       ├── 00000236.sst
+│       │   │   │   │       ├── 00000237.meta
+│       │   │   │   │       ├── 00000238.meta
+│       │   │   │   │       ├── 00000240.sst
+│       │   │   │   │       ├── 00000242.sst
+│       │   │   │   │       ├── 00000243.meta
+│       │   │   │   │       ├── 00000244.meta
+│       │   │   │   │       ├── 00000246.sst
+│       │   │   │   │       ├── 00000248.sst
+│       │   │   │   │       ├── 00000249.sst
+│       │   │   │   │       ├── 00000250.meta
+│       │   │   │   │       ├── 00000251.meta
+│       │   │   │   │       ├── 00000252.meta
+│       │   │   │   │       ├── 00000255.sst
+│       │   │   │   │       ├── 00000256.sst
+│       │   │   │   │       ├── 00000257.sst
+│       │   │   │   │       ├── 00000258.meta
+│       │   │   │   │       ├── 00000259.meta
+│       │   │   │   │       ├── 00000261.meta
+│       │   │   │   │       ├── 00000262.sst
+│       │   │   │   │       ├── 00000264.sst
+│       │   │   │   │       ├── 00000265.meta
+│       │   │   │   │       ├── 00000266.meta
+│       │   │   │   │       ├── 00000269.sst
+│       │   │   │   │       ├── 00000270.sst
+│       │   │   │   │       ├── 00000271.meta
+│       │   │   │   │       ├── 00000272.meta
+│       │   │   │   │       ├── 00000274.sst
+│       │   │   │   │       ├── 00000276.sst
+│       │   │   │   │       ├── 00000277.meta
+│       │   │   │   │       ├── 00000278.meta
+│       │   │   │   │       ├── 00000280.sst
+│       │   │   │   │       ├── 00000282.sst
+│       │   │   │   │       ├── 00000283.meta
+│       │   │   │   │       ├── 00000284.meta
+│       │   │   │   │       ├── 00000287.sst
+│       │   │   │   │       ├── 00000288.sst
+│       │   │   │   │       ├── 00000289.meta
+│       │   │   │   │       ├── 00000290.meta
+│       │   │   │   │       ├── 00000292.sst
+│       │   │   │   │       ├── 00000294.sst
+│       │   │   │   │       ├── 00000295.meta
+│       │   │   │   │       ├── 00000296.meta
+│       │   │   │   │       ├── 00000298.sst
+│       │   │   │   │       ├── 00000300.sst
+│       │   │   │   │       ├── 00000301.meta
+│       │   │   │   │       ├── 00000302.meta
+│       │   │   │   │       ├── 00000304.sst
+│       │   │   │   │       ├── 00000306.sst
+│       │   │   │   │       ├── 00000307.meta
+│       │   │   │   │       ├── 00000308.meta
+│       │   │   │   │       ├── 00000311.sst
+│       │   │   │   │       ├── 00000312.sst
+│       │   │   │   │       ├── 00000313.meta
+│       │   │   │   │       ├── 00000314.meta
+│       │   │   │   │       ├── 00000316.sst
+│       │   │   │   │       ├── 00000318.sst
+│       │   │   │   │       ├── 00000319.meta
+│       │   │   │   │       ├── 00000320.meta
+│       │   │   │   │       ├── 00000323.sst
+│       │   │   │   │       ├── 00000324.sst
+│       │   │   │   │       ├── 00000325.meta
+│       │   │   │   │       ├── 00000326.meta
+│       │   │   │   │       ├── 00000328.sst
+│       │   │   │   │       ├── 00000330.sst
+│       │   │   │   │       ├── 00000331.meta
+│       │   │   │   │       ├── 00000332.meta
+│       │   │   │   │       ├── 00000334.sst
+│       │   │   │   │       ├── 00000336.sst
+│       │   │   │   │       ├── 00000337.sst
+│       │   │   │   │       ├── 00000338.meta
+│       │   │   │   │       ├── 00000339.meta
+│       │   │   │   │       ├── 00000341.meta
+│       │   │   │   │       ├── 00000342.sst
+│       │   │   │   │       ├── 00000344.sst
+│       │   │   │   │       ├── 00000345.meta
+│       │   │   │   │       ├── 00000346.meta
+│       │   │   │   │       ├── 00000348.sst
+│       │   │   │   │       ├── 00000350.sst
+│       │   │   │   │       ├── 00000351.meta
+│       │   │   │   │       ├── 00000353.meta
+│       │   │   │   │       ├── 00000354.sst
+│       │   │   │   │       ├── 00000356.sst
+│       │   │   │   │       ├── 00000357.meta
+│       │   │   │   │       ├── 00000358.meta
+│       │   │   │   │       ├── 00000361.sst
+│       │   │   │   │       ├── 00000362.sst
+│       │   │   │   │       ├── 00000363.meta
+│       │   │   │   │       ├── 00000364.meta
+│       │   │   │   │       ├── 00000370.sst
+│       │   │   │   │       ├── 00000371.sst
+│       │   │   │   │       ├── 00000372.sst
+│       │   │   │   │       ├── 00000373.meta
+│       │   │   │   │       ├── 00000374.meta
+│       │   │   │   │       ├── 00000376.meta
+│       │   │   │   │       ├── 00000377.sst
+│       │   │   │   │       ├── 00000378.sst
+│       │   │   │   │       ├── 00000379.meta
+│       │   │   │   │       ├── 00000380.del
+│       │   │   │   │       ├── 00000381.sst
+│       │   │   │   │       ├── 00000382.sst
+│       │   │   │   │       ├── 00000383.sst
+│       │   │   │   │       ├── 00000384.meta
+│       │   │   │   │       ├── 00000385.meta
+│       │   │   │   │       ├── 00000386.meta
+│       │   │   │   │       ├── 00000387.sst
+│       │   │   │   │       ├── 00000388.sst
+│       │   │   │   │       ├── 00000389.sst
+│       │   │   │   │       ├── 00000390.meta
+│       │   │   │   │       ├── 00000391.meta
+│       │   │   │   │       ├── 00000392.meta
+│       │   │   │   │       ├── 00000393.sst
+│       │   │   │   │       ├── 00000394.sst
+│       │   │   │   │       ├── 00000395.sst
+│       │   │   │   │       ├── 00000396.meta
+│       │   │   │   │       ├── 00000397.meta
+│       │   │   │   │       ├── 00000398.meta
+│       │   │   │   │       ├── CURRENT
+│       │   │   │   │       └── LOG
+│       │   │   │   ├── .rscinfo
+│       │   │   │   └── next-devtools-config.json
+│       │   │   ├── logs
+│       │   │   │   └── next-development.log
+│       │   │   ├── server
+│       │   │   │   ├── app
+│       │   │   │   │   ├── (auth)
+│       │   │   │   │   │   ├── connexion
+│       │   │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   │   └── inscription
+│       │   │   │   │   │       ├── page
+│       │   │   │   │   │       │   ├── app-paths-manifest.json
+│       │   │   │   │   │       │   ├── build-manifest.json
+│       │   │   │   │   │       │   ├── next-font-manifest.json
+│       │   │   │   │   │       │   ├── react-loadable-manifest.json
+│       │   │   │   │   │       │   └── server-reference-manifest.json
+│       │   │   │   │   │       ├── page.js
+│       │   │   │   │   │       ├── page.js.map
+│       │   │   │   │   │       └── page_client-reference-manifest.js
+│       │   │   │   │   ├── (public)
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── recherche
+│       │   │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   └── _not-found
+│       │   │   │   │       ├── page
+│       │   │   │   │       │   ├── app-paths-manifest.json
+│       │   │   │   │       │   ├── build-manifest.json
+│       │   │   │   │       │   ├── next-font-manifest.json
+│       │   │   │   │       │   ├── react-loadable-manifest.json
+│       │   │   │   │       │   └── server-reference-manifest.json
+│       │   │   │   │       ├── page.js
+│       │   │   │   │       ├── page.js.map
+│       │   │   │   │       └── page_client-reference-manifest.js
+│       │   │   │   ├── chunks
+│       │   │   │   │   └── ssr
+│       │   │   │   │       ├── [externals]__12if52y._.js
+│       │   │   │   │       ├── [externals]__12if52y._.js.map
+│       │   │   │   │       ├── [externals]__1vp7etu._.js
+│       │   │   │   │       ├── [externals]__1vp7etu._.js.map
+│       │   │   │   │       ├── [externals]_next_dist_shared_lib_no-fallback-error_external_0r3u29k.js
+│       │   │   │   │       ├── [externals]_next_dist_shared_lib_no-fallback-error_external_0r3u29k.js.map
+│       │   │   │   │       ├── [root-of-the-server]__08ucplr._.js
+│       │   │   │   │       ├── [root-of-the-server]__08ucplr._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__0d4se0i._.js
+│       │   │   │   │       ├── [root-of-the-server]__0d4se0i._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__0g1ufni._.js
+│       │   │   │   │       ├── [root-of-the-server]__0g1ufni._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__0r-nbqe._.js
+│       │   │   │   │       ├── [root-of-the-server]__0r-nbqe._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__0v4y0c2._.js
+│       │   │   │   │       ├── [root-of-the-server]__0v4y0c2._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__0y0_snu._.js
+│       │   │   │   │       ├── [root-of-the-server]__0y0_snu._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__1edsb_p._.js
+│       │   │   │   │       ├── [root-of-the-server]__1edsb_p._.js.map
+│       │   │   │   │       ├── [root-of-the-server]__1x4132o._.js
+│       │   │   │   │       ├── [root-of-the-server]__1x4132o._.js.map
+│       │   │   │   │       ├── [turbopack]_runtime.js
+│       │   │   │   │       ├── [turbopack]_runtime.js.map
+│       │   │   │   │       ├── _0loj70a._.js
+│       │   │   │   │       ├── _0loj70a._.js.map
+│       │   │   │   │       ├── _19xsilx._.js
+│       │   │   │   │       ├── _19xsilx._.js.map
+│       │   │   │   │       ├── _1glytaz._.js
+│       │   │   │   │       ├── _1glytaz._.js.map
+│       │   │   │   │       ├── _next-internal_server_app_(auth)_connexion_page_actions_1b8qwma.js
+│       │   │   │   │       ├── _next-internal_server_app_(auth)_connexion_page_actions_1b8qwma.js.map
+│       │   │   │   │       ├── _next-internal_server_app_(auth)_inscription_page_actions_1ojjlzr.js
+│       │   │   │   │       ├── _next-internal_server_app_(auth)_inscription_page_actions_1ojjlzr.js.map
+│       │   │   │   │       ├── _next-internal_server_app_(public)_page_actions_1oplbj7.js
+│       │   │   │   │       ├── _next-internal_server_app_(public)_page_actions_1oplbj7.js.map
+│       │   │   │   │       ├── _next-internal_server_app_(public)_recherche_page_actions_1jm2g8u.js
+│       │   │   │   │       ├── _next-internal_server_app_(public)_recherche_page_actions_1jm2g8u.js.map
+│       │   │   │   │       ├── _next-internal_server_app__not-found_page_actions_0pt47yr.js
+│       │   │   │   │       ├── _next-internal_server_app__not-found_page_actions_0pt47yr.js.map
+│       │   │   │   │       ├── node_modules_02es85m._.js
+│       │   │   │   │       ├── node_modules_02es85m._.js.map
+│       │   │   │   │       ├── node_modules_0r_ekt5._.js
+│       │   │   │   │       ├── node_modules_0r_ekt5._.js.map
+│       │   │   │   │       ├── node_modules_1_aarlg._.js
+│       │   │   │   │       ├── node_modules_1_aarlg._.js.map
+│       │   │   │   │       ├── node_modules_1h_sb0e._.js
+│       │   │   │   │       ├── node_modules_1h_sb0e._.js.map
+│       │   │   │   │       ├── node_modules_1r45dhp._.js
+│       │   │   │   │       ├── node_modules_1r45dhp._.js.map
+│       │   │   │   │       ├── node_modules_@tanstack_query-core_build_modern_05z32ao._.js
+│       │   │   │   │       ├── node_modules_@tanstack_query-core_build_modern_05z32ao._.js.map
+│       │   │   │   │       ├── node_modules_next_1_o5zxs._.js
+│       │   │   │   │       ├── node_modules_next_1_o5zxs._.js.map
+│       │   │   │   │       ├── node_modules_next_1k63ayt._.js
+│       │   │   │   │       ├── node_modules_next_1k63ayt._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_07m-wze._.js
+│       │   │   │   │       ├── node_modules_next_dist_07m-wze._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_0je7u5k._.js
+│       │   │   │   │       ├── node_modules_next_dist_0je7u5k._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_0ll2pzb._.js
+│       │   │   │   │       ├── node_modules_next_dist_0ll2pzb._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_10malu1._.js
+│       │   │   │   │       ├── node_modules_next_dist_10malu1._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_1drqgc-._.js
+│       │   │   │   │       ├── node_modules_next_dist_1drqgc-._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_client_1b5_i_n._.js
+│       │   │   │   │       ├── node_modules_next_dist_client_1b5_i_n._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_client_components_0bew68i._.js
+│       │   │   │   │       ├── node_modules_next_dist_client_components_0bew68i._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_client_components_0wpq8j3._.js
+│       │   │   │   │       ├── node_modules_next_dist_client_components_0wpq8j3._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js
+│       │   │   │   │       ├── node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js.map
+│       │   │   │   │       ├── node_modules_next_dist_client_components_builtin_global-error_0-o-goa.js
+│       │   │   │   │       ├── node_modules_next_dist_client_components_builtin_global-error_0-o-goa.js.map
+│       │   │   │   │       ├── node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js
+│       │   │   │   │       ├── node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js.map
+│       │   │   │   │       ├── node_modules_next_dist_compiled_0d323sd._.js
+│       │   │   │   │       ├── node_modules_next_dist_compiled_0d323sd._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_esm_0m9nzyx._.js
+│       │   │   │   │       ├── node_modules_next_dist_esm_0m9nzyx._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_esm_1mdgmmj._.js
+│       │   │   │   │       ├── node_modules_next_dist_esm_1mdgmmj._.js.map
+│       │   │   │   │       ├── node_modules_next_dist_server_route-modules_app-page_0qo_rmc._.js
+│       │   │   │   │       ├── node_modules_next_dist_server_route-modules_app-page_0qo_rmc._.js.map
+│       │   │   │   │       ├── node_modules_zod_v3_03sk8vo._.js
+│       │   │   │   │       └── node_modules_zod_v3_03sk8vo._.js.map
+│       │   │   │   ├── pages
+│       │   │   │   │   ├── _app
+│       │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   ├── client-build-manifest.json
+│       │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   ├── pages-manifest.json
+│       │   │   │   │   │   └── react-loadable-manifest.json
+│       │   │   │   │   ├── _document
+│       │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   ├── pages-manifest.json
+│       │   │   │   │   │   └── react-loadable-manifest.json
+│       │   │   │   │   ├── _error
+│       │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   ├── client-build-manifest.json
+│       │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   ├── pages-manifest.json
+│       │   │   │   │   │   └── react-loadable-manifest.json
+│       │   │   │   │   ├── _app.js
+│       │   │   │   │   ├── _app.js.map
+│       │   │   │   │   ├── _document.js
+│       │   │   │   │   ├── _document.js.map
+│       │   │   │   │   ├── _error.js
+│       │   │   │   │   └── _error.js.map
+│       │   │   │   ├── app-paths-manifest.json
+│       │   │   │   ├── interception-route-rewrite-manifest.js
+│       │   │   │   ├── middleware-build-manifest.js
+│       │   │   │   ├── middleware-manifest.json
+│       │   │   │   ├── next-font-manifest.js
+│       │   │   │   ├── next-font-manifest.json
+│       │   │   │   ├── pages-manifest.json
+│       │   │   │   ├── server-reference-manifest.js
+│       │   │   │   └── server-reference-manifest.json
+│       │   │   ├── static
+│       │   │   │   ├── chunks
+│       │   │   │   │   ├── pages
+│       │   │   │   │   │   ├── _app.js
+│       │   │   │   │   │   └── _error.js
+│       │   │   │   │   ├── [next]_entry_page-loader_ts_0z3haqk._.js
+│       │   │   │   │   ├── [next]_entry_page-loader_ts_0z3haqk._.js.map
+│       │   │   │   │   ├── [next]_entry_page-loader_ts_1aoli7m._.js
+│       │   │   │   │   ├── [next]_entry_page-loader_ts_1aoli7m._.js.map
+│       │   │   │   │   ├── [next]_internal_font_google_rethink_sans_df224dcf_module_css_1igg3k2._.single.css
+│       │   │   │   │   ├── [next]_internal_font_google_rethink_sans_df224dcf_module_css_1igg3k2._.single.css.map
+│       │   │   │   │   ├── [root-of-the-server]__02sxxph._.js
+│       │   │   │   │   ├── [root-of-the-server]__02sxxph._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0l4r13l._.js
+│       │   │   │   │   ├── [root-of-the-server]__0l4r13l._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1qltpaq._.css
+│       │   │   │   │   ├── [root-of-the-server]__1qltpaq._.css.map
+│       │   │   │   │   ├── [turbopack]_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js
+│       │   │   │   │   ├── [turbopack]_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js.map
+│       │   │   │   │   ├── [turbopack]_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js
+│       │   │   │   │   ├── [turbopack]_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js
+│       │   │   │   │   ├── [turbopack]_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js.map
+│       │   │   │   │   ├── _01_ro95._.js.map
+│       │   │   │   │   ├── _0c7v6q5._.js
+│       │   │   │   │   ├── _0c7v6q5._.js.map
+│       │   │   │   │   ├── _0tk55hd._.js
+│       │   │   │   │   ├── _0tk55hd._.js.map
+│       │   │   │   │   ├── _1anvha4._.js
+│       │   │   │   │   ├── _1h0m_qe._.js
+│       │   │   │   │   ├── _1h0m_qe._.js.map
+│       │   │   │   │   ├── _1qdnu-f._.js
+│       │   │   │   │   ├── _1qdnu-f._.js.map
+│       │   │   │   │   ├── app_(auth)_connexion_page_tsx_0lhvlnw._.js
+│       │   │   │   │   ├── app_(auth)_inscription_page_tsx_0lhvlnw._.js
+│       │   │   │   │   ├── app_(public)_page_tsx_0lhvlnw._.js
+│       │   │   │   │   ├── app_(public)_recherche_page_tsx_0lhvlnw._.js
+│       │   │   │   │   ├── app_globals_css_1igg3k2._.single.css
+│       │   │   │   │   ├── app_globals_css_1igg3k2._.single.css.map
+│       │   │   │   │   ├── app_layout_tsx_007e4b2._.js
+│       │   │   │   │   ├── node_modules_10e2-xo._.js
+│       │   │   │   │   ├── node_modules_10e2-xo._.js.map
+│       │   │   │   │   ├── node_modules_1a6ndhb._.js
+│       │   │   │   │   ├── node_modules_1a6ndhb._.js.map
+│       │   │   │   │   ├── node_modules_1tykfw7._.js
+│       │   │   │   │   ├── node_modules_1tykfw7._.js.map
+│       │   │   │   │   ├── node_modules_@swc_helpers_cjs_1r9vbqw._.js
+│       │   │   │   │   ├── node_modules_@swc_helpers_cjs_1r9vbqw._.js.map
+│       │   │   │   │   ├── node_modules_next_app_0yrdk3r.js
+│       │   │   │   │   ├── node_modules_next_app_0yrdk3r.js.map
+│       │   │   │   │   ├── node_modules_next_dist_1wf0dq6._.js
+│       │   │   │   │   ├── node_modules_next_dist_1wf0dq6._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_1ybzpk2._.js
+│       │   │   │   │   ├── node_modules_next_dist_1ybzpk2._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_20ud_8w._.js
+│       │   │   │   │   ├── node_modules_next_dist_20ud_8w._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_build_polyfills_polyfill-nomodule.js
+│       │   │   │   │   ├── node_modules_next_dist_build_polyfills_polyfill-nomodule.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_0r5nbpw._.js
+│       │   │   │   │   ├── node_modules_next_dist_client_0r5nbpw._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_16lnmlo._.js
+│       │   │   │   │   ├── node_modules_next_dist_client_16lnmlo._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_global-error_0lhvlnw.js
+│       │   │   │   │   ├── node_modules_next_dist_compiled_199if1i._.js
+│       │   │   │   │   ├── node_modules_next_dist_compiled_199if1i._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_compiled_1amofcm._.js
+│       │   │   │   │   ├── node_modules_next_dist_compiled_1amofcm._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_compiled_next-devtools_index_090k2jm.js
+│       │   │   │   │   ├── node_modules_next_dist_compiled_next-devtools_index_090k2jm.js.map
+│       │   │   │   │   ├── node_modules_next_dist_compiled_react-dom_096_9a-._.js
+│       │   │   │   │   ├── node_modules_next_dist_compiled_react-dom_096_9a-._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js
+│       │   │   │   │   ├── node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_shared_lib_0guaks3._.js
+│       │   │   │   │   ├── node_modules_next_dist_shared_lib_0guaks3._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_shared_lib_0tdj16u._.js
+│       │   │   │   │   ├── node_modules_next_dist_shared_lib_0tdj16u._.js.map
+│       │   │   │   │   ├── node_modules_react-dom_0kla17-._.js
+│       │   │   │   │   ├── node_modules_react-dom_0kla17-._.js.map
+│       │   │   │   │   ├── node_modules_zod_v3_0oikqvy._.js
+│       │   │   │   │   ├── node_modules_zod_v3_0oikqvy._.js.map
+│       │   │   │   │   ├── pages__app_0du2_q-._.js
+│       │   │   │   │   ├── pages__app_15tk9m-._.js.map
+│       │   │   │   │   ├── pages__error_0bz8q02._.js.map
+│       │   │   │   │   ├── pages__error_0du2_q-._.js
+│       │   │   │   │   ├── turbopack-_01_ro95._.js
+│       │   │   │   │   ├── turbopack-pages__app_15tk9m-._.js
+│       │   │   │   │   └── turbopack-pages__error_0bz8q02._.js
+│       │   │   │   ├── development
+│       │   │   │   │   ├── _buildManifest.js
+│       │   │   │   │   ├── _clientMiddlewareManifest.js
+│       │   │   │   │   └── _ssgManifest.js
+│       │   │   │   └── media
+│       │   │   │       ├── 0dc02305a3505331-s.p.0dhp2_wm7tc69.woff2
+│       │   │   │       ├── ead06ba057809b4b-s.0-pv9q_xf_hpz.woff2
+│       │   │   │       └── favicon.2vob68tjqpejf.ico
+│       │   │   ├── types
+│       │   │   │   ├── cache-life.d.ts
+│       │   │   │   ├── routes.d.ts
+│       │   │   │   └── validator.ts
+│       │   │   ├── build-manifest.json
+│       │   │   ├── fallback-build-manifest.json
+│       │   │   ├── package.json
+│       │   │   ├── prerender-manifest.json
+│       │   │   ├── routes-manifest.json
+│       │   │   └── trace
+│       │   ├── diagnostics
+│       │   │   ├── build-diagnostics.json
+│       │   │   ├── framework.json
+│       │   │   └── route-bundle-stats.json
+│       │   ├── server
+│       │   │   ├── app
+│       │   │   │   ├── (auth)
+│       │   │   │   │   ├── connexion
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   ├── inscription
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   ├── mot-de-passe-oublie
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   └── reinitialiser-mot-de-passe
+│       │   │   │   │       ├── page
+│       │   │   │   │       │   ├── app-paths-manifest.json
+│       │   │   │   │       │   ├── build-manifest.json
+│       │   │   │   │       │   ├── next-font-manifest.json
+│       │   │   │   │       │   ├── react-loadable-manifest.json
+│       │   │   │   │       │   └── server-reference-manifest.json
+│       │   │   │   │       ├── page.js
+│       │   │   │   │       ├── page.js.map
+│       │   │   │   │       ├── page.js.nft.json
+│       │   │   │   │       └── page_client-reference-manifest.js
+│       │   │   │   ├── (patient)
+│       │   │   │   │   ├── mes-rendez-vous
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   ├── patient
+│       │   │   │   │   │   └── rendez-vous
+│       │   │   │   │   │       ├── page
+│       │   │   │   │   │       │   ├── app-paths-manifest.json
+│       │   │   │   │   │       │   ├── build-manifest.json
+│       │   │   │   │   │       │   ├── next-font-manifest.json
+│       │   │   │   │   │       │   ├── react-loadable-manifest.json
+│       │   │   │   │   │       │   └── server-reference-manifest.json
+│       │   │   │   │   │       ├── page.js
+│       │   │   │   │   │       ├── page.js.map
+│       │   │   │   │   │       ├── page.js.nft.json
+│       │   │   │   │   │       └── page_client-reference-manifest.js
+│       │   │   │   │   ├── reservation
+│       │   │   │   │   │   └── confirmation
+│       │   │   │   │   │       ├── page
+│       │   │   │   │   │       │   ├── app-paths-manifest.json
+│       │   │   │   │   │       │   ├── build-manifest.json
+│       │   │   │   │   │       │   ├── next-font-manifest.json
+│       │   │   │   │   │       │   ├── react-loadable-manifest.json
+│       │   │   │   │   │       │   └── server-reference-manifest.json
+│       │   │   │   │   │       ├── page.js
+│       │   │   │   │   │       ├── page.js.map
+│       │   │   │   │   │       ├── page.js.nft.json
+│       │   │   │   │   │       └── page_client-reference-manifest.js
+│       │   │   │   │   └── teleconsultation
+│       │   │   │   │       └── [appointmentId]
+│       │   │   │   │           ├── page
+│       │   │   │   │           │   ├── app-paths-manifest.json
+│       │   │   │   │           │   ├── build-manifest.json
+│       │   │   │   │           │   ├── next-font-manifest.json
+│       │   │   │   │           │   ├── react-loadable-manifest.json
+│       │   │   │   │           │   └── server-reference-manifest.json
+│       │   │   │   │           ├── page.js
+│       │   │   │   │           ├── page.js.map
+│       │   │   │   │           ├── page.js.nft.json
+│       │   │   │   │           └── page_client-reference-manifest.js
+│       │   │   │   ├── (praticien)
+│       │   │   │   │   └── praticien
+│       │   │   │   │       ├── agenda
+│       │   │   │   │       │   ├── page
+│       │   │   │   │       │   │   ├── app-paths-manifest.json
+│       │   │   │   │       │   │   ├── build-manifest.json
+│       │   │   │   │       │   │   ├── next-font-manifest.json
+│       │   │   │   │       │   │   ├── react-loadable-manifest.json
+│       │   │   │   │       │   │   └── server-reference-manifest.json
+│       │   │   │   │       │   ├── page.js
+│       │   │   │   │       │   ├── page.js.map
+│       │   │   │   │       │   ├── page.js.nft.json
+│       │   │   │   │       │   └── page_client-reference-manifest.js
+│       │   │   │   │       ├── dashboard
+│       │   │   │   │       │   ├── page
+│       │   │   │   │       │   │   ├── app-paths-manifest.json
+│       │   │   │   │       │   │   ├── build-manifest.json
+│       │   │   │   │       │   │   ├── next-font-manifest.json
+│       │   │   │   │       │   │   ├── react-loadable-manifest.json
+│       │   │   │   │       │   │   └── server-reference-manifest.json
+│       │   │   │   │       │   ├── page.js
+│       │   │   │   │       │   ├── page.js.map
+│       │   │   │   │       │   ├── page.js.nft.json
+│       │   │   │   │       │   └── page_client-reference-manifest.js
+│       │   │   │   │       ├── parametres
+│       │   │   │   │       │   ├── page
+│       │   │   │   │       │   │   ├── app-paths-manifest.json
+│       │   │   │   │       │   │   ├── build-manifest.json
+│       │   │   │   │       │   │   ├── next-font-manifest.json
+│       │   │   │   │       │   │   ├── react-loadable-manifest.json
+│       │   │   │   │       │   │   └── server-reference-manifest.json
+│       │   │   │   │       │   ├── page.js
+│       │   │   │   │       │   ├── page.js.map
+│       │   │   │   │       │   ├── page.js.nft.json
+│       │   │   │   │       │   └── page_client-reference-manifest.js
+│       │   │   │   │       ├── patients
+│       │   │   │   │       │   ├── page
+│       │   │   │   │       │   │   ├── app-paths-manifest.json
+│       │   │   │   │       │   │   ├── build-manifest.json
+│       │   │   │   │       │   │   ├── next-font-manifest.json
+│       │   │   │   │       │   │   ├── react-loadable-manifest.json
+│       │   │   │   │       │   │   └── server-reference-manifest.json
+│       │   │   │   │       │   ├── page.js
+│       │   │   │   │       │   ├── page.js.map
+│       │   │   │   │       │   ├── page.js.nft.json
+│       │   │   │   │       │   └── page_client-reference-manifest.js
+│       │   │   │   │       └── teleconsultation
+│       │   │   │   │           └── [appointmentId]
+│       │   │   │   │               ├── page
+│       │   │   │   │               │   ├── app-paths-manifest.json
+│       │   │   │   │               │   ├── build-manifest.json
+│       │   │   │   │               │   ├── next-font-manifest.json
+│       │   │   │   │               │   ├── react-loadable-manifest.json
+│       │   │   │   │               │   └── server-reference-manifest.json
+│       │   │   │   │               ├── page.js
+│       │   │   │   │               ├── page.js.map
+│       │   │   │   │               ├── page.js.nft.json
+│       │   │   │   │               └── page_client-reference-manifest.js
+│       │   │   │   ├── (public)
+│       │   │   │   │   ├── design-system
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   ├── medecins
+│       │   │   │   │   │   └── [id]
+│       │   │   │   │   │       ├── page
+│       │   │   │   │   │       │   ├── app-paths-manifest.json
+│       │   │   │   │   │       │   ├── build-manifest.json
+│       │   │   │   │   │       │   ├── next-font-manifest.json
+│       │   │   │   │   │       │   ├── react-loadable-manifest.json
+│       │   │   │   │   │       │   └── server-reference-manifest.json
+│       │   │   │   │   │       ├── reserver
+│       │   │   │   │   │       │   ├── page
+│       │   │   │   │   │       │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │       │   │   ├── build-manifest.json
+│       │   │   │   │   │       │   │   ├── next-font-manifest.json
+│       │   │   │   │   │       │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │       │   │   └── server-reference-manifest.json
+│       │   │   │   │   │       │   ├── page.js
+│       │   │   │   │   │       │   ├── page.js.map
+│       │   │   │   │   │       │   ├── page.js.nft.json
+│       │   │   │   │   │       │   └── page_client-reference-manifest.js
+│       │   │   │   │   │       ├── page.js
+│       │   │   │   │   │       ├── page.js.map
+│       │   │   │   │   │       ├── page.js.nft.json
+│       │   │   │   │   │       └── page_client-reference-manifest.js
+│       │   │   │   │   ├── page
+│       │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   ├── recherche
+│       │   │   │   │   │   ├── page
+│       │   │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   │   ├── page.js
+│       │   │   │   │   │   ├── page.js.map
+│       │   │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   │   ├── page.js
+│       │   │   │   │   ├── page.js.map
+│       │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   ├── _global-error
+│       │   │   │   │   ├── page
+│       │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   ├── page.js
+│       │   │   │   │   ├── page.js.map
+│       │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   ├── _global-error.segments
+│       │   │   │   │   ├── __PAGE__.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── _not-found
+│       │   │   │   │   ├── page
+│       │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   ├── build-manifest.json
+│       │   │   │   │   │   ├── next-font-manifest.json
+│       │   │   │   │   │   ├── react-loadable-manifest.json
+│       │   │   │   │   │   └── server-reference-manifest.json
+│       │   │   │   │   ├── page.js
+│       │   │   │   │   ├── page.js.map
+│       │   │   │   │   ├── page.js.nft.json
+│       │   │   │   │   └── page_client-reference-manifest.js
+│       │   │   │   ├── _not-found.segments
+│       │   │   │   │   ├── _not-found
+│       │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   ├── _not-found.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── connexion.segments
+│       │   │   │   │   ├── !KGF1dGgp
+│       │   │   │   │   │   ├── connexion
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── connexion.segment.rsc
+│       │   │   │   │   ├── !KGF1dGgp.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── design-system.segments
+│       │   │   │   │   ├── !KHB1YmxpYyk
+│       │   │   │   │   │   ├── design-system
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── design-system.segment.rsc
+│       │   │   │   │   ├── !KHB1YmxpYyk.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── favicon.ico
+│       │   │   │   │   ├── route
+│       │   │   │   │   │   ├── app-paths-manifest.json
+│       │   │   │   │   │   └── build-manifest.json
+│       │   │   │   │   ├── route.js
+│       │   │   │   │   ├── route.js.map
+│       │   │   │   │   └── route.js.nft.json
+│       │   │   │   ├── index.segments
+│       │   │   │   │   ├── !KHB1YmxpYyk
+│       │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   ├── !KHB1YmxpYyk.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── inscription.segments
+│       │   │   │   │   ├── !KGF1dGgp
+│       │   │   │   │   │   ├── inscription
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── inscription.segment.rsc
+│       │   │   │   │   ├── !KGF1dGgp.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── mes-rendez-vous.segments
+│       │   │   │   │   ├── !KHBhdGllbnQp
+│       │   │   │   │   │   ├── mes-rendez-vous
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── mes-rendez-vous.segment.rsc
+│       │   │   │   │   ├── !KHBhdGllbnQp.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── mot-de-passe-oublie.segments
+│       │   │   │   │   ├── !KGF1dGgp
+│       │   │   │   │   │   ├── mot-de-passe-oublie
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── mot-de-passe-oublie.segment.rsc
+│       │   │   │   │   ├── !KGF1dGgp.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── patient
+│       │   │   │   │   ├── rendez-vous.segments
+│       │   │   │   │   │   ├── !KHBhdGllbnQp
+│       │   │   │   │   │   │   ├── patient
+│       │   │   │   │   │   │   │   ├── rendez-vous
+│       │   │   │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   │   │   └── rendez-vous.segment.rsc
+│       │   │   │   │   │   │   └── patient.segment.rsc
+│       │   │   │   │   │   ├── !KHBhdGllbnQp.segment.rsc
+│       │   │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   │   ├── rendez-vous.html
+│       │   │   │   │   ├── rendez-vous.meta
+│       │   │   │   │   └── rendez-vous.rsc
+│       │   │   │   ├── praticien
+│       │   │   │   │   ├── agenda.segments
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik
+│       │   │   │   │   │   │   ├── praticien
+│       │   │   │   │   │   │   │   ├── agenda
+│       │   │   │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   │   │   └── agenda.segment.rsc
+│       │   │   │   │   │   │   └── praticien.segment.rsc
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik.segment.rsc
+│       │   │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   │   ├── dashboard.segments
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik
+│       │   │   │   │   │   │   ├── praticien
+│       │   │   │   │   │   │   │   ├── dashboard
+│       │   │   │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   │   │   └── dashboard.segment.rsc
+│       │   │   │   │   │   │   └── praticien.segment.rsc
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik.segment.rsc
+│       │   │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   │   ├── parametres.segments
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik
+│       │   │   │   │   │   │   ├── praticien
+│       │   │   │   │   │   │   │   ├── parametres
+│       │   │   │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   │   │   └── parametres.segment.rsc
+│       │   │   │   │   │   │   └── praticien.segment.rsc
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik.segment.rsc
+│       │   │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   │   ├── patients.segments
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik
+│       │   │   │   │   │   │   ├── praticien
+│       │   │   │   │   │   │   │   ├── patients
+│       │   │   │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   │   │   └── patients.segment.rsc
+│       │   │   │   │   │   │   └── praticien.segment.rsc
+│       │   │   │   │   │   ├── !KHByYXRpY2llbik.segment.rsc
+│       │   │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   │   ├── agenda.html
+│       │   │   │   │   ├── agenda.meta
+│       │   │   │   │   ├── agenda.rsc
+│       │   │   │   │   ├── dashboard.html
+│       │   │   │   │   ├── dashboard.meta
+│       │   │   │   │   ├── dashboard.rsc
+│       │   │   │   │   ├── parametres.html
+│       │   │   │   │   ├── parametres.meta
+│       │   │   │   │   ├── parametres.rsc
+│       │   │   │   │   ├── patients.html
+│       │   │   │   │   ├── patients.meta
+│       │   │   │   │   └── patients.rsc
+│       │   │   │   ├── recherche.segments
+│       │   │   │   │   ├── !KHB1YmxpYyk
+│       │   │   │   │   │   ├── recherche
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── recherche.segment.rsc
+│       │   │   │   │   ├── !KHB1YmxpYyk.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── reinitialiser-mot-de-passe.segments
+│       │   │   │   │   ├── !KGF1dGgp
+│       │   │   │   │   │   ├── reinitialiser-mot-de-passe
+│       │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   └── reinitialiser-mot-de-passe.segment.rsc
+│       │   │   │   │   ├── !KGF1dGgp.segment.rsc
+│       │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   ├── reservation
+│       │   │   │   │   ├── confirmation.segments
+│       │   │   │   │   │   ├── !KHBhdGllbnQp
+│       │   │   │   │   │   │   ├── reservation
+│       │   │   │   │   │   │   │   ├── confirmation
+│       │   │   │   │   │   │   │   │   └── __PAGE__.segment.rsc
+│       │   │   │   │   │   │   │   └── confirmation.segment.rsc
+│       │   │   │   │   │   │   └── reservation.segment.rsc
+│       │   │   │   │   │   ├── !KHBhdGllbnQp.segment.rsc
+│       │   │   │   │   │   ├── _full.segment.rsc
+│       │   │   │   │   │   ├── _head.segment.rsc
+│       │   │   │   │   │   ├── _index.segment.rsc
+│       │   │   │   │   │   └── _tree.segment.rsc
+│       │   │   │   │   ├── confirmation.html
+│       │   │   │   │   ├── confirmation.meta
+│       │   │   │   │   └── confirmation.rsc
+│       │   │   │   ├── _global-error.html
+│       │   │   │   ├── _global-error.meta
+│       │   │   │   ├── _global-error.rsc
+│       │   │   │   ├── _not-found.html
+│       │   │   │   ├── _not-found.meta
+│       │   │   │   ├── _not-found.rsc
+│       │   │   │   ├── connexion.html
+│       │   │   │   ├── connexion.meta
+│       │   │   │   ├── connexion.rsc
+│       │   │   │   ├── design-system.html
+│       │   │   │   ├── design-system.meta
+│       │   │   │   ├── design-system.rsc
+│       │   │   │   ├── favicon.ico.body
+│       │   │   │   ├── favicon.ico.meta
+│       │   │   │   ├── index.html
+│       │   │   │   ├── index.meta
+│       │   │   │   ├── index.rsc
+│       │   │   │   ├── inscription.html
+│       │   │   │   ├── inscription.meta
+│       │   │   │   ├── inscription.rsc
+│       │   │   │   ├── mes-rendez-vous.html
+│       │   │   │   ├── mes-rendez-vous.meta
+│       │   │   │   ├── mes-rendez-vous.rsc
+│       │   │   │   ├── mot-de-passe-oublie.html
+│       │   │   │   ├── mot-de-passe-oublie.meta
+│       │   │   │   ├── mot-de-passe-oublie.rsc
+│       │   │   │   ├── recherche.html
+│       │   │   │   ├── recherche.meta
+│       │   │   │   ├── recherche.rsc
+│       │   │   │   ├── reinitialiser-mot-de-passe.html
+│       │   │   │   ├── reinitialiser-mot-de-passe.meta
+│       │   │   │   └── reinitialiser-mot-de-passe.rsc
+│       │   │   ├── chunks
+│       │   │   │   ├── ssr
+│       │   │   │   │   ├── 1jng_app_(praticien)_praticien_teleconsultation_[appointmentId]_page_actions_17s82pl.js
+│       │   │   │   │   ├── 1jng_app_(praticien)_praticien_teleconsultation_[appointmentId]_page_actions_17s82pl.js.map
+│       │   │   │   │   ├── 1oeh_server_app_(patient)_reservation_confirmation_page_actions_1yaxgqb.js
+│       │   │   │   │   ├── 1oeh_server_app_(patient)_reservation_confirmation_page_actions_1yaxgqb.js.map
+│       │   │   │   │   ├── 1oeh_server_app_(patient)_teleconsultation_[appointmentId]_page_actions_1o53a52.js
+│       │   │   │   │   ├── 1oeh_server_app_(patient)_teleconsultation_[appointmentId]_page_actions_1o53a52.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0-0f3ih._.js
+│       │   │   │   │   ├── [root-of-the-server]__0-0f3ih._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__009srxg._.js
+│       │   │   │   │   ├── [root-of-the-server]__009srxg._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__04at3p9._.js
+│       │   │   │   │   ├── [root-of-the-server]__04at3p9._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__06nqfpi._.js
+│       │   │   │   │   ├── [root-of-the-server]__06nqfpi._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__09hwzcm._.js
+│       │   │   │   │   ├── [root-of-the-server]__09hwzcm._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0dqkmm4._.js
+│       │   │   │   │   ├── [root-of-the-server]__0dqkmm4._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0g1ufni._.js
+│       │   │   │   │   ├── [root-of-the-server]__0g1ufni._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0hn3pi_._.js
+│       │   │   │   │   ├── [root-of-the-server]__0hn3pi_._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0i2rkrb._.js
+│       │   │   │   │   ├── [root-of-the-server]__0i2rkrb._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0kl59ms._.js
+│       │   │   │   │   ├── [root-of-the-server]__0kl59ms._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0mhe_ko._.js
+│       │   │   │   │   ├── [root-of-the-server]__0mhe_ko._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0r-nbqe._.js
+│       │   │   │   │   ├── [root-of-the-server]__0r-nbqe._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0uj74_0._.js
+│       │   │   │   │   ├── [root-of-the-server]__0uj74_0._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0v4y0c2._.js
+│       │   │   │   │   ├── [root-of-the-server]__0v4y0c2._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__0yocrhp._.js
+│       │   │   │   │   ├── [root-of-the-server]__0yocrhp._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__10ldt1g._.js
+│       │   │   │   │   ├── [root-of-the-server]__10ldt1g._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__11a2nyt._.js
+│       │   │   │   │   ├── [root-of-the-server]__11a2nyt._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__13e3wj7._.js
+│       │   │   │   │   ├── [root-of-the-server]__13e3wj7._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1_jcrea._.js
+│       │   │   │   │   ├── [root-of-the-server]__1_jcrea._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1_vy60f._.js
+│       │   │   │   │   ├── [root-of-the-server]__1_vy60f._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1_zr3vh._.js
+│       │   │   │   │   ├── [root-of-the-server]__1_zr3vh._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1ds4cai._.js
+│       │   │   │   │   ├── [root-of-the-server]__1ds4cai._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1iu196n._.js
+│       │   │   │   │   ├── [root-of-the-server]__1iu196n._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1myv0kb._.js
+│       │   │   │   │   ├── [root-of-the-server]__1myv0kb._.js.map
+│       │   │   │   │   ├── [root-of-the-server]__1x4132o._.js
+│       │   │   │   │   ├── [root-of-the-server]__1x4132o._.js.map
+│       │   │   │   │   ├── [turbopack]_runtime.js
+│       │   │   │   │   ├── [turbopack]_runtime.js.map
+│       │   │   │   │   ├── _00zes2i._.js
+│       │   │   │   │   ├── _00zes2i._.js.map
+│       │   │   │   │   ├── _06dmd2-._.js
+│       │   │   │   │   ├── _06dmd2-._.js.map
+│       │   │   │   │   ├── _09mjxnc._.js
+│       │   │   │   │   ├── _09mjxnc._.js.map
+│       │   │   │   │   ├── _0ano1t5._.js
+│       │   │   │   │   ├── _0ano1t5._.js.map
+│       │   │   │   │   ├── _0lkshaq._.js
+│       │   │   │   │   ├── _0lkshaq._.js.map
+│       │   │   │   │   ├── _0o2lb73._.js
+│       │   │   │   │   ├── _0o2lb73._.js.map
+│       │   │   │   │   ├── _0rdlnj6._.js
+│       │   │   │   │   ├── _0rdlnj6._.js.map
+│       │   │   │   │   ├── _0tb73yz._.js
+│       │   │   │   │   ├── _0tb73yz._.js.map
+│       │   │   │   │   ├── _127ty6h._.js
+│       │   │   │   │   ├── _127ty6h._.js.map
+│       │   │   │   │   ├── _13yo4ov._.js
+│       │   │   │   │   ├── _13yo4ov._.js.map
+│       │   │   │   │   ├── _14vru77._.js
+│       │   │   │   │   ├── _14vru77._.js.map
+│       │   │   │   │   ├── _197c4z7._.js
+│       │   │   │   │   ├── _197c4z7._.js.map
+│       │   │   │   │   ├── _1c09x2r._.js
+│       │   │   │   │   ├── _1c09x2r._.js.map
+│       │   │   │   │   ├── _1pbtitv._.js
+│       │   │   │   │   ├── _1pbtitv._.js.map
+│       │   │   │   │   ├── _1s1n1ax._.js
+│       │   │   │   │   ├── _1s1n1ax._.js.map
+│       │   │   │   │   ├── _1uo4zt3._.js
+│       │   │   │   │   ├── _1uo4zt3._.js.map
+│       │   │   │   │   ├── _1x-9-dw._.js
+│       │   │   │   │   ├── _1x-9-dw._.js.map
+│       │   │   │   │   ├── _20lhp6k._.js
+│       │   │   │   │   ├── _20lhp6k._.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_connexion_page_actions_1b8qwma.js
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_connexion_page_actions_1b8qwma.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_inscription_page_actions_1ojjlzr.js
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_inscription_page_actions_1ojjlzr.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_mot-de-passe-oublie_page_actions_0-ycvor.js
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_mot-de-passe-oublie_page_actions_0-ycvor.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_reinitialiser-mot-de-passe_page_actions_0jlm9lq.js
+│       │   │   │   │   ├── _next-internal_server_app_(auth)_reinitialiser-mot-de-passe_page_actions_0jlm9lq.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(patient)_mes-rendez-vous_page_actions_0t_twfs.js
+│       │   │   │   │   ├── _next-internal_server_app_(patient)_mes-rendez-vous_page_actions_0t_twfs.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(patient)_patient_rendez-vous_page_actions_1e84zfe.js
+│       │   │   │   │   ├── _next-internal_server_app_(patient)_patient_rendez-vous_page_actions_1e84zfe.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_agenda_page_actions_1k5gper.js
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_agenda_page_actions_1k5gper.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_dashboard_page_actions_1lvez-e.js
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_dashboard_page_actions_1lvez-e.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_parametres_page_actions_0toy66y.js
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_parametres_page_actions_0toy66y.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_patients_page_actions_0srpi-o.js
+│       │   │   │   │   ├── _next-internal_server_app_(praticien)_praticien_patients_page_actions_0srpi-o.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(public)_design-system_page_actions_1ymb4be.js
+│       │   │   │   │   ├── _next-internal_server_app_(public)_design-system_page_actions_1ymb4be.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(public)_medecins_[id]_page_actions_1i_qggy.js
+│       │   │   │   │   ├── _next-internal_server_app_(public)_medecins_[id]_page_actions_1i_qggy.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(public)_medecins_[id]_reserver_page_actions_03c7pz2.js
+│       │   │   │   │   ├── _next-internal_server_app_(public)_medecins_[id]_reserver_page_actions_03c7pz2.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(public)_page_actions_1oplbj7.js
+│       │   │   │   │   ├── _next-internal_server_app_(public)_page_actions_1oplbj7.js.map
+│       │   │   │   │   ├── _next-internal_server_app_(public)_recherche_page_actions_1jm2g8u.js
+│       │   │   │   │   ├── _next-internal_server_app_(public)_recherche_page_actions_1jm2g8u.js.map
+│       │   │   │   │   ├── _next-internal_server_app__global-error_page_actions_0zi5s8-.js
+│       │   │   │   │   ├── _next-internal_server_app__global-error_page_actions_0zi5s8-.js.map
+│       │   │   │   │   ├── _next-internal_server_app__not-found_page_actions_0pt47yr.js
+│       │   │   │   │   ├── _next-internal_server_app__not-found_page_actions_0pt47yr.js.map
+│       │   │   │   │   ├── app_(praticien)_praticien_dashboard_page_tsx_0k4d-rx._.js
+│       │   │   │   │   ├── app_(praticien)_praticien_dashboard_page_tsx_0k4d-rx._.js.map
+│       │   │   │   │   ├── app_(public)_design-system_page_tsx_0k7jzud._.js
+│       │   │   │   │   ├── app_(public)_design-system_page_tsx_0k7jzud._.js.map
+│       │   │   │   │   ├── components_20hjszg._.js
+│       │   │   │   │   ├── components_20hjszg._.js.map
+│       │   │   │   │   ├── components_ui_13lktd7._.js
+│       │   │   │   │   ├── components_ui_13lktd7._.js.map
+│       │   │   │   │   ├── lib_validation_auth_ts_1sqmvdz._.js
+│       │   │   │   │   ├── lib_validation_auth_ts_1sqmvdz._.js.map
+│       │   │   │   │   ├── node_modules_@daily-co_daily-js_dist_daily-esm_1ze9qcz.js
+│       │   │   │   │   ├── node_modules_@daily-co_daily-js_dist_daily-esm_1ze9qcz.js.map
+│       │   │   │   │   ├── node_modules_@tanstack_1ua_9pq._.js
+│       │   │   │   │   ├── node_modules_@tanstack_1ua_9pq._.js.map
+│       │   │   │   │   ├── node_modules_next_1iemwhs._.js
+│       │   │   │   │   ├── node_modules_next_1iemwhs._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_06e9fq1._.js
+│       │   │   │   │   ├── node_modules_next_dist_06e9fq1._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_0tej5c5._.js
+│       │   │   │   │   ├── node_modules_next_dist_0tej5c5._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_0uboya6._.js
+│       │   │   │   │   ├── node_modules_next_dist_0uboya6._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_1ymd6cg._.js
+│       │   │   │   │   ├── node_modules_next_dist_1ymd6cg._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_components_0bew68i._.js
+│       │   │   │   │   ├── node_modules_next_dist_client_components_0bew68i._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_components_0wpq8j3._.js
+│       │   │   │   │   ├── node_modules_next_dist_client_components_0wpq8j3._.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_global-error_0-o-goa.js
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_global-error_0-o-goa.js.map
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js
+│       │   │   │   │   ├── node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0048lj3.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0048lj3.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_00ma7fq.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_00ma7fq.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_03k3zb4.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_03k3zb4.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0kzmtjz.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0kzmtjz.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0o4kw56.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0o4kw56.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0vm73u6.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0vm73u6.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0x_-urr.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0x_-urr.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0zjk78j.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_0zjk78j.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_11fw12h.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_11fw12h.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_12wqv3-.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_12wqv3-.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_138fs-s.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_138fs-s.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_13q04th.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_13q04th.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1_5382t.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1_5382t.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1__pkva.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1__pkva.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1ajk_fp.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1ajk_fp.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1iugs3h.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1iugs3h.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1lho68u.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1lho68u.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1m-7xog.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1m-7xog.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1m7i07a.js
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1m7i07a.js.map
+│       │   │   │   │   ├── node_modules_next_dist_esm_build_templates_app-page_1uxj_l4.js
+│       │   │   │   │   └── node_modules_next_dist_esm_build_templates_app-page_1uxj_l4.js.map
+│       │   │   │   ├── [externals]_next_dist_0iuj5m_._.js
+│       │   │   │   ├── [externals]_next_dist_0iuj5m_._.js.map
+│       │   │   │   ├── [root-of-the-server]__17cj935._.js
+│       │   │   │   ├── [root-of-the-server]__17cj935._.js.map
+│       │   │   │   ├── [turbopack]_runtime.js
+│       │   │   │   ├── [turbopack]_runtime.js.map
+│       │   │   │   ├── _next-internal_server_app_favicon_ico_route_actions_0g2jjls.js
+│       │   │   │   └── _next-internal_server_app_favicon_ico_route_actions_0g2jjls.js.map
+│       │   │   ├── pages
+│       │   │   │   ├── 404.html
+│       │   │   │   └── 500.html
+│       │   │   ├── app-paths-manifest.json
+│       │   │   ├── functions-config-manifest.json
+│       │   │   ├── interception-route-rewrite-manifest.js
+│       │   │   ├── middleware-build-manifest.js
+│       │   │   ├── middleware-manifest.json
+│       │   │   ├── next-font-manifest.js
+│       │   │   ├── next-font-manifest.json
+│       │   │   ├── pages-manifest.json
+│       │   │   ├── prefetch-hints.json
+│       │   │   ├── server-reference-manifest.js
+│       │   │   └── server-reference-manifest.json
+│       │   ├── static
+│       │   │   ├── chunks
+│       │   │   │   ├── 046dckmxjay23.js
+│       │   │   │   ├── 05-c3ty_6dwfk.js
+│       │   │   │   ├── 053xq5t41r-9f.js
+│       │   │   │   ├── 05l2ywm8eb2d7.js
+│       │   │   │   ├── 0aw6jiqjkqj77.js
+│       │   │   │   ├── 0cz1d0mv5g_q7.js
+│       │   │   │   ├── 0fi349-xt6cio.js
+│       │   │   │   ├── 0qkifjpdzezb_.js
+│       │   │   │   ├── 0s1t30emskouy.js
+│       │   │   │   ├── 0t59vtb0kv4qe.js
+│       │   │   │   ├── 0w4re89ar3gn9.js
+│       │   │   │   ├── 14kk2n8pb8kdy.js
+│       │   │   │   ├── 14mrh2-p_w84d.js
+│       │   │   │   ├── 1b41ec_nlhcdz.js
+│       │   │   │   ├── 1h1rlous_atnw.js
+│       │   │   │   ├── 1r3_fjwbzd1jv.js
+│       │   │   │   ├── 1r4lq0bpm8b01.js
+│       │   │   │   ├── 1ryr695voq88w.js
+│       │   │   │   ├── 2-oclcp69jp2x.js
+│       │   │   │   ├── 27jktro2p5rq9.js
+│       │   │   │   ├── 2ap9zctpfcgc3.js
+│       │   │   │   ├── 2eysnv41cyvpr.js
+│       │   │   │   ├── 2menu1omeew9w.css
+│       │   │   │   ├── 2zjueh7t2vecu.js
+│       │   │   │   ├── 3-xcsa6nrwbrz.js
+│       │   │   │   ├── 319731sd41bpu.js
+│       │   │   │   ├── 3i30njhhe08d8.js
+│       │   │   │   ├── 3olpiz-fx6wrb.js
+│       │   │   │   ├── 3sc0t3pnjj_b4.js
+│       │   │   │   ├── 41-lest4rs6gl.js
+│       │   │   │   ├── 44ezu96mkl4fp.js
+│       │   │   │   ├── 457g39tmr1nxt.js
+│       │   │   │   └── turbopack-0jfy_fnn579cp.js
+│       │   │   ├── jVe6Z0uUiPb5zZOdfGI_I
+│       │   │   │   ├── _buildManifest.js
+│       │   │   │   ├── _clientMiddlewareManifest.js
+│       │   │   │   └── _ssgManifest.js
+│       │   │   └── media
+│       │   │       ├── 0dc02305a3505331-s.p.0dhp2_wm7tc69.woff2
+│       │   │       ├── ead06ba057809b4b-s.0-pv9q_xf_hpz.woff2
+│       │   │       └── favicon.2vob68tjqpejf.ico
+│       │   ├── types
+│       │   │   ├── cache-life.d.ts
+│       │   │   ├── routes.d.ts
+│       │   │   └── validator.ts
+│       │   ├── _events_11680.json
+│       │   ├── app-path-routes-manifest.json
+│       │   ├── build-manifest.json
+│       │   ├── BUILD_ID
+│       │   ├── export-marker.json
+│       │   ├── fallback-build-manifest.json
+│       │   ├── images-manifest.json
+│       │   ├── next-minimal-server.js.nft.json
+│       │   ├── next-server.js.nft.json
+│       │   ├── package.json
+│       │   ├── prerender-manifest.json
+│       │   ├── required-server-files.js
+│       │   ├── required-server-files.json
+│       │   ├── routes-manifest.json
+│       │   ├── trace
+│       │   ├── trace-build
+│       │   └── turbopack
+│       ├── app
+│       │   ├── (auth)
+│       │   │   ├── connexion
+│       │   │   │   └── page.tsx
+│       │   │   ├── inscription
+│       │   │   │   └── page.tsx
+│       │   │   ├── mot-de-passe-oublie
+│       │   │   │   └── page.tsx
+│       │   │   └── reinitialiser-mot-de-passe
+│       │   │       └── page.tsx
+│       │   ├── (patient)
+│       │   │   ├── mes-rendez-vous
+│       │   │   │   └── page.tsx
+│       │   │   ├── patient
+│       │   │   │   └── rendez-vous
+│       │   │   │       └── page.tsx
+│       │   │   ├── reservation
+│       │   │   │   └── confirmation
+│       │   │   │       └── page.tsx
+│       │   │   └── teleconsultation
+│       │   │       └── [appointmentId]
+│       │   │           └── page.tsx
+│       │   ├── (praticien)
+│       │   │   └── praticien
+│       │   │       ├── agenda
+│       │   │       │   └── page.tsx
+│       │   │       ├── dashboard
+│       │   │       │   └── page.tsx
+│       │   │       ├── parametres
+│       │   │       │   └── page.tsx
+│       │   │       ├── patients
+│       │   │       │   └── page.tsx
+│       │   │       └── teleconsultation
+│       │   │           └── [appointmentId]
+│       │   │               └── page.tsx
+│       │   ├── (public)
+│       │   │   ├── design-system
+│       │   │   │   └── page.tsx
+│       │   │   ├── medecins
+│       │   │   │   └── [id]
+│       │   │   │       ├── reserver
+│       │   │   │       │   └── page.tsx
+│       │   │   │       └── page.tsx
+│       │   │   ├── recherche
+│       │   │   │   └── page.tsx
+│       │   │   └── page.tsx
+│       │   ├── (teleconsult)
+│       │   │   └── [roomId]
+│       │   ├── favicon.ico
+│       │   ├── globals.css
+│       │   └── layout.tsx
+│       ├── components
+│       │   ├── agenda
+│       │   ├── appointments
+│       │   ├── auth
+│       │   │   ├── InviteSecretaryCard.tsx
+│       │   │   ├── JoinDoctorForm.tsx
+│       │   │   └── RequireRole.tsx
+│       │   ├── notifications
+│       │   ├── providers
+│       │   │   └── ReactQueryProvider.tsx
+│       │   └── ui
+│       │       ├── Avatar.tsx
+│       │       ├── Badge.tsx
+│       │       ├── Button.tsx
+│       │       ├── Card.tsx
+│       │       ├── Footer.tsx
+│       │       ├── index.ts
+│       │       ├── Input.tsx
+│       │       ├── Modal.tsx
+│       │       ├── Navbar.tsx
+│       │       ├── README.md
+│       │       ├── Select.tsx
+│       │       └── Tabs.tsx
+│       ├── lib
+│       │   ├── api
+│       │   │   └── client.ts
+│       │   ├── auth
+│       │   └── validation
+│       │       └── auth.ts
+│       ├── public
+│       │   └── images
+│       │       ├── arrow-primary.svg
+│       │       ├── arrow-white.svg
+│       │       ├── author-1.jpg
+│       │       ├── author-2.jpg
+│       │       ├── author-3.jpg
+│       │       ├── dark-section-bg-image.png
+│       │       ├── favicon.png
+│       │       ├── hero-bg-image-prime.jpg
+│       │       ├── hero-bg-image.jpg
+│       │       ├── how-it-work-image-1-prime.jpg
+│       │       ├── how-it-work-image-2-prime.jpg
+│       │       ├── how-it-work-image-3-prime.jpg
+│       │       ├── icon-how-work-item-1.svg
+│       │       ├── icon-how-work-item-2.svg
+│       │       ├── icon-how-work-item-3.svg
+│       │       ├── icon-how-work-item-4.svg
+│       │       ├── icon-service-item-1-prime.svg
+│       │       ├── icon-service-item-1.svg
+│       │       ├── icon-service-item-2-prime.svg
+│       │       ├── icon-service-item-2.svg
+│       │       ├── icon-service-item-3-prime.svg
+│       │       ├── icon-service-item-3.svg
+│       │       ├── icon-service-item-4-prime.svg
+│       │       ├── icon-service-item-4.svg
+│       │       ├── icon-service-item-5-prime.svg
+│       │       ├── icon-service-item-5.svg
+│       │       ├── icon-service-item-6.svg
+│       │       ├── icon-service-item-7.svg
+│       │       ├── icon-service-item-8.svg
+│       │       ├── loader.svg
+│       │       ├── logo.svg
+│       │       ├── section-bg-image-1.png
+│       │       ├── team-1.jpg
+│       │       ├── team-2.jpg
+│       │       ├── team-3.jpg
+│       │       └── team-4.jpg
+│       ├── stores
+│       │   └── useAuthStore.ts
+│       ├── styles
+│       ├── types
+│       │   ├── appointments.ts
+│       │   └── doctor.ts
+│       ├── .gitignore
+│       ├── CONVENTIONS.md
+│       ├── eslint.config.mjs
+│       ├── next-env.d.ts
+│       ├── next.config.ts
+│       ├── package-lock.json
+│       ├── package.json
+│       ├── postcss.config.mjs
+│       └── tsconfig.json
+├── design
+│   └── pluxes-source
+│       ├── extracted
+│       │   └── pluxes-source
+│       │       ├── html.arisetheme.com
+│       │       │   └── pluxes
+│       │       │       ├── css
+│       │       │       │   ├── all.min.css
+│       │       │       │   ├── animate.css
+│       │       │       │   ├── bootstrap.min.css
+│       │       │       │   ├── custom.css
+│       │       │       │   ├── magnific-popup.css
+│       │       │       │   ├── mousecursor.css
+│       │       │       │   ├── slicknav.min.css
+│       │       │       │   └── swiper-bundle.min.css
+│       │       │       ├── images
+│       │       │       │   ├── 404-error-image.png
+│       │       │       │   ├── about-image-1-prime.jpg
+│       │       │       │   ├── about-image-2-prime.jpg
+│       │       │       │   ├── about-image-box-bg-prime.png
+│       │       │       │   ├── about-image-corner-bg-shape-royal.svg
+│       │       │       │   ├── about-us-image-royal.jpg
+│       │       │       │   ├── about-us-image.jpg
+│       │       │       │   ├── about-us-item-image-1-royal.png
+│       │       │       │   ├── about-us-item-image-2-royal.png
+│       │       │       │   ├── arrow-primary.svg
+│       │       │       │   ├── arrow-white.svg
+│       │       │       │   ├── author-1.jpg
+│       │       │       │   ├── author-2.jpg
+│       │       │       │   ├── author-3.jpg
+│       │       │       │   ├── author-4.jpg
+│       │       │       │   ├── author-5.jpg
+│       │       │       │   ├── author-6.jpg
+│       │       │       │   ├── case-study-image-1.jpg
+│       │       │       │   ├── case-study-image-2.jpg
+│       │       │       │   ├── case-study-image-3.jpg
+│       │       │       │   ├── case-study-image-4.jpg
+│       │       │       │   ├── case-study-image-5.jpg
+│       │       │       │   ├── case-study-image-6.jpg
+│       │       │       │   ├── case-study-result-image.jpg
+│       │       │       │   ├── case-study-solution-item-image-1.jpg
+│       │       │       │   ├── case-study-solution-item-image-2.jpg
+│       │       │       │   ├── dark-section-bg-image.png
+│       │       │       │   ├── experience-circle-accent.svg
+│       │       │       │   ├── expertise-body-image-royal.png
+│       │       │       │   ├── faq-cta-image.jpg
+│       │       │       │   ├── faqs-bg-image-prime.jpg
+│       │       │       │   ├── faqs-bg-image-royal.jpg
+│       │       │       │   ├── favicon.png
+│       │       │       │   ├── footer-contact-item-list-bg-image-prime.jpg
+│       │       │       │   ├── gallery-1.jpg
+│       │       │       │   ├── gallery-2.jpg
+│       │       │       │   ├── gallery-3.jpg
+│       │       │       │   ├── gallery-4.jpg
+│       │       │       │   ├── gallery-5.jpg
+│       │       │       │   ├── gallery-6.jpg
+│       │       │       │   ├── gallery-7.jpg
+│       │       │       │   ├── gallery-8.jpg
+│       │       │       │   ├── gallery-9.jpg
+│       │       │       │   ├── hero-bg-image-prime.jpg
+│       │       │       │   ├── hero-bg-image.jpg
+│       │       │       │   ├── hero-cta-image-prime.png
+│       │       │       │   ├── how-it-work-image-1-prime.jpg
+│       │       │       │   ├── how-it-work-image-2-prime.jpg
+│       │       │       │   ├── how-it-work-image-3-prime.jpg
+│       │       │       │   ├── icon-about-us-1-prime.svg
+│       │       │       │   ├── icon-approach-item-1.svg
+│       │       │       │   ├── icon-approach-item-2.svg
+│       │       │       │   ├── icon-blockquote.svg
+│       │       │       │   ├── icon-case-study-result-counter-item.svg
+│       │       │       │   ├── icon-core-features-item-1.svg
+│       │       │       │   ├── icon-core-features-item-2.svg
+│       │       │       │   ├── icon-core-features-item-3.svg
+│       │       │       │   ├── icon-core-features-item-4.svg
+│       │       │       │   ├── icon-core-features-item-5.svg
+│       │       │       │   ├── icon-core-features-item-6.svg
+│       │       │       │   ├── icon-core-features-item-7.svg
+│       │       │       │   ├── icon-core-features-item-8.svg
+│       │       │       │   ├── icon-expertise-item-1-royal.svg
+│       │       │       │   ├── icon-expertise-item-2-royal.svg
+│       │       │       │   ├── icon-expertise-item-3-royal.svg
+│       │       │       │   ├── icon-fact-item-1.svg
+│       │       │       │   ├── icon-fact-item-2.svg
+│       │       │       │   ├── icon-fact-item-3.svg
+│       │       │       │   ├── icon-google.svg
+│       │       │       │   ├── icon-headphone.svg
+│       │       │       │   ├── icon-how-work-item-1.svg
+│       │       │       │   ├── icon-how-work-item-2.svg
+│       │       │       │   ├── icon-how-work-item-3.svg
+│       │       │       │   ├── icon-how-work-item-4.svg
+│       │       │       │   ├── icon-location-white.svg
+│       │       │       │   ├── icon-mail-white.svg
+│       │       │       │   ├── icon-member-education-1.svg
+│       │       │       │   ├── icon-member-education-2.svg
+│       │       │       │   ├── icon-phone-white.svg
+│       │       │       │   ├── icon-position.svg
+│       │       │       │   ├── icon-pricing-benefit-1.svg
+│       │       │       │   ├── icon-pricing-benefit-2.svg
+│       │       │       │   ├── icon-pricing-benefit-3.svg
+│       │       │       │   ├── icon-pricing-item-1.svg
+│       │       │       │   ├── icon-pricing-item-2.svg
+│       │       │       │   ├── icon-pricing-item-3.svg
+│       │       │       │   ├── icon-service-item-1-prime.svg
+│       │       │       │   ├── icon-service-item-1.svg
+│       │       │       │   ├── icon-service-item-2-prime.svg
+│       │       │       │   ├── icon-service-item-2.svg
+│       │       │       │   ├── icon-service-item-3-prime.svg
+│       │       │       │   ├── icon-service-item-3.svg
+│       │       │       │   ├── icon-service-item-4-prime.svg
+│       │       │       │   ├── icon-service-item-4.svg
+│       │       │       │   ├── icon-service-item-5-prime.svg
+│       │       │       │   ├── icon-service-item-5.svg
+│       │       │       │   ├── icon-service-item-6.svg
+│       │       │       │   ├── icon-service-item-7.svg
+│       │       │       │   ├── icon-service-item-8.svg
+│       │       │       │   ├── icon-share.svg
+│       │       │       │   ├── icon-what-we-item-1-prime.svg
+│       │       │       │   ├── icon-what-we-item-2-prime.svg
+│       │       │       │   ├── icon-what-we-provide-1-royal.svg
+│       │       │       │   ├── icon-what-we-provide-2-royal.svg
+│       │       │       │   ├── icon-what-we-provide-3-royal.svg
+│       │       │       │   ├── icon-why-choose-cta-box.svg
+│       │       │       │   ├── icon-why-choose-item-1-prime.svg
+│       │       │       │   ├── icon-why-choose-item-1-royal.svg
+│       │       │       │   ├── icon-why-choose-item-2-royal.svg
+│       │       │       │   ├── intro-video-image-prime.jpg
+│       │       │       │   ├── loader.svg
+│       │       │       │   ├── logo.svg
+│       │       │       │   ├── our-commitment-image-royal.jpg
+│       │       │       │   ├── our-expertise-image-1.jpg
+│       │       │       │   ├── our-expertise-image-2.jpg
+│       │       │       │   ├── our-expertise-image-royal.jpg
+│       │       │       │   ├── our-service-box-image.png
+│       │       │       │   ├── page-header-bg.jpg
+│       │       │       │   ├── partners-logo-1.svg
+│       │       │       │   ├── partners-logo-2.svg
+│       │       │       │   ├── partners-logo-3.svg
+│       │       │       │   ├── partners-logo-4.svg
+│       │       │       │   ├── partners-logo-5.svg
+│       │       │       │   ├── partners-logo-6.svg
+│       │       │       │   ├── partners-logo-7.svg
+│       │       │       │   ├── partners-logo-8.svg
+│       │       │       │   ├── post-1.jpg
+│       │       │       │   ├── post-2.jpg
+│       │       │       │   ├── post-3.jpg
+│       │       │       │   ├── post-4.jpg
+│       │       │       │   ├── post-5.jpg
+│       │       │       │   ├── post-6.jpg
+│       │       │       │   ├── pricing-item-image-1-prime.png
+│       │       │       │   ├── pricing-item-image-2-prime.png
+│       │       │       │   ├── section-bg-image-1.png
+│       │       │       │   ├── section-bg-image-2.png
+│       │       │       │   ├── section-bg-image-3.png
+│       │       │       │   ├── service-benefits-video-image.jpg
+│       │       │       │   ├── service-cta-image-prime.jpg
+│       │       │       │   ├── service-image-1-royal.jpg
+│       │       │       │   ├── service-image-2-royal.jpg
+│       │       │       │   ├── service-image-3-royal.jpg
+│       │       │       │   ├── service-single-image.jpg
+│       │       │       │   ├── service-why-choose-item-image-1.jpg
+│       │       │       │   ├── service-why-choose-item-image-2.jpg
+│       │       │       │   ├── support-video-image.jpg
+│       │       │       │   ├── team-1.jpg
+│       │       │       │   ├── team-2.jpg
+│       │       │       │   ├── team-3.jpg
+│       │       │       │   ├── team-4.jpg
+│       │       │       │   ├── team-5.jpg
+│       │       │       │   ├── team-6.jpg
+│       │       │       │   ├── testimonial-quote.svg
+│       │       │       │   ├── testimonials-image-royal.jpg
+│       │       │       │   ├── what-we-client-image-prime.png
+│       │       │       │   ├── what-we-do-image-1.jpg
+│       │       │       │   ├── what-we-do-image-2.jpg
+│       │       │       │   ├── what-we-do-image-3.jpg
+│       │       │       │   ├── what-we-do-image-bg-shape.svg
+│       │       │       │   ├── why-choose-body-image.jpg
+│       │       │       │   ├── why-choose-counter-image-prime.png
+│       │       │       │   ├── why-choose-counter-image-shape.svg
+│       │       │       │   ├── why-choose-counter-image.jpg
+│       │       │       │   ├── why-choose-image-1-prime.jpg
+│       │       │       │   ├── why-choose-image-1-royal.jpg
+│       │       │       │   ├── why-choose-image-2-prime.jpg
+│       │       │       │   ├── why-choose-image-2-royal.jpg
+│       │       │       │   ├── why-choose-us-image.png
+│       │       │       │   ├── years-experience-circle-accent.svg
+│       │       │       │   ├── years-experience-circle-primary.svg
+│       │       │       │   └── years-experience-circle-white.svg
+│       │       │       ├── js
+│       │       │       │   ├── bootstrap.min.js
+│       │       │       │   ├── circle-progress.min.js
+│       │       │       │   ├── function.js
+│       │       │       │   ├── gsap.min.js
+│       │       │       │   ├── jquery-3.7.1.min.js
+│       │       │       │   ├── jquery.counterup.min.js
+│       │       │       │   ├── jquery.magnific-popup.min.js
+│       │       │       │   ├── jquery.mb.YTPlayer.min.js
+│       │       │       │   ├── jquery.slicknav.js
+│       │       │       │   ├── jquery.waypoints.min.js
+│       │       │       │   ├── magiccursor.js
+│       │       │       │   ├── parallaxie.js
+│       │       │       │   ├── ScrollTrigger.min.js
+│       │       │       │   ├── SmoothScroll.js
+│       │       │       │   ├── SplitText.min.js
+│       │       │       │   ├── swiper-bundle.min.js
+│       │       │       │   ├── validator.min.js
+│       │       │       │   └── wow.min.js
+│       │       │       ├── 404.html
+│       │       │       ├── about.html
+│       │       │       ├── blog-single.html
+│       │       │       ├── blog.html
+│       │       │       ├── book-appointment.html
+│       │       │       ├── case-study-single.html
+│       │       │       ├── case-study.html
+│       │       │       ├── contact.html
+│       │       │       ├── faqs.html
+│       │       │       ├── image-gallery.html
+│       │       │       ├── index-2.html
+│       │       │       ├── index-3.html
+│       │       │       ├── index-4.html
+│       │       │       ├── index.html
+│       │       │       ├── pricing.html
+│       │       │       ├── service-single.html
+│       │       │       ├── services.html
+│       │       │       ├── team-single.html
+│       │       │       ├── team.html
+│       │       │       ├── testimonials.html
+│       │       │       └── video-gallery.html
+│       │       ├── hts-cache
+│       │       │   ├── doit.log
+│       │       │   ├── new.lst
+│       │       │   ├── new.txt
+│       │       │   ├── new.zip
+│       │       │   ├── readme.txt
+│       │       │   └── winprofile.ini
+│       │       ├── backblue.gif
+│       │       ├── fade.gif
+│       │       ├── hts-log.txt
+│       │       └── index.html
+│       └── pluxes-source.zip
+├── docker-compose.yml
+├── MediRDV_CI_Prompt_Implementation_BACKEND.md
+├── MediRDV_CI_Prompt_Implementation_FRONTEND.md
+├── python_tree_f.py
+├── README.md
+└── tree_output.txt
