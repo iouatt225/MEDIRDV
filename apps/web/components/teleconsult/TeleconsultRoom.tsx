@@ -83,6 +83,16 @@ function formatDuration(totalSeconds: number) {
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+function formatClock(value: number | null) {
+  if (!value) return 'En attente';
+
+  return new Intl.DateTimeFormat('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).format(new Date(value));
+}
+
 function statusLabel(status: Appointment['status']) {
   switch (status) {
     case 'confirme':
@@ -130,6 +140,7 @@ export default function TeleconsultRoom({
   const [remotePresence, setRemotePresence] = useState<SessionPresence>('waiting');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [sessionStatus, setSessionStatus] = useState('Prete a rejoindre');
+  const [lastStatusChangeAt, setLastStatusChangeAt] = useState<number | null>(null);
   const counterpartLabel = role === 'medecin' ? 'Patient' : 'Medecin';
 
   const { data: appointment, isLoading } = useQuery<Appointment>({
@@ -165,6 +176,12 @@ export default function TeleconsultRoom({
     };
   }, [isJoined]);
 
+  const updateSessionState = (nextPresence: SessionPresence, nextStatus: string) => {
+    setRemotePresence(nextPresence);
+    setSessionStatus(nextStatus);
+    setLastStatusChangeAt(Date.now());
+  };
+
   const cleanupPreJoinTest = () => {
     stopStream(preJoinStream);
     setPreJoinStream(null);
@@ -185,8 +202,7 @@ export default function TeleconsultRoom({
     setSimulationStream(null);
     setIsJoined(false);
     setSimulation(false);
-    setRemotePresence('waiting');
-    setSessionStatus('Session terminee');
+    updateSessionState('waiting', 'Session terminee');
 
     if (previewVideoRef.current) {
       previewVideoRef.current.srcObject = null;
@@ -263,8 +279,7 @@ export default function TeleconsultRoom({
     isExitingRef.current = false;
     setSimulation(true);
     setIsJoined(true);
-    setRemotePresence('simulation');
-    setSessionStatus('Mode test local');
+    updateSessionState('simulation', 'Mode test local');
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -282,12 +297,18 @@ export default function TeleconsultRoom({
     if (!appointment) return;
 
     try {
+      if (preJoinState !== 'ready' || !preJoinStream) {
+        setPreJoinError("Lancez d'abord le test camera et micro avant d'entrer dans la salle.");
+        setPreJoinState('error');
+        return;
+      }
+
       isExitingRef.current = false;
       cleanupPreJoinTest();
       cleanupCallSession();
       setIsJoining(true);
       setTokenError(false);
-      setSessionStatus('Connexion a Daily');
+      updateSessionState('waiting', 'Connexion a Daily');
 
       const res = await apiClient.get<TokenResponse>(`/api/v1/teleconsult/${appointmentId}/token`);
       const DailyIframe = (await import('@daily-co/daily-js')).default;
@@ -312,29 +333,27 @@ export default function TeleconsultRoom({
       });
 
       frame.on('joined-meeting', () => {
-        setRemotePresence('waiting');
-        setSessionStatus('Session en cours');
+        updateSessionState('waiting', 'Session en cours');
       });
 
       frame.on('participant-joined', () => {
-        setRemotePresence('connected');
-        setSessionStatus('Correspondant connecte');
+        updateSessionState('connected', 'Correspondant connecte');
       });
 
       frame.on('participant-left', () => {
-        setRemotePresence('waiting');
-        setSessionStatus('Correspondant en attente');
+        updateSessionState('waiting', 'Correspondant en attente');
       });
 
       await frame.join({ url: `${res.video_url}?token=${res.token}` });
       setCallFrame(frame);
       setIsJoined(true);
       setSimulation(false);
-      setRemotePresence('waiting');
-      setSessionStatus('Salle ouverte');
+      updateSessionState('waiting', 'Salle ouverte');
+      setLastStatusChangeAt(Date.now());
     } catch (error) {
       console.error('Daily join failed', error);
       setTokenError(true);
+      setLastStatusChangeAt(Date.now());
       setSessionStatus('Impossible de rejoindre la salle');
     } finally {
       setIsJoining(false);
@@ -371,12 +390,15 @@ export default function TeleconsultRoom({
 
   const isJoinAvailable = Boolean(appointment?.video_url);
   const hasPreview = Boolean(preJoinStream);
+  const preJoinReady = preJoinState === 'ready' && Boolean(preJoinStream);
+  const canJoinRoom = isJoinAvailable && preJoinReady && !isJoining;
   const presenceLabel =
     remotePresence === 'connected'
       ? 'Correspondant present'
       : remotePresence === 'simulation'
         ? 'Simulation locale'
         : 'En attente du correspondant';
+  const statusUpdatedLabel = formatClock(lastStatusChangeAt);
 
   if (isLoading) {
     return (
@@ -424,7 +446,7 @@ export default function TeleconsultRoom({
               </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button onClick={joinRealRoom} loading={isJoining} disabled={!isJoinAvailable}>
+                <Button onClick={joinRealRoom} loading={isJoining} disabled={!canJoinRoom}>
                   Rejoindre l'appel video
                 </Button>
                 <Button variant="secondary" onClick={startDeviceTest}>
@@ -446,6 +468,27 @@ export default function TeleconsultRoom({
                   Acces refuse ou salon indisponible pour le moment. Vous pouvez essayer le mode test.
                 </div>
               ) : null}
+
+              <div className="mt-6 rounded-3xl border border-divider bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-text/55">Pre-join requis</p>
+                <div className="mt-3 grid gap-3 text-sm text-text/70 sm:grid-cols-3">
+                  <div className="rounded-2xl bg-secondary/50 p-3">
+                    <p className="font-semibold text-primary">Camera et micro</p>
+                    <p className="mt-1">{preJoinReady ? 'Test valide' : 'A valider avant d’entrer'}</p>
+                  </div>
+                  <div className="rounded-2xl bg-secondary/50 p-3">
+                    <p className="font-semibold text-primary">Acces</p>
+                    <p className="mt-1">{isJoinAvailable ? 'Lien de salon pret' : 'Salle non configuree'}</p>
+                  </div>
+                  <div className="rounded-2xl bg-secondary/50 p-3">
+                    <p className="font-semibold text-primary">Etat actuel</p>
+                    <p className="mt-1">{sessionStatus}</p>
+                  </div>
+                </div>
+                <p className="mt-3 text-xs text-text/55">
+                  L'aperçu local doit etre actif avant la connexion. Cela evite d'entrer sans autorisation camera/micro.
+                </p>
+              </div>
             </Card>
 
             <Card hoverable={false} className="border border-white/70 bg-white/85 p-6 shadow-card">
@@ -585,6 +628,13 @@ export default function TeleconsultRoom({
                         </span>
                         <span className="text-sm font-semibold text-white">{sessionStatus}</span>
                       </div>
+                      <div className="flex items-center justify-between gap-6">
+                        <span className="inline-flex items-center gap-2 text-sm text-white/75">
+                          <BadgeAlert className="h-4 w-4 text-accent" />
+                          Mis a jour
+                        </span>
+                        <span className="text-sm font-semibold text-white">{statusUpdatedLabel}</span>
+                      </div>
                     </div>
                   </div>
                   <button
@@ -634,6 +684,13 @@ export default function TeleconsultRoom({
                         </span>
                         <span className="text-sm font-semibold text-white">{sessionStatus}</span>
                       </div>
+                      <div className="flex items-center justify-between gap-6">
+                        <span className="inline-flex items-center gap-2 text-sm text-white/75">
+                          <BadgeAlert className="h-4 w-4 text-accent" />
+                          Mis a jour
+                        </span>
+                        <span className="text-sm font-semibold text-white">{statusUpdatedLabel}</span>
+                      </div>
                     </div>
                   </div>
 
@@ -651,12 +708,14 @@ export default function TeleconsultRoom({
                     <button
                       onClick={toggleCallMic}
                       className={`rounded-full p-3 transition ${callMicActive ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-error text-white'}`}
+                      title={callMicActive ? 'Couper le micro' : 'Rallumer le micro'}
                     >
                       {callMicActive ? <Mic className="h-5 w-5" /> : <MicOff className="h-5 w-5" />}
                     </button>
                     <button
                       onClick={toggleCallCam}
                       className={`rounded-full p-3 transition ${callCamActive ? 'bg-slate-800 text-white hover:bg-slate-700' : 'bg-error text-white'}`}
+                      title={callCamActive ? 'Couper la camera' : 'Rallumer la camera'}
                     >
                       {callCamActive ? <Video className="h-5 w-5" /> : <VideoOff className="h-5 w-5" />}
                     </button>
