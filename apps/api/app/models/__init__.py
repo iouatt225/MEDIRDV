@@ -33,6 +33,7 @@ from app.appointments.models import Appointment  # noqa: F401
 from app.notifications.models import NotificationLog  # noqa: F401
 from app.models.audit import AuditLog  # noqa: F401
 from app.models.admin_action import AdminActionLog  # noqa: F401
+from app.models.teleconsult_session_event import TeleconsultSessionEvent  # noqa: F401
 
 __all__ = [
     # Enums
@@ -54,4 +55,5 @@ __all__ = [
     "NotificationLog",
     "AuditLog",
     "AdminActionLog",
+    "TeleconsultSessionEvent",
 ]

@@ -89,11 +89,15 @@ def register_user(data: dict[str, Any], role: UserRole) -> User:
     return user
 
 
-def login_user(phone: str, password: str) -> tuple[str, str, User]:
+def login_user(identifier: str, password: str) -> tuple[str, str, User]:
     """Connecte l'utilisateur en validant ses identifiants et génère les tokens JWT."""
-    user = User.query.filter_by(phone=phone).first()
+    normalized = identifier.strip()
+    user = (
+        User.query.filter(User.phone == normalized).first()
+        or User.query.filter(User.email == normalized).first()
+    )
     if user is None or not check_password_hash(user.password_hash, password):
-        raise Unauthorized("Numéro de téléphone ou mot de passe incorrect.")
+        raise Unauthorized("Identifiant ou mot de passe incorrect.")
 
     if not user.is_active:
         raise Unauthorized("Ce compte a été désactivé.")

@@ -26,7 +26,7 @@ const baseRegisterSchema = z.object({
 
 // Login Schema
 export const loginSchema = z.object({
-  phone: phoneSchema,
+  identifier: z.string().min(1, 'Le téléphone ou l\'email est obligatoire.'),
   password: z.string().min(1, 'Le mot de passe est obligatoire.'),
 });
 
@@ -94,4 +94,3 @@ export const joinSecretarySchema = z.object({
   invitation_code: z.string().min(1, 'Le code est obligatoire.'),
 });
 export type JoinSecretaryInput = z.infer<typeof joinSecretarySchema>;
-

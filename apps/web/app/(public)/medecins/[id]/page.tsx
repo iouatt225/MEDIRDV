@@ -1,22 +1,24 @@
 'use client';
 
-import { use } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 import DoctorPublicProfileView from '@/components/doctors/DoctorPublicProfileView';
 import { apiClient } from '@/lib/api/client';
 import { Doctor } from '@/types/doctor';
 
-export default function DoctorProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function DoctorProfilePage() {
+  const params = useParams<{ id: string }>();
+  const id = params?.id;
 
   const { data: doctor, isLoading, isError } = useQuery<Doctor>({
     queryKey: ['doctor', id],
     queryFn: () => apiClient.get(`/api/v1/doctors/${id}`),
+    enabled: Boolean(id),
     staleTime: 60 * 1000,
   });
 
-  if (isLoading) {
+  if (!id || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-secondary">
         <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin" />

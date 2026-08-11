@@ -288,3 +288,25 @@ class TestAuthIntegration:
             headers=headers,
         )
         assert join_resp.status_code == 403
+
+    def test_login_success_with_email(self, client: FlaskClient) -> None:
+        """Connexion reussie avec l'adresse e-mail."""
+        register_payload = {
+            "role": "patient",
+            "first_name": "Aline",
+            "last_name": "Traore",
+            "phone": "+22507070708",
+            "email": "aline.traore@example.com",
+            "password": "Password123",
+            "gdpr_consent": True,
+        }
+        client.post("/api/v1/auth/register", json=register_payload)
+
+        response = client.post(
+            "/api/v1/auth/login",
+            json={"email": "aline.traore@example.com", "password": "Password123"},
+        )
+        assert response.status_code == 200
+        data = response.get_json()
+        assert "access_token" in data
+        assert data["user"]["email"] == "aline.traore@example.com"

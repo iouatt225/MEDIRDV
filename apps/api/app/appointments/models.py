@@ -93,6 +93,12 @@ class Appointment(TimestampMixin, db.Model):  # type: ignore[name-defined]
         back_populates="appointment",
         lazy="dynamic",
     )
+    teleconsult_events = relationship(
+        "TeleconsultSessionEvent",
+        back_populates="appointment",
+        lazy="dynamic",
+        cascade="all, delete-orphan",
+    )
 
     def __repr__(self) -> str:
         return (

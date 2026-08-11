@@ -11,12 +11,13 @@ from uuid import UUID
 from flask import Blueprint, current_app, jsonify, request, send_from_directory
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import EXCLUDE, ValidationError
+from sqlalchemy import func
 from werkzeug.exceptions import Forbidden, NotFound
 from werkzeug.utils import secure_filename
 
 from app.auth.decorators import require_role
 from app.extensions import db
-from app.models import DoctorProfile, PatientProfile, User, UserRole
+from app.models import Appointment, ConsultationType, DoctorProfile, PatientProfile, User, UserRole
 from app.users.schemas import (
     DoctorPublicProfileSchema,
     DoctorSettingsSchema,
@@ -283,6 +284,83 @@ def get_doctors() -> Any:
                 "total": total,
                 "page": page,
                 "per_page": per_page,
+            }
+        ),
+        200,
+    )
+
+
+@users_bp.route("/public/home", methods=["GET"])
+def get_public_home() -> Any:
+    """Retourne les donnees publiques utilisees par la page d'accueil."""
+    active_doctor_count = (
+        db.session.query(func.count(User.id))
+        .filter(User.role == UserRole.MEDECIN, User.is_active.is_(True))
+        .scalar()
+        or 0
+    )
+    active_patient_count = (
+        db.session.query(func.count(User.id))
+        .filter(User.role == UserRole.PATIENT, User.is_active.is_(True))
+        .scalar()
+        or 0
+    )
+    appointments_total = db.session.query(func.count(Appointment.id)).scalar() or 0
+    video_appointments = (
+        db.session.query(func.count(Appointment.id))
+        .filter(Appointment.type == ConsultationType.VIDEO)
+        .scalar()
+        or 0
+    )
+
+    specialty_rows = (
+        db.session.query(
+            DoctorProfile.specialty.label("specialty"),
+            func.count(DoctorProfile.id).label("count"),
+        )
+        .join(User, User.id == DoctorProfile.user_id)
+        .filter(User.is_active.is_(True))
+        .group_by(DoctorProfile.specialty)
+        .order_by(func.count(DoctorProfile.id).desc())
+        .all()
+    )
+    specialties = [
+        {
+            "name": row.specialty or "Non renseignee",
+            "count": int(row.count or 0),
+        }
+        for row in specialty_rows
+    ][:6]
+
+    featured_doctors, _total = search_doctors({}, page=1, per_page=4)
+    featured_serialized = DoctorPublicProfileSchema(many=True).dump(featured_doctors)
+    featured_slots: list[dict[str, Any]] = []
+    for doctor in featured_doctors[:4]:
+        first_slot = getattr(doctor, "upcoming_availabilities", None)
+        if first_slot:
+            featured_slots.append(
+                {
+                    "doctor_id": str(doctor.user_id),
+                    "doctor_name": f"{doctor.user.first_name} {doctor.user.last_name}" if doctor.user else "Médecin",
+                    "specialty": doctor.specialty,
+                    "slot_start": first_slot[0].isoformat(),
+                    "photo_url": doctor.photo_url,
+                }
+            )
+
+    return (
+        jsonify(
+            {
+                "stats": {
+                    "active_doctors": int(active_doctor_count),
+                    "active_patients": int(active_patient_count),
+                    "appointments_total": int(appointments_total),
+                    "video_appointments": int(video_appointments),
+                    "specialties_total": len(specialty_rows),
+                },
+                "specialties": specialties,
+                "featured_doctors": featured_serialized,
+                "featured_slots": featured_slots,
             }
         ),
         200,

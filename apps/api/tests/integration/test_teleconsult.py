@@ -1,25 +1,28 @@
 """
-MediRDV CI — Tests d'intégration pour le module ``teleconsult`` (BLOC 7).
+MediRDV CI — Teleconsult integration tests.
 """
 
 from __future__ import annotations
 
 from datetime import datetime, timedelta
-from uuid import UUID
 
-import pytest
-from flask import Flask
 from flask.testing import FlaskClient
 
 from app.extensions import db
-from app.models import Appointment, AppointmentStatus, ConsultationType, User, UserRole
+from app.models import (
+    Appointment,
+    AppointmentStatus,
+    ConsultationType,
+    TeleconsultSessionEvent,
+    User,
+    UserRole,
+)
 
 
 class TestTeleconsultIntegration:
-    """Tests d'intégration des visioconférences Daily.co."""
+    """Integration coverage for the Daily.co video flow."""
 
     def _get_auth_headers(self, client: FlaskClient, register_payload: dict) -> dict:
-        """Helper pour inscrire et connecter un utilisateur."""
         client.post("/api/v1/auth/register", json=register_payload)
         login_resp = client.post(
             "/api/v1/auth/login",
@@ -31,7 +34,6 @@ class TestTeleconsultIntegration:
         return {"Authorization": f"Bearer {login_resp['access_token']}"}
 
     def test_token_access_and_scoping(self, client: FlaskClient) -> None:
-        """Accès sécurisé au token vidéo en fonction de la plage horaire et des permissions."""
         doc_payload = {
             "role": "medecin",
             "first_name": "Jean",
@@ -63,7 +65,6 @@ class TestTeleconsultIntegration:
         doctor = User.query.filter_by(phone="+22501010110").first()
         patient = User.query.filter_by(phone="+22502020220").first()
 
-        # 1. Créer un RDV vidéo dans le futur (ex: dans 2 heures)
         future_start = datetime.now() + timedelta(hours=2)
         future_end = future_start + timedelta(minutes=30)
         appt_future = Appointment(
@@ -78,14 +79,12 @@ class TestTeleconsultIntegration:
         db.session.add(appt_future)
         db.session.commit()
 
-        # Tenter d'obtenir le token en avance -> 422 Unprocessable Entity
         resp_too_early = client.get(
             f"/api/v1/teleconsult/{appt_future.id}/token",
             headers=pat_headers,
         )
         assert resp_too_early.status_code == 422
 
-        # 2. Créer un RDV vidéo en cours (maintenant)
         now_start = datetime.now() - timedelta(minutes=10)
         now_end = now_start + timedelta(minutes=30)
         appt_now = Appointment(
@@ -100,7 +99,6 @@ class TestTeleconsultIntegration:
         db.session.add(appt_now)
         db.session.commit()
 
-        # Patient du RDV -> 200 OK et renvoie un token
         resp_patient = client.get(
             f"/api/v1/teleconsult/{appt_now.id}/token",
             headers=pat_headers,
@@ -108,14 +106,12 @@ class TestTeleconsultIntegration:
         assert resp_patient.status_code == 200
         assert "token" in resp_patient.get_json()
 
-        # Médecin du RDV -> 200 OK
         resp_doc = client.get(
             f"/api/v1/teleconsult/{appt_now.id}/token",
             headers=doc_headers,
         )
         assert resp_doc.status_code == 200
 
-        # Un utilisateur externe -> 403 Forbidden
         resp_intruder = client.get(
             f"/api/v1/teleconsult/{appt_now.id}/token",
             headers=intruder_headers,
@@ -123,7 +119,6 @@ class TestTeleconsultIntegration:
         assert resp_intruder.status_code == 403
 
     def test_daily_webhook_ends_meeting(self, client: FlaskClient) -> None:
-        """Le webhook Daily.co met à jour le statut du RDV à EFFECTUE."""
         doctor = User(
             role=UserRole.MEDECIN,
             first_name="Dr",
@@ -155,18 +150,78 @@ class TestTeleconsultIntegration:
         db.session.add(appt)
         db.session.commit()
 
-        # Simuler l'appel webhook meeting.ended envoyé par Daily.co
         webhook_payload = {
             "event": "meeting.ended",
-            "payload": {
-                "room": "webhook-room-xyz",
-            },
+            "payload": {"room": "webhook-room-xyz"},
         }
 
         resp = client.post("/api/v1/teleconsult/webhook", json=webhook_payload)
         assert resp.status_code == 200
         assert resp.get_json() == {"status": "event processed"}
 
-        # Vérifier la mise à jour en base de données
         db.session.refresh(appt)
         assert appt.status == AppointmentStatus.EFFECTUE
+
+        event = TeleconsultSessionEvent.query.filter_by(appointment_id=appt.id).first()
+        assert event is not None
+        assert event.event_type == "meeting_ended"
+        assert event.source == "daily-webhook"
+
+    def test_teleconsult_event_history_roundtrip(self, client: FlaskClient) -> None:
+        doc_payload = {
+            "role": "medecin",
+            "first_name": "Maya",
+            "last_name": "Soul",
+            "phone": "+22501110011",
+            "password": "Password123",
+        }
+        pat_payload = {
+            "role": "patient",
+            "first_name": "Noah",
+            "last_name": "Zen",
+            "phone": "+22502220022",
+            "password": "Password123",
+            "gdpr_consent": True,
+        }
+
+        doc_headers = self._get_auth_headers(client, doc_payload)
+        pat_headers = self._get_auth_headers(client, pat_payload)
+
+        doctor = User.query.filter_by(phone="+22501110011").first()
+        patient = User.query.filter_by(phone="+22502220022").first()
+
+        slot_start = datetime.now() - timedelta(minutes=5)
+        slot_end = slot_start + timedelta(minutes=40)
+        appt = Appointment(
+            doctor_id=doctor.id,
+            patient_id=patient.id,
+            slot_start=slot_start,
+            slot_end=slot_end,
+            type=ConsultationType.VIDEO,
+            status=AppointmentStatus.CONFIRME,
+            video_url="https://medirdv.daily.co/history-room-1",
+        )
+        db.session.add(appt)
+        db.session.commit()
+
+        token_resp = client.get(f"/api/v1/teleconsult/{appt.id}/token", headers=doc_headers)
+        assert token_resp.status_code == 200
+
+        create_resp = client.post(
+            f"/api/v1/teleconsult/{appt.id}/events",
+            headers=pat_headers,
+            json={
+                "event_type": "prejoin_ready",
+                "label": "Pre-join valide",
+                "detail": "Camera et micro prets.",
+                "source": "frontend",
+            },
+        )
+        assert create_resp.status_code == 201
+
+        history_resp = client.get(f"/api/v1/teleconsult/{appt.id}/events", headers=pat_headers)
+        assert history_resp.status_code == 200
+        history = history_resp.get_json()["events"]
+        assert len(history) >= 2
+        assert any(item["event_type"] == "token_issued" for item in history)
+        assert any(item["event_type"] == "prejoin_ready" for item in history)

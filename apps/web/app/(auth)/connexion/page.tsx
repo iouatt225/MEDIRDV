@@ -1,29 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { apiClient } from '@/lib/api/client';
-import { loginSchema } from '@/lib/validation/auth';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useState } from 'react';
+
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
-
-import { Suspense } from 'react';
+import { apiClient } from '@/lib/api/client';
+import { loginSchema } from '@/lib/validation/auth';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 function ConnexionForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const login = useAuthStore((state) => state.login);
 
-  const [phone, setPhone] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Checks if redirected due to session expiration
   const expired = searchParams.get('expired') === 'true';
   const redirect = searchParams.get('redirect') || '';
 
@@ -32,8 +30,7 @@ function ConnexionForm() {
     setErrors({});
     setServerError(null);
 
-    // Validate inputs with Zod
-    const validation = loginSchema.safeParse({ phone, password });
+    const validation = loginSchema.safeParse({ identifier, password });
     if (!validation.success) {
       const fieldErrors: Record<string, string> = {};
       validation.error.errors.forEach((err) => {
@@ -54,11 +51,12 @@ function ConnexionForm() {
           role: 'patient' | 'medecin' | 'secretaire' | 'admin';
           first_name: string;
           last_name: string;
+          email: string | null;
         };
       }
-      const res = await apiClient.post<LoginResponse>('/api/v1/auth/login', { phone, password });
-      
-      // Store credentials in Zustand
+
+      const res = await apiClient.post<LoginResponse>('/api/v1/auth/login', { identifier, password });
+
       login(res.access_token, {
         id: res.user.id,
         role: res.user.role,
@@ -66,15 +64,12 @@ function ConnexionForm() {
         last_name: res.user.last_name,
       });
 
-      // Redirect based on role or search parameter
       if (redirect) {
         router.push(decodeURIComponent(redirect));
       } else if (res.user.role === 'admin') {
         router.push('/admin/dashboard');
-      } else if (res.user.role === 'medecin') {
+      } else if (res.user.role === 'medecin' || res.user.role === 'secretaire') {
         router.push('/praticien/dashboard');
-      } else if (res.user.role === 'secretaire') {
-        router.push('/praticien/dashboard'); // Both share the praticien space
       } else {
         router.push('/patient/rendez-vous');
       }
@@ -88,41 +83,40 @@ function ConnexionForm() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative px-4 py-12"
+      className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat px-4 py-12"
       style={{ backgroundImage: "url('/images/hero-bg-image.jpg')" }}
     >
-
       <Card
         hoverable={false}
         variant="secondary"
-        className="w-full max-w-lg relative z-10 p-8 lg:p-12 bg-white/60 border border-tertiary/20 backdrop-blur-md rounded-pluxes shadow-card-hover"
+        className="relative z-10 w-full max-w-lg rounded-pluxes border border-tertiary/20 bg-white/60 p-8 shadow-card-hover backdrop-blur-md lg:p-12"
       >
-        <div className="text-center mb-8">
-          <h1 className="text-3xl lg:text-4xl font-bold text-tertiary mb-2">Connexion</h1>
-          <p className="text-tertiary opacity-70">Ravi de vous revoir sur MediRDV CI</p>
+        <div className="mb-8 text-center">
+          <h1 className="mb-2 text-3xl font-bold text-tertiary lg:text-4xl">Connexion</h1>
+          <p className="text-tertiary/70">Ravi de vous revoir sur MediRDV CI</p>
         </div>
 
-        {expired && (
-          <div className="mb-6 p-4 rounded bg-error/10 border border-error text-error text-sm text-center">
+        {expired ? (
+          <div className="mb-6 rounded border border-error bg-error/10 p-4 text-center text-sm text-error">
             Votre session a expiré. Veuillez vous reconnecter.
           </div>
-        )}
+        ) : null}
 
-        {serverError && (
-          <div className="mb-6 p-4 rounded bg-error/10 border border-error text-error text-sm text-center">
+        {serverError ? (
+          <div className="mb-6 rounded border border-error bg-error/10 p-4 text-center text-sm text-error">
             {serverError}
           </div>
-        )}
+        ) : null}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
             variant="light"
-            label="Numéro de téléphone"
-            type="tel"
-            placeholder="Ex: +225 0708091011"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            error={errors.phone}
+            label="Téléphone ou e-mail"
+            type="text"
+            placeholder="Ex: +225 0708091011 ou nom@domaine.com"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
+            error={errors.identifier}
             className="text-tertiary placeholder:text-tertiary placeholder:opacity-40"
           />
 
@@ -130,7 +124,7 @@ function ConnexionForm() {
             variant="light"
             label="Mot de passe"
             type="password"
-            placeholder="••••••••"
+            placeholder="********"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             error={errors.password}
@@ -140,7 +134,7 @@ function ConnexionForm() {
           <div className="flex justify-end">
             <Link
               href="/mot-de-passe-oublie"
-              className="text-sm font-semibold text-accent hover:text-accent-light transition-colors"
+              className="text-sm font-semibold text-accent transition-colors hover:text-accent-light"
             >
               Mot de passe oublié ?
             </Link>
@@ -151,13 +145,10 @@ function ConnexionForm() {
           </Button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-tertiary/20 text-center">
-          <p className="text-tertiary opacity-70 text-sm">
+        <div className="mt-8 border-t border-tertiary/20 pt-6 text-center">
+          <p className="text-sm text-tertiary/70">
             Nouveau sur la plateforme ?{' '}
-            <Link
-              href="/inscription"
-              className="font-semibold text-accent hover:text-accent-light transition-colors"
-            >
+            <Link href="/inscription" className="font-semibold text-accent transition-colors hover:text-accent-light">
               Créer un compte
             </Link>
           </p>
@@ -171,8 +162,8 @@ export default function ConnexionPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-brand-light">
-          <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+        <div className="flex min-h-screen items-center justify-center bg-brand-light">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-accent border-t-transparent" />
         </div>
       }
     >

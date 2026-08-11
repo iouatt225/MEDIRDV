@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, ChevronDown, User as UserIcon, LogOut, Bell } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/lib/api/client';
@@ -82,6 +82,7 @@ interface InAppNotification {
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -133,16 +134,32 @@ export default function Navbar() {
       : '';
 
   const items = navByRole[activeRole];
+  const isHomePage = pathname === '/';
+  const navBackground =
+    activeRole === 'visitor' && isHomePage
+      ? 'bg-white/88 backdrop-blur-md shadow-nav border-b border-divider/80'
+      : scrolled
+        ? 'bg-primary/95 backdrop-blur-md shadow-nav border-b border-divider-dark'
+        : 'bg-transparent';
+  const navLinkClass =
+    activeRole === 'visitor' && isHomePage
+      ? 'text-primary/80 hover:text-accent'
+      : 'text-white opacity-90 hover:opacity-100 hover:text-accent';
+  const navTitleClass =
+    activeRole === 'visitor' && isHomePage
+      ? 'text-primary/45'
+      : 'text-white/45';
+  const navCtaTextClass =
+    activeRole === 'visitor' && isHomePage
+      ? 'text-primary/80 hover:text-accent'
+      : 'text-white opacity-90 hover:opacity-100 hover:text-accent';
 
   return (
     <header
       className={`
         fixed top-0 left-0 right-0 z-[100]
         transition-all duration-300 ease-in-out
-        ${scrolled
-          ? 'bg-primary/95 backdrop-blur-md shadow-nav border-b border-divider-dark'
-          : 'bg-transparent'
-        }
+        ${navBackground}
       `}
     >
       <nav className="max-w-[1300px] mx-auto px-4 lg:px-[15px]">
@@ -164,7 +181,7 @@ export default function Navbar() {
               <div className="flex items-stretch gap-4">
                 {praticienSections.map((section, index) => (
                   <div key={section.title} className={`pr-4 ${index < praticienSections.length - 1 ? 'border-r border-white/10' : ''}`}>
-                    <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.32em] text-white/45">
+                    <p className={`mb-1 text-[10px] font-bold uppercase tracking-[0.32em] ${navTitleClass}`}>
                       {section.title}
                     </p>
                     <div className="flex items-center gap-2">
@@ -172,12 +189,7 @@ export default function Navbar() {
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="
-                            rounded-full px-3 py-2
-                            text-sm font-medium
-                            text-white opacity-90 hover:opacity-100 hover:text-accent
-                            transition-colors duration-300
-                          "
+                          className={`rounded-full px-3 py-2 text-sm font-medium transition-colors duration-300 ${navLinkClass}`}
                         >
                           {item.label}
                         </Link>
@@ -191,13 +203,7 @@ export default function Navbar() {
                 <div key={item.href} className="relative group">
                   <Link
                     href={item.href}
-                    className="
-                      flex items-center gap-1
-                      px-3 py-3
-                      text-base font-medium capitalize
-                      text-white opacity-90 hover:opacity-100 hover:text-accent
-                      transition-colors duration-300
-                    "
+                    className={`flex items-center gap-1 px-3 py-3 text-base font-medium capitalize transition-colors duration-300 ${navLinkClass}`}
                   >
                     {item.label}
                     {item.children && <ChevronDown className="w-3.5 h-3.5" />}
@@ -241,12 +247,7 @@ export default function Navbar() {
               <>
                 <Link
                   href="/connexion"
-                  className="
-                    px-4 py-2.5
-                    text-base font-medium text-white opacity-90 hover:opacity-100
-                    hover:text-accent
-                    transition-colors duration-300
-                  "
+                  className={`px-4 py-2.5 text-base font-medium transition-colors duration-300 ${navCtaTextClass}`}
                 >
                   Connexion
                 </Link>

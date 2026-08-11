@@ -4,6 +4,8 @@ MediRDV CI — Endpoints et contrôleurs du module ``auth``.
 
 from __future__ import annotations
 
+from typing import Any
+
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     get_jwt,
@@ -97,9 +99,14 @@ def login() -> Any:
             422,
         )
 
-    access_token, refresh_token, user = login_user(
-        data["phone"], data["password"]
-    )
+    identifier = (data.get("identifier") or data.get("phone") or data.get("email") or "").strip()
+    if not identifier:
+        return (
+            jsonify({"error": "bad_request", "message": "Un identifiant est requis."}),
+            400,
+        )
+
+    access_token, refresh_token, user = login_user(identifier, data["password"])
 
     response = jsonify(
         {
@@ -110,6 +117,7 @@ def login() -> Any:
                 "role": user.role.value,
                 "first_name": user.first_name,
                 "last_name": user.last_name,
+                "email": user.email,
             },
         }
     )

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   ArrowLeft,
   BadgeAlert,
@@ -49,6 +49,25 @@ type CallFrame = {
 type DeviceTestState = 'idle' | 'checking' | 'ready' | 'error';
 
 type SessionPresence = 'waiting' | 'connected' | 'simulation';
+
+type SessionEvent = {
+  label: string;
+  detail: string;
+  at: number;
+};
+
+type TeleconsultEventDto = {
+  id: string;
+  appointment_id: string;
+  user_id: string | null;
+  user_name: string | null;
+  role: string | null;
+  event_type: string;
+  label: string;
+  detail: string | null;
+  source: string;
+  created_at: string | null;
+};
 
 function formatDateTime(value: string | null) {
   if (!value) return 'Date inconnue';
@@ -141,12 +160,46 @@ export default function TeleconsultRoom({
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [sessionStatus, setSessionStatus] = useState('Prete a rejoindre');
   const [lastStatusChangeAt, setLastStatusChangeAt] = useState<number | null>(null);
+  const [sessionHistory, setSessionHistory] = useState<SessionEvent[]>([]);
   const counterpartLabel = role === 'medecin' ? 'Patient' : 'Medecin';
+  const queryClient = useQueryClient();
 
   const { data: appointment, isLoading } = useQuery<Appointment>({
     queryKey: ['teleconsult-appointment', appointmentId],
     queryFn: () => apiClient.get(`/api/v1/appointments/${appointmentId}`),
   });
+
+  const { data: serverHistory } = useQuery<{ events: TeleconsultEventDto[] }>({
+    queryKey: ['teleconsult-events', appointmentId],
+    queryFn: () => apiClient.get(`/api/v1/teleconsult/${appointmentId}/events`),
+    enabled: Boolean(appointmentId),
+  });
+
+  const recordEventMutation = useMutation({
+    mutationFn: async (payload: { event_type: string; label: string; detail?: string; source?: string }) =>
+      apiClient.post<{ event: TeleconsultEventDto }>(`/api/v1/teleconsult/${appointmentId}/events`, payload),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['teleconsult-events', appointmentId] });
+    },
+  });
+
+  const recordSessionEvent = (event_type: string, label: string, detail: string, source = 'frontend') => {
+    recordEventMutation.mutate({ event_type, label, detail, source });
+  };
+
+  useEffect(() => {
+    if (!serverHistory?.events) {
+      return;
+    }
+
+    const mappedHistory = serverHistory.events.map((event) => ({
+      label: event.label,
+      detail: event.detail ?? '',
+      at: event.created_at ? new Date(event.created_at).getTime() : Date.now(),
+    }));
+
+    setSessionHistory(mappedHistory);
+  }, [serverHistory]);
 
   useEffect(() => {
     return () => {
@@ -180,6 +233,12 @@ export default function TeleconsultRoom({
     setRemotePresence(nextPresence);
     setSessionStatus(nextStatus);
     setLastStatusChangeAt(Date.now());
+  };
+
+  const pushSessionEvent = (label: string, detail: string) => {
+    const at = Date.now();
+    setSessionHistory((current) => [{ label, detail, at }, ...current].slice(0, 6));
+    setLastStatusChangeAt(at);
   };
 
   const cleanupPreJoinTest = () => {
@@ -221,6 +280,7 @@ export default function TeleconsultRoom({
   };
 
   const handleLeaveCall = async () => {
+    recordSessionEvent('leave_requested', 'Sortie de la salle', "Le participant a demandé la fermeture de l'appel.");
     try {
       await callFrame?.leave?.();
     } catch {
@@ -241,6 +301,12 @@ export default function TeleconsultRoom({
       setPreviewMicActive(true);
       setPreviewCamActive(true);
       setPreJoinState('ready');
+      pushSessionEvent('Pré-join validé', 'Camera et micro sont prêts pour rejoindre l’appel.');
+      recordSessionEvent(
+        'prejoin_ready',
+        'Pré-join validé',
+        'Camera et micro sont prêts pour rejoindre l’appel.',
+      );
 
       if (testVideoRef.current) {
         testVideoRef.current.srcObject = stream;
@@ -249,6 +315,12 @@ export default function TeleconsultRoom({
       console.error('Pre-join device test failed', error);
       setPreJoinState('error');
       setPreJoinError("Impossible d'acceder a la camera ou au micro. Verifiez les permissions du navigateur.");
+      pushSessionEvent('Pré-join refusé', "Le navigateur n'a pas autorisé l'accès à la caméra ou au micro.");
+      recordSessionEvent(
+        'prejoin_error',
+        'Pré-join refusé',
+        "Le navigateur n'a pas autorisé l'accès à la caméra ou au micro.",
+      );
     }
   };
 
@@ -280,6 +352,8 @@ export default function TeleconsultRoom({
     setSimulation(true);
     setIsJoined(true);
     updateSessionState('simulation', 'Mode test local');
+    pushSessionEvent('Mode test local', 'L’appel est lancé en environnement simulé.');
+    recordSessionEvent('simulation_joined', 'Mode test local', "L'appel est lancé en environnement simulé.", 'frontend');
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -309,6 +383,11 @@ export default function TeleconsultRoom({
       setIsJoining(true);
       setTokenError(false);
       updateSessionState('waiting', 'Connexion a Daily');
+      recordSessionEvent(
+        'join_started',
+        'Connexion en cours',
+        'Demande de jeton Daily et initialisation de la salle.',
+      );
 
       const res = await apiClient.get<TokenResponse>(`/api/v1/teleconsult/${appointmentId}/token`);
       const DailyIframe = (await import('@daily-co/daily-js')).default;
@@ -329,6 +408,7 @@ export default function TeleconsultRoom({
       }) as CallFrame;
 
       frame.on('left-meeting', () => {
+        recordSessionEvent('daily_left_meeting', 'Salle Daily fermee', 'Daily a notifie la fermeture de la reunion.');
         exitRoom();
       });
 
@@ -350,11 +430,23 @@ export default function TeleconsultRoom({
       setSimulation(false);
       updateSessionState('waiting', 'Salle ouverte');
       setLastStatusChangeAt(Date.now());
+      pushSessionEvent('Salle ouverte', 'Le salon Daily est connecté et prêt à accueillir le correspondant.');
+      recordSessionEvent(
+        'room_opened',
+        'Salle ouverte',
+        'Le salon Daily est connecté et prêt à accueillir le correspondant.',
+      );
     } catch (error) {
       console.error('Daily join failed', error);
       setTokenError(true);
       setLastStatusChangeAt(Date.now());
       setSessionStatus('Impossible de rejoindre la salle');
+      pushSessionEvent('Connexion impossible', 'Le jeton Daily ou le salon n’a pas pu être initialisé.');
+      recordSessionEvent(
+        'join_failed',
+        'Connexion impossible',
+        "Le jeton Daily ou le salon n'a pas pu etre initialise.",
+      );
     } finally {
       setIsJoining(false);
     }
@@ -367,6 +459,11 @@ export default function TeleconsultRoom({
       });
     }
     setCallMicActive((current) => !current);
+    recordSessionEvent(
+      'micro_toggled',
+      callMicActive ? 'Micro coupe' : 'Micro active',
+      callMicActive ? 'Le micro a ete coupe pendant la session.' : 'Le micro a ete reactive pendant la session.',
+    );
   };
 
   const toggleCallCam = () => {
@@ -376,6 +473,11 @@ export default function TeleconsultRoom({
       });
     }
     setCallCamActive((current) => !current);
+    recordSessionEvent(
+      'camera_toggled',
+      callCamActive ? 'Camera coupee' : 'Camera activee',
+      callCamActive ? 'La camera a ete coupee pendant la session.' : 'La camera a ete reactivee pendant la session.',
+    );
   };
 
   const participantName =
@@ -399,6 +501,23 @@ export default function TeleconsultRoom({
         ? 'Simulation locale'
         : 'En attente du correspondant';
   const statusUpdatedLabel = formatClock(lastStatusChangeAt);
+  const readinessItems = [
+    {
+      title: 'Autorisation caméra',
+      detail: preJoinState === 'ready' ? 'Validée' : 'À vérifier avant d’entrer',
+      tone: preJoinState === 'ready' ? 'text-emerald-700' : 'text-amber-700',
+    },
+    {
+      title: 'Accès au rendez-vous',
+      detail: isJoinAvailable ? 'Salon vidéo disponible' : 'Pas encore configuré',
+      tone: isJoinAvailable ? 'text-emerald-700' : 'text-amber-700',
+    },
+    {
+      title: 'Fenêtre autorisée',
+      detail: '±15 minutes autour du créneau',
+      tone: 'text-slate-700',
+    },
+  ];
 
   if (isLoading) {
     return (
@@ -488,6 +607,41 @@ export default function TeleconsultRoom({
                 <p className="mt-3 text-xs text-text/55">
                   L'aperçu local doit etre actif avant la connexion. Cela evite d'entrer sans autorisation camera/micro.
                 </p>
+              </div>
+
+              <div className="mt-4 rounded-3xl border border-divider bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-text/55">Preparation express</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                  {readinessItems.map((item) => (
+                    <div key={item.title} className="rounded-2xl bg-secondary/50 p-3">
+                      <p className="text-sm font-semibold text-primary">{item.title}</p>
+                      <p className={`mt-1 text-sm ${item.tone}`}>{item.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-3xl border border-divider bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-text/55">Historique rapide</p>
+                <div className="mt-3 space-y-3">
+                  {sessionHistory.length === 0 ? (
+                    <div className="rounded-2xl bg-secondary/40 p-4 text-sm text-text/60">
+                      Aucun evenement enregistre pour le moment.
+                    </div>
+                  ) : null}
+                  {sessionHistory.map((entry) => (
+                    <div key={`${entry.label}-${entry.at}`} className="flex items-start gap-3 rounded-2xl bg-secondary/40 p-3">
+                      <div className="mt-1 h-2.5 w-2.5 rounded-full bg-accent" />
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-sm font-semibold text-primary">{entry.label}</p>
+                          <span className="text-xs text-text/55">{formatClock(entry.at)}</span>
+                        </div>
+                        <p className="mt-1 text-sm text-text/65">{entry.detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </Card>
 
@@ -765,6 +919,29 @@ export default function TeleconsultRoom({
                   Utilisez les controles d'appel natifs pour gerer le flux audio et video.
                 </div>
               ) : null}
+
+              <div className="mt-4 rounded-3xl border border-divider bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-text/55">Journal de session</p>
+                <div className="mt-3 space-y-3">
+                  {sessionHistory.length === 0 ? (
+                    <div className="rounded-2xl bg-secondary/40 p-4 text-sm text-text/60">
+                      Aucune entree pour cette session.
+                    </div>
+                  ) : null}
+                  {sessionHistory.map((entry) => (
+                    <div key={`${entry.label}-${entry.at}`} className="flex items-start gap-3 rounded-2xl bg-secondary/40 p-3">
+                      <div className="mt-1 h-2.5 w-2.5 rounded-full bg-accent" />
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-sm font-semibold text-primary">{entry.label}</p>
+                          <span className="text-xs text-text/55">{formatClock(entry.at)}</span>
+                        </div>
+                        <p className="mt-1 text-sm text-text/65">{entry.detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </Card>
           </section>
         )}
