@@ -53,7 +53,13 @@ function ConnexionForm() {
         };
       }
 
-      const response = await apiClient.post<LoginResponse>('/api/v1/auth/login', { identifier, password });
+      const normalizedIdentifier = identifier.trim();
+      const response = await apiClient.post<LoginResponse>('/api/v1/auth/login', {
+        identifier: normalizedIdentifier,
+        phone: normalizedIdentifier,
+        email: normalizedIdentifier.includes('@') ? normalizedIdentifier : undefined,
+        password,
+      });
       login(response.access_token, {
         id: response.user.id,
         role: response.user.role,
