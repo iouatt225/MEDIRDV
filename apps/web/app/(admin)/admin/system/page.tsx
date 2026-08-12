@@ -43,14 +43,13 @@ export default function AdminSystemPage() {
             </Link>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#00a8bc]/15 bg-[#e8fbfd] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#0b6270]">
               <Sparkles className="h-3.5 w-3.5" />
-              Sante systeme
+              Configuration technique
             </div>
             <h1 className="text-3xl font-semibold leading-tight text-[#0b1420] sm:text-4xl lg:text-5xl">
               Infrastructure et signaux operationnels
             </h1>
             <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-              Une vue simple pour verifier la base, Redis et le snapshot de supervision sans perdre le rythme de
-              l interface.
+              Une vue simple pour verifier la base, Redis et le snapshot technique sans surcharger l interface.
             </p>
           </div>
 
@@ -86,7 +85,7 @@ export default function AdminSystemPage() {
           <Card hoverable={false} className="border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">Etat</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">Technique</p>
                 <h2 className="mt-2 text-2xl font-semibold text-[#0b1420]">Composants critiques</h2>
               </div>
               <ShieldCheck className="h-10 w-10 text-[#00a8bc]" />
@@ -125,7 +124,7 @@ export default function AdminSystemPage() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">Resume</p>
-                <h2 className="mt-2 text-2xl font-semibold text-[#0b1420]">Lecture operationnelle</h2>
+                <h2 className="mt-2 text-2xl font-semibold text-[#0b1420]">Lecture technique</h2>
               </div>
               <Sparkles className="h-10 w-10 text-[#00a8bc]" />
             </div>

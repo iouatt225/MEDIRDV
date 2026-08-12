@@ -14,7 +14,7 @@ interface RequireRoleProps {
 export default function RequireRole({ allowedRoles, children }: RequireRoleProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, hasHydrated } = useAuthStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -23,12 +23,12 @@ export default function RequireRole({ allowedRoles, children }: RequireRoleProps
   }, []);
 
   useEffect(() => {
-    if (mounted && !isAuthenticated) {
+    if (mounted && hasHydrated && !isAuthenticated) {
       router.push(`/connexion?redirect=${encodeURIComponent(pathname)}`);
     }
-  }, [mounted, isAuthenticated, router, pathname]);
+  }, [mounted, hasHydrated, isAuthenticated, router, pathname]);
 
-  if (!mounted) {
+  if (!mounted || !hasHydrated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin" />

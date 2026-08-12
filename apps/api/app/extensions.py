@@ -41,7 +41,11 @@ def init_extensions(app: Flask) -> None:
     migrate.init_app(app, db)
     jwt.init_app(app)
     bcrypt.init_app(app)
-    cors.init_app(app, resources={r"/api/*": {"origins": app.config["FRONTEND_URL"]}})
+    cors.init_app(
+        app,
+        resources={r"/api/*": {"origins": app.config["FRONTEND_URL"]}},
+        supports_credentials=True,
+    )
     limiter.init_app(app)
 
     # Flask-Smorest (OpenAPI / Swagger)

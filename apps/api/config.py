@@ -1,5 +1,5 @@
 """
-MediRDV CI — Configuration multi-environnement.
+MediRDV CI â€” Configuration multi-environnement.
 
 Toutes les valeurs sensibles sont lues depuis les variables d'environnement.
 Ne jamais hard-coder de secrets ici.
@@ -12,7 +12,7 @@ from datetime import timedelta
 
 
 class Config:
-    """Configuration de base, partagée par tous les environnements."""
+    """Configuration de base, partagÃ©e par tous les environnements."""
 
     # --- Flask ---
     SECRET_KEY: str = os.environ.get("SECRET_KEY", "change-me-in-production")
@@ -81,14 +81,14 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    """Configuration de développement local."""
+    """Configuration de dÃ©veloppement local."""
 
     DEBUG = True
     JWT_COOKIE_SECURE = False  # Pas de HTTPS en local
 
 
 class TestingConfig(Config):
-    """Configuration pour les tests Pytest — base de données isolée."""
+    """Configuration pour les tests Pytest â€” base de donnÃ©es isolÃ©e."""
 
     TESTING = True
     DEBUG = True
@@ -96,21 +96,22 @@ class TestingConfig(Config):
         "TEST_DATABASE_URL",
         "postgresql://medirdv:medirdv@localhost:5432/medirdv_test",
     )
-    # SQLite ne supporte pas pool_size/max_overflow — on vide les options.
-    # En CI avec PostgreSQL, on peut les redéfinir via les variables d'env.
+    # SQLite ne supporte pas pool_size/max_overflow â€” on vide les options.
+    # En CI avec PostgreSQL, on peut les redÃ©finir via les variables d'env.
     SQLALCHEMY_ENGINE_OPTIONS: dict = {
         "connect_args": {"check_same_thread": False}
     }
     JWT_COOKIE_SECURE = False
     JWT_COOKIE_CSRF_PROTECT = False
-    # Désactiver le rate limiting pendant les tests
+    # DÃ©sactiver le rate limiting pendant les tests
     RATELIMIT_ENABLED = False
 
 
 class ProductionConfig(Config):
-    """Configuration de production — toutes les valeurs depuis l'environnement."""
+    """Configuration de production â€” toutes les valeurs depuis l'environnement."""
 
     DEBUG = False
+    JWT_COOKIE_SAMESITE = "None"
     SQLALCHEMY_ENGINE_OPTIONS: dict = {
         "pool_pre_ping": True,
         "pool_size": 20,
@@ -118,7 +119,7 @@ class ProductionConfig(Config):
     }
 
 
-# Mapping nom → classe pour la factory create_app
+# Mapping nom â†’ classe pour la factory create_app
 config_by_name: dict[str, type[Config]] = {
     "development": DevelopmentConfig,
     "testing": TestingConfig,

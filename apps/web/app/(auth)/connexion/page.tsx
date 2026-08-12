@@ -100,18 +100,7 @@ function ConnexionForm() {
               Retrouvez vos rendez-vous, vos disponibilites, vos patients ou votre tableau de bord depuis une interface claire.
             </p>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {[
-                { label: 'Roles', value: '4' },
-                { label: 'Canal', value: 'Email' },
-                { label: 'Securite', value: 'JWT' },
-              ].map((item) => (
-                <div key={item.label} className="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
-                  <p className="text-xs font-semibold uppercase text-slate-500">{item.label}</p>
-                  <p className="mt-2 text-2xl font-bold text-slate-900">{item.value}</p>
-                </div>
-              ))}
-            </div>
+            
           </div>
         </div>
 

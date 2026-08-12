@@ -2,8 +2,6 @@
 
 Composants React dérivés du template **Pluxes** (Medical & Healthcare HTML Template par Arisetheme), convertis en React/TypeScript avec Tailwind CSS v4.
 
-> **Visualisation live** : lancer `npm run dev` et naviguer vers `/design-system`.
-
 ---
 
 ## Tokens du design system

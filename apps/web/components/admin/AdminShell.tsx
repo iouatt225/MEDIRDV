@@ -4,15 +4,15 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Activity,
+  Bell,
   CalendarDays,
   LayoutDashboard,
   LogOut,
   Menu,
   Search,
   Sparkles,
-  Users,
   Stethoscope,
-  Bell,
+  Users,
 } from 'lucide-react';
 
 import Button from '@/components/ui/Button';
@@ -56,40 +56,40 @@ export default function AdminShell({ children }: AdminShellProps) {
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(0,168,188,0.16),_transparent_24%),radial-gradient(circle_at_top_right,_rgba(11,20,32,0.08),_transparent_28%),linear-gradient(180deg,_#eef3f8_0%,_#f7fafc_44%,_#ffffff_100%)] text-primary">
       <div className="mx-auto grid min-h-screen max-w-[1680px] lg:grid-cols-[278px_minmax(0,1fr)]">
-        <aside className="hidden border-r border-white/10 bg-[#0b1420] text-white lg:flex lg:flex-col">
+        <aside className="hidden border-r border-slate-200/80 bg-[linear-gradient(180deg,_#f8fbff_0%,_#eef5fb_100%)] text-[#0b1420] lg:flex lg:flex-col">
           <div className="px-5 pt-5">
-            <div className="flex items-center gap-3 rounded-[28px] border border-white/10 bg-white/5 px-4 py-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#00a8bc]/15 text-[#52d1df] ring-1 ring-white/10">
-              <Sparkles className="h-6 w-6" />
+            <div className="flex items-center gap-3 rounded-[28px] border border-slate-200 bg-white px-4 py-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8fbfd] text-[#00a8bc] ring-1 ring-[#00a8bc]/10">
+                <Sparkles className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-[11px] uppercase tracking-[0.45em] text-white/45">MediRDV</p>
-                <h1 className="text-lg font-semibold text-white">Admin Orbit</h1>
+                <p className="text-[11px] uppercase tracking-[0.45em] text-slate-500">MediRDV</p>
+                <h1 className="text-lg font-semibold text-[#0b1420]">Admin Orbit</h1>
               </div>
             </div>
           </div>
 
           <div className="px-5 pt-5">
-            <div className="rounded-[26px] border border-white/10 bg-white/5 p-4">
+            <div className="rounded-[26px] border border-slate-200 bg-white p-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00a8bc]/15 text-[#52d1df]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e8fbfd] text-[#00a8bc]">
                   <Stethoscope className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/45">Session</p>
-                  <p className="truncate text-sm font-semibold text-white">
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Session</p>
+                  <p className="truncate text-sm font-semibold text-[#0b1420]">
                     {user?.first_name} {user?.last_name}
                   </p>
                 </div>
               </div>
-              <p className="mt-3 text-sm leading-6 text-white/70">
+              <p className="mt-3 text-sm leading-6 text-slate-600">
                 Pilotage global des comptes, des rendez-vous et des indicateurs plateforme.
               </p>
             </div>
           </div>
 
           <nav className="mt-5 flex-1 px-3">
-            <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-white/35">
+            <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-slate-500">
               Navigation
             </p>
             <div className="space-y-1">
@@ -103,14 +103,14 @@ export default function AdminShell({ children }: AdminShellProps) {
                     className={[
                       'group flex items-center gap-3 rounded-[22px] px-4 py-3 text-sm font-medium transition-all duration-300',
                       active
-                        ? 'bg-white text-[#0b1420] shadow-[0_18px_45px_rgba(0,0,0,0.18)] ring-1 ring-white/10'
-                        : 'text-white/70 hover:bg-white/8 hover:text-white',
+                        ? 'bg-white text-[#0b1420] shadow-[0_18px_45px_rgba(15,23,42,0.08)] ring-1 ring-slate-200'
+                        : 'text-slate-600 hover:bg-white hover:text-[#0b1420]',
                     ].join(' ')}
                   >
                     <span
                       className={[
                         'flex h-9 w-9 items-center justify-center rounded-2xl transition-colors',
-                        active ? 'bg-[#0b1420]/6 text-[#00a8bc]' : 'bg-white/6 text-[#7ddfe7]',
+                        active ? 'bg-[#e8fbfd] text-[#00a8bc]' : 'bg-slate-100 text-slate-500',
                       ].join(' ')}
                     >
                       <Icon className="h-4.5 w-4.5" />
@@ -124,20 +124,20 @@ export default function AdminShell({ children }: AdminShellProps) {
           </nav>
 
           <div className="px-5 pb-5">
-            <div className="rounded-[30px] border border-white/10 bg-gradient-to-br from-[#00a8bc]/20 via-white/10 to-transparent p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-white/55">
+            <div className="rounded-[30px] border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-slate-500">
                 Supervision
               </p>
-              <p className="mt-3 text-xl font-semibold text-white">Vue d'ensemble temps reel</p>
-              <p className="mt-2 text-sm leading-6 text-white/68">
-                Un cockpit plus dense, plus lisible et plus rapide pour suivre l’activite.
+              <p className="mt-3 text-xl font-semibold text-[#0b1420]">Vue d'ensemble temps reel</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Un cockpit plus dense, plus lisible et plus rapide pour suivre l'activite.
               </p>
             </div>
 
             <Button
               variant="secondary"
               fullWidth
-              className="mt-4 !border-white/15 !bg-white/5 !text-white hover:!bg-white hover:!text-[#0b1420]"
+              className="mt-4 !border-slate-200 !bg-white !text-[#0b1420] hover:!bg-slate-50"
               onClick={() => {
                 logout();
                 router.push('/connexion');
@@ -150,7 +150,7 @@ export default function AdminShell({ children }: AdminShellProps) {
         </aside>
 
         <div className="flex min-w-0 flex-col">
-          <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/82 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8">
+          <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
               <div className="flex items-center gap-3">
                 <button

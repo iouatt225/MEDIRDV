@@ -103,8 +103,8 @@ export default function PraticienDashboardPage() {
     const cancelled = weekly.filter((a) => a.status === 'annule');
     const video = confirmed.filter((a) => a.type === 'video');
 
-    // Approximate filling rate
-    const totalSlots = confirmed.length + 8; // default mock remaining slots
+    // Real fill rate based on the weekly appointment mix.
+    const totalSlots = weekly.length;
     const fillingRate = totalSlots > 0 ? (confirmed.length / totalSlots) * 100 : 0;
 
     return {
