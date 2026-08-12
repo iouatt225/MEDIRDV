@@ -7,7 +7,6 @@ import {
   ArrowRight,
   CalendarCheck2,
   Clock3,
-  ShieldCheck,
   TrendingUp,
   Users,
   Video,
@@ -59,12 +58,6 @@ const quickActions = [
     desc: 'Suivre les derniers RDV, statuts et canaux.',
     href: '/admin/appointments',
     icon: CalendarCheck2,
-  },
-  {
-    title: 'Sante systeme',
-    desc: 'Verifier la base, Redis et le snapshot global.',
-    href: '/admin/system',
-    icon: ShieldCheck,
   },
 ];
 

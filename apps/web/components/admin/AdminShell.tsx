@@ -8,7 +8,6 @@ import {
   LayoutDashboard,
   LogOut,
   Search,
-  ShieldCheck,
   Sparkles,
   Users,
   Stethoscope,
@@ -23,7 +22,6 @@ const adminNav = [
   { label: 'Utilisateurs', href: '/admin/users', icon: Users },
   { label: 'Activite', href: '/admin/analytics', icon: Activity },
   { label: 'Rendez-vous', href: '/admin/appointments', icon: CalendarDays },
-  { label: 'Sante', href: '/admin/system', icon: ShieldCheck },
 ];
 
 interface AdminShellProps {
