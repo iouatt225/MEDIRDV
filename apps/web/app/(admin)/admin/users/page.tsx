@@ -116,7 +116,7 @@ export default function AdminUsersPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[36px] border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8 lg:p-10">
+      <section className="rounded-[36px] border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-7 lg:p-9">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#00a8bc]/15 bg-[#e8fbfd] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#0b6270]">
@@ -153,7 +153,7 @@ export default function AdminUsersPage() {
         </div>
       </section>
 
-      <Card hoverable={false} className="border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+      <Card hoverable={false} className="border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
         <div className="grid gap-4 xl:grid-cols-[1.6fr_0.7fr_0.7fr_auto]">
           <Input
             label="Rechercher un utilisateur"
@@ -207,22 +207,22 @@ export default function AdminUsersPage() {
               <table className="min-w-full">
                 <thead className="bg-slate-50">
                   <tr>
-                    <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    <th className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
                       Utilisateur
                     </th>
-                    <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    <th className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
                       Role
                     </th>
-                    <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    <th className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
                       Details
                     </th>
-                    <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    <th className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
                       Cree le
                     </th>
-                    <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    <th className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
                       Statut
                     </th>
-                    <th className="px-5 py-4 text-right text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+                    <th className="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
                       Actions
                     </th>
                   </tr>
@@ -230,7 +230,7 @@ export default function AdminUsersPage() {
                 <tbody>
                   {users.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="px-5 py-14 text-center text-sm text-slate-500">
+                      <td colSpan={6} className="px-5 py-10 text-center text-sm text-slate-500">
                         Aucun utilisateur ne correspond aux filtres actuels.
                       </td>
                     </tr>
@@ -241,9 +241,9 @@ export default function AdminUsersPage() {
 
                       return (
                         <tr key={item.id} className="border-t border-slate-100 hover:bg-slate-50/80">
-                          <td className="px-5 py-4">
+                          <td className="px-5 py-3.5">
                             <div className="flex items-center gap-3">
-                              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0b1420] font-semibold text-white">
+                              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0b1420] font-semibold text-white">
                                 {item.first_name.slice(0, 1)}
                                 {item.last_name.slice(0, 1)}
                               </div>
@@ -255,18 +255,18 @@ export default function AdminUsersPage() {
                               </div>
                             </div>
                           </td>
-                          <td className="px-5 py-4">
+                          <td className="px-5 py-3.5">
                             <span className="inline-flex rounded-full bg-[#e8fbfd] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#0b6270]">
                               {roleLabel(item.role)}
                             </span>
                           </td>
-                          <td className="px-5 py-4">
+                          <td className="px-5 py-3.5">
                             <p className="max-w-[260px] text-sm font-medium text-[#0b1420]">
                               {item.profile_summary || 'Aucun profil detaille'}
                             </p>
                           </td>
-                          <td className="px-5 py-4 text-sm text-slate-500">{formatDate(item.created_at)}</td>
-                          <td className="px-5 py-4">
+                          <td className="px-5 py-3.5 text-sm text-slate-500">{formatDate(item.created_at)}</td>
+                          <td className="px-5 py-3.5">
                             <span
                               className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] ${
                                 item.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
@@ -276,7 +276,7 @@ export default function AdminUsersPage() {
                               {item.is_active ? 'Actif' : 'Inactif'}
                             </span>
                           </td>
-                          <td className="px-5 py-4 text-right">
+                          <td className="px-5 py-3.5 text-right">
                             <div className="flex items-center justify-end gap-2">
                               <Link
                                 href={`/admin/users/${item.id}`}

@@ -7,6 +7,7 @@ import {
   CalendarDays,
   LayoutDashboard,
   LogOut,
+  Menu,
   Search,
   Sparkles,
   Users,
@@ -33,6 +34,14 @@ function isActive(pathname: string | null, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function getSectionLabel(pathname: string | null) {
+  if (!pathname) return "Vue d'ensemble";
+  if (pathname.startsWith('/admin/users')) return 'Utilisateurs';
+  if (pathname.startsWith('/admin/analytics')) return 'Activite';
+  if (pathname.startsWith('/admin/appointments')) return 'Rendez-vous';
+  return "Vue d'ensemble";
+}
+
 export default function AdminShell({ children }: AdminShellProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -46,20 +55,22 @@ export default function AdminShell({ children }: AdminShellProps) {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(0,168,188,0.16),_transparent_24%),radial-gradient(circle_at_top_right,_rgba(11,20,32,0.08),_transparent_28%),linear-gradient(180deg,_#eef3f8_0%,_#f7fafc_44%,_#ffffff_100%)] text-primary">
-      <div className="mx-auto grid min-h-screen max-w-[1680px] lg:grid-cols-[290px_minmax(0,1fr)]">
+      <div className="mx-auto grid min-h-screen max-w-[1680px] lg:grid-cols-[278px_minmax(0,1fr)]">
         <aside className="hidden border-r border-white/10 bg-[#0b1420] text-white lg:flex lg:flex-col">
-          <div className="flex items-center gap-3 px-6 py-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#00a8bc]/15 text-[#52d1df] ring-1 ring-white/10">
+          <div className="px-5 pt-5">
+            <div className="flex items-center gap-3 rounded-[28px] border border-white/10 bg-white/5 px-4 py-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#00a8bc]/15 text-[#52d1df] ring-1 ring-white/10">
               <Sparkles className="h-6 w-6" />
-            </div>
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.45em] text-white/45">MediRDV</p>
-              <h1 className="text-lg font-semibold text-white">Admin Orbit</h1>
+              </div>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.45em] text-white/45">MediRDV</p>
+                <h1 className="text-lg font-semibold text-white">Admin Orbit</h1>
+              </div>
             </div>
           </div>
 
-          <div className="px-6">
-            <div className="rounded-[28px] border border-white/10 bg-white/5 p-4">
+          <div className="px-5 pt-5">
+            <div className="rounded-[26px] border border-white/10 bg-white/5 p-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00a8bc]/15 text-[#52d1df]">
                   <Stethoscope className="h-5 w-5" />
@@ -77,8 +88,8 @@ export default function AdminShell({ children }: AdminShellProps) {
             </div>
           </div>
 
-          <nav className="mt-6 flex-1 px-4">
-            <p className="px-2 pb-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-white/35">
+          <nav className="mt-5 flex-1 px-3">
+            <p className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-[0.45em] text-white/35">
               Navigation
             </p>
             <div className="space-y-1">
@@ -92,7 +103,7 @@ export default function AdminShell({ children }: AdminShellProps) {
                     className={[
                       'group flex items-center gap-3 rounded-[22px] px-4 py-3 text-sm font-medium transition-all duration-300',
                       active
-                        ? 'bg-white text-[#0b1420] shadow-[0_18px_45px_rgba(0,0,0,0.18)]'
+                        ? 'bg-white text-[#0b1420] shadow-[0_18px_45px_rgba(0,0,0,0.18)] ring-1 ring-white/10'
                         : 'text-white/70 hover:bg-white/8 hover:text-white',
                     ].join(' ')}
                   >
@@ -139,27 +150,34 @@ export default function AdminShell({ children }: AdminShellProps) {
         </aside>
 
         <div className="flex min-w-0 flex-col">
-          <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/80 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8">
+          <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/82 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
               <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-500 shadow-[0_10px_24px_rgba(15,23,42,0.05)] lg:hidden"
+                  aria-label="Ouvrir la navigation"
+                >
+                  <Menu className="h-5 w-5" />
+                </button>
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0b1420] text-[#7ddfe7] shadow-[0_12px_24px_rgba(11,20,32,0.18)] lg:hidden">
                   <Sparkles className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-500">
-                    Espace administrateur
+                    {getSectionLabel(pathname)}
                   </p>
                   <h2 className="text-xl font-semibold text-[#0b1420] sm:text-2xl">MediRDV Control Center</h2>
                 </div>
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <div className="flex items-center gap-3 rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-3">
+                <div className="flex items-center gap-3 rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-3 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
                   <Search className="h-4 w-4 text-slate-400" />
                   <input
                     aria-label="Rechercher"
                     placeholder="Rechercher un utilisateur, un RDV..."
-                    className="w-56 bg-transparent text-sm outline-none placeholder:text-slate-400"
+                    className="w-52 bg-transparent text-sm outline-none placeholder:text-slate-400 sm:w-60"
                   />
                 </div>
                 <div className="flex items-center gap-3">

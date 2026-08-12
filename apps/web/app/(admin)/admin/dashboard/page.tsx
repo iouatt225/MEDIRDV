@@ -323,25 +323,25 @@ export default function AdminDashboardPage() {
                 <table className="min-w-full">
                   <thead className="bg-slate-50">
                     <tr className="text-left text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">
-                      <th className="px-6 py-4">Utilisateur</th>
-                      <th className="px-6 py-4">Role</th>
-                      <th className="px-6 py-4">Statut</th>
-                      <th className="px-6 py-4">Cree le</th>
+                      <th className="px-5 py-3">Utilisateur</th>
+                      <th className="px-5 py-3">Role</th>
+                      <th className="px-5 py-3">Statut</th>
+                      <th className="px-5 py-3">Cree le</th>
                     </tr>
                   </thead>
                   <tbody>
                     {recentUsers.length === 0 ? (
                       <tr>
-                        <td colSpan={4} className="px-6 py-10 text-center text-sm text-slate-500">
+                        <td colSpan={4} className="px-5 py-8 text-center text-sm text-slate-500">
                           Aucun utilisateur recent.
                         </td>
                       </tr>
                     ) : (
                       recentUsers.slice(0, 5).map((item) => (
                         <tr key={item.id} className="border-t border-slate-100 hover:bg-slate-50/70">
-                          <td className="px-6 py-4">
+                          <td className="px-5 py-3.5">
                             <div className="flex items-center gap-3">
-                              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0b1420] text-sm font-semibold text-white">
+                              <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#0b1420] text-sm font-semibold text-white">
                                 {item.first_name.slice(0, 1)}
                                 {item.last_name.slice(0, 1)}
                               </div>
@@ -353,8 +353,8 @@ export default function AdminDashboardPage() {
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 text-sm text-slate-600">{item.role}</td>
-                          <td className="px-6 py-4">
+                          <td className="px-5 py-3.5 text-sm text-slate-600">{item.role}</td>
+                          <td className="px-5 py-3.5">
                             <span
                               className={[
                                 'inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em]',
@@ -364,7 +364,7 @@ export default function AdminDashboardPage() {
                               {item.is_active ? 'Actif' : 'Inactif'}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-sm text-slate-500">{formatDate(item.created_at)}</td>
+                          <td className="px-5 py-3.5 text-sm text-slate-500">{formatDate(item.created_at)}</td>
                         </tr>
                       ))
                     )}
@@ -413,7 +413,7 @@ export default function AdminDashboardPage() {
                 <Link
                   key={action.href}
                   href={action.href}
-                  className="group rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_20px_55px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-[#00a8bc]/25 hover:shadow-[0_28px_60px_rgba(15,23,42,0.1)]"
+                  className="group rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_20px_55px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-[#00a8bc]/25 hover:shadow-[0_28px_60px_rgba(15,23,42,0.1)]"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>

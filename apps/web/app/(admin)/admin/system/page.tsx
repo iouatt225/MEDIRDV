@@ -34,7 +34,7 @@ export default function AdminSystemPage() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[36px] border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8 lg:p-10">
+      <section className="rounded-[36px] border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-7 lg:p-9">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-4">
             <Link href="/admin/dashboard" className="inline-flex items-center gap-2 text-sm font-semibold text-[#00a8bc]">
@@ -83,7 +83,7 @@ export default function AdminSystemPage() {
         </Card>
       ) : (
         <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-          <Card hoverable={false} className="border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+          <Card hoverable={false} className="border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">Etat</p>
@@ -121,7 +121,7 @@ export default function AdminSystemPage() {
             </div>
           </Card>
 
-          <Card hoverable={false} className="border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+          <Card hoverable={false} className="border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">Resume</p>
