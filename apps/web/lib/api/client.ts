@@ -2,11 +2,8 @@
 
 import { useAuthStore } from '@/stores/useAuthStore';
 
-const DEFAULT_API_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000'
-    : 'https://medirdv-api.onrender.com';
-const BASE_URL = (process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL).replace(/\/$/, '');
+// Keep requests relative so Vercel/Next rewrites can proxy them to the API.
+const BASE_URL = '';
 
 interface RequestOptions extends RequestInit {
   params?: Record<string, string>;
