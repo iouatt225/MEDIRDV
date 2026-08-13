@@ -4,7 +4,7 @@
 
 - Frontend: Vercel
 - Backend API: Render
-- Background worker: Render
+- Free blueprint: Render web + Postgres + Key Value only
 
 ## Frontend on Vercel
 
@@ -26,6 +26,14 @@ The Vercel project should use the repository root and the `vercel.json` preset a
 ## Backend on Render
 
 Use the repository root `render.yaml` Blueprint.
+
+This blueprint is intentionally free-tier only:
+
+- no background worker
+- no pre-deploy migration job
+- Postgres and Key Value run on free instances
+
+If you need Celery/background jobs later, switch the worker back on with a paid Render plan.
 
 Required production variables:
 
@@ -53,4 +61,5 @@ Required production variables:
 
 - In production, the API cookie configuration must allow cross-site refresh cookies between Render and Vercel.
 - Make sure the Render API URL is publicly reachable over HTTPS.
+- Run database migrations from your local machine against the Render `DATABASE_URL` before the first production deploy, or after any schema change.
 - After the first deploy, verify `GET /health` returns `200`.
