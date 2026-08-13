@@ -163,16 +163,17 @@ def _bootstrap_database(app: Flask) -> None:
         return
 
     try:
-        existing_tables = set(inspect(db.engine).get_table_names())
-        expected_tables = set(db.metadata.tables.keys())
-        missing_tables = expected_tables - existing_tables
+        with app.app_context():
+            existing_tables = set(inspect(db.engine).get_table_names())
+            expected_tables = set(db.metadata.tables.keys())
+            missing_tables = expected_tables - existing_tables
 
-        if missing_tables:
-            app.logger.warning(
-                "Bootstrapping database schema, missing tables: %s",
-                ", ".join(sorted(missing_tables)),
-            )
-            db.create_all()
+            if missing_tables:
+                app.logger.warning(
+                    "Bootstrapping database schema, missing tables: %s",
+                    ", ".join(sorted(missing_tables)),
+                )
+                db.create_all()
     except Exception as exc:
         app.logger.exception("Database bootstrap failed: %s", exc)
         raise
