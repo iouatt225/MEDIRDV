@@ -37,25 +37,27 @@ If you need Celery/background jobs later, switch the worker back on with a paid 
 
 Required production variables:
 
-- `SECRET_KEY`
-- `JWT_SECRET_KEY`
-- `FRONTEND_URL`
-- `DATABASE_URL`
-- `REDIS_URL`
-- `CELERY_BROKER_URL`
-- `CELERY_RESULT_BACKEND`
-- `MINIO_ENDPOINT`
-- `MINIO_ACCESS_KEY`
-- `MINIO_SECRET_KEY`
-- `MINIO_BUCKET`
-- `TWILIO_ACCOUNT_SID`
-- `TWILIO_AUTH_TOKEN`
-- `TWILIO_PHONE_NUMBER`
-- `SENDGRID_API_KEY`
-- `SENDGRID_FROM_EMAIL`
-- `DAILY_API_KEY`
-- `DAILY_API_URL`
-- `SENTRY_DSN`
+| Variable | Where to get it | Free blueprint |
+|---|---|---|
+| `SECRET_KEY` | Generate it yourself locally, for example with `openssl rand -hex 32` | Required |
+| `JWT_SECRET_KEY` | Generate it yourself locally, for example with `openssl rand -hex 32` | Required |
+| `FRONTEND_URL` | Your Vercel production URL, for example `https://medirdv.vercel.app` | Required |
+| `DATABASE_URL` | Render Postgres connection string from the Render dashboard | Required |
+| `REDIS_URL` | Render Key Value connection string from the Render dashboard | Required only if Redis is used |
+| `CELERY_BROKER_URL` | Render Key Value connection string from the Render dashboard | Optional in free blueprint |
+| `CELERY_RESULT_BACKEND` | Render Key Value connection string from the Render dashboard | Optional in free blueprint |
+| `MINIO_ENDPOINT` | Your MinIO or S3-compatible storage endpoint | Optional |
+| `MINIO_ACCESS_KEY` | MinIO or S3 access key | Optional |
+| `MINIO_SECRET_KEY` | MinIO or S3 secret key | Optional |
+| `MINIO_BUCKET` | Storage bucket name | Optional |
+| `TWILIO_ACCOUNT_SID` | Twilio console | Optional |
+| `TWILIO_AUTH_TOKEN` | Twilio console | Optional |
+| `TWILIO_PHONE_NUMBER` | Twilio console | Optional |
+| `SENDGRID_API_KEY` | SendGrid dashboard | Optional |
+| `SENDGRID_FROM_EMAIL` | Verified sender address in SendGrid | Optional |
+| `DAILY_API_KEY` | Daily.co dashboard | Optional |
+| `DAILY_API_URL` | Daily.co API base URL, usually `https://api.daily.co/v1` | Optional |
+| `SENTRY_DSN` | Sentry project settings | Optional |
 
 ## Notes
 
