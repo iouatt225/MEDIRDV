@@ -2,7 +2,11 @@
 
 import { useAuthStore } from '@/stores/useAuthStore';
 
-const BASE_URL = ''; // Empty string so it routes via Next.js rewrites in the browser, or absolute on server
+const DEFAULT_API_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : 'https://medirdv-api.onrender.com';
+const BASE_URL = (process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL).replace(/\/$/, '');
 
 interface RequestOptions extends RequestInit {
   params?: Record<string, string>;
