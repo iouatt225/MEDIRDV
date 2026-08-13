@@ -43,8 +43,19 @@ interface MappedEvent {
   };
 }
 
+interface AgendaSlot {
+  id: string;
+  doctor_id: string;
+  day_of_week: number;
+  start_time: string;
+  end_time: string;
+  consultation_type: string;
+  duration_min: number;
+  is_recurring: boolean;
+}
+
 export default function PraticienAgendaPage() {
-  const { user } = useAuthStore();
+  const { user, hasHydrated } = useAuthStore();
   const queryClient = useQueryClient();
 
   // Secretary active doctor selection
@@ -78,9 +89,16 @@ export default function PraticienAgendaPage() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // Fetch appointments
-  const { data: appointments, refetch: refetchAppts } = useQuery<Appointment[]>({
+  const {
+    data: appointments,
+    refetch: refetchAppts,
+    isLoading: isAppointmentsLoading,
+    isError: isAppointmentsError,
+    error: appointmentsError,
+  } = useQuery<Appointment[]>({
     queryKey: ['agenda-appointments'],
     queryFn: () => apiClient.get('/api/v1/appointments'),
+    enabled: hasHydrated && !!user,
   });
 
   // Extract linked doctors from appointments (for secretary)
@@ -100,7 +118,13 @@ export default function PraticienAgendaPage() {
   const activeDoctorId = user?.role === 'medecin' ? user.id : selectedDoctorId;
 
   // Fetch recurring slots for active doctor
-  const { refetch: refetchSlots } = useQuery<unknown[]>({
+  const {
+    data: slots,
+    refetch: refetchSlots,
+    isLoading: isSlotsLoading,
+    isError: isSlotsError,
+    error: slotsError,
+  } = useQuery<AgendaSlot[]>({
     queryKey: ['agenda-slots', activeDoctorId],
     queryFn: () =>
       apiClient.get('/api/v1/slots', {
@@ -110,6 +134,9 @@ export default function PraticienAgendaPage() {
       }),
     enabled: !!activeDoctorId,
   });
+
+  const isAgendaLoading = !hasHydrated || isAppointmentsLoading || (user?.role === 'medecin' && isSlotsLoading);
+  const agendaError = errorMsg || (isAppointmentsError ? (appointmentsError instanceof Error ? appointmentsError.message : 'Impossible de charger les rendez-vous.') : null) || (isSlotsError ? (slotsError instanceof Error ? slotsError.message : 'Impossible de charger les créneaux.') : null);
 
   // Unique patients for manual booking autocomplete
   const patientsList = useMemo(() => {
@@ -153,8 +180,29 @@ export default function PraticienAgendaPage() {
         });
     }
 
+    // 2. Add recurring slots so the agenda remains visible even with no RDVs
+    if (slots) {
+      slots
+        .filter((slot) => slot.doctor_id === activeDoctorId)
+        .forEach((slot) => {
+          list.push({
+            id: `slot-${slot.id}`,
+            title: slot.consultation_type === 'video' ? 'Créneau visio' : 'Créneau cabinet',
+            start: slot.start_time,
+            end: slot.end_time,
+            backgroundColor: '#0ea5e9',
+            borderColor: '#0284c7',
+            textColor: '#ffffff',
+            extendedProps: {
+              type: 'slot',
+              slot,
+            },
+          });
+        });
+    }
+
     return list;
-  }, [appointments, activeDoctorId]);
+  }, [appointments, activeDoctorId, slots]);
 
   // Mutations
   const createSlotMutation = useMutation({
@@ -239,6 +287,54 @@ export default function PraticienAgendaPage() {
       setErrorMsg(error.message || 'Impossible d\'enregistrer le rendez-vous.');
     },
   });
+
+  if (isAgendaLoading) {
+    return (
+      <RequireRole allowedRoles={['medecin', 'secretaire']}>
+        <div className="pt-28 pb-16 min-h-screen bg-secondary">
+          <div className="max-w-[1300px] mx-auto px-4 lg:px-[15px]">
+            <Card hoverable={false} className="p-10 bg-white border border-divider flex items-center justify-center">
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                <div>
+                  <h2 className="text-lg font-semibold text-primary">Chargement de l'agenda</h2>
+                  <p className="text-sm text-text mt-1">Récupération des rendez-vous et des créneaux en cours...</p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </RequireRole>
+    );
+  }
+
+  if (agendaError) {
+    return (
+      <RequireRole allowedRoles={['medecin', 'secretaire']}>
+        <div className="pt-28 pb-16 min-h-screen bg-secondary">
+          <div className="max-w-[1300px] mx-auto px-4 lg:px-[15px]">
+            <Card hoverable={false} className="p-8 bg-white border border-divider">
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-primary">Impossible de charger l'agenda</h2>
+                <p className="text-sm text-text">{agendaError}</p>
+                <div className="flex gap-3">
+                  <Button onClick={() => void refetchAppts()}>
+                    Réessayer les rendez-vous
+                  </Button>
+                  <Button variant="secondary" onClick={() => void refetchSlots()}>
+                    Réessayer les créneaux
+                  </Button>
+                  <Button variant="ghost" onClick={() => setErrorMsg(null)}>
+                    Fermer
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </RequireRole>
+    );
+  }
 
   return (
     <RequireRole allowedRoles={['medecin', 'secretaire']}>
@@ -515,4 +611,3 @@ export default function PraticienAgendaPage() {
     </RequireRole>
   );
 }
-
