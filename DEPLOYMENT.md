@@ -8,6 +8,8 @@
 
 ## Frontend on Vercel
 
+The repository now includes a small root `package.json` so Vercel can build the monorepo from the repo root.
+
 Set these environment variables in the Vercel project:
 
 - `NEXT_PUBLIC_API_URL` = your Render API URL, for example `https://medirdv-api.onrender.com`
@@ -19,7 +21,7 @@ Build command:
 npm run build
 ```
 
-The frontend already rewrites `/api/v1/*` to the backend URL via `apps/web/next.config.ts`.
+The Vercel project should use the repository root and the `vercel.json` preset at the root. The frontend already rewrites `/api/v1/*` to the backend URL via `apps/web/next.config.ts`.
 
 ## Backend on Render
 
