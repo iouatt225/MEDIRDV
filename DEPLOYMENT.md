@@ -63,5 +63,6 @@ Required production variables:
 
 - In production, the API cookie configuration must allow cross-site refresh cookies between Render and Vercel.
 - Make sure the Render API URL is publicly reachable over HTTPS.
-- Run database migrations from your local machine against the Render `DATABASE_URL` before the first production deploy, or after any schema change.
+- On first deploy, the API bootstraps any missing database tables automatically if the database is empty.
+- For later schema changes, continue using Alembic migrations.
 - After the first deploy, verify `GET /health` returns `200`.

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from flask import Flask, jsonify
 from werkzeug.exceptions import HTTPException
+from sqlalchemy import inspect
 
 from config import Config, config_by_name
 
@@ -51,6 +52,9 @@ def create_app(config_name: str = "development") -> Flask:
 
     # --- Health endpoint ---
     _register_health(app)
+
+    # --- Schéma de base ---
+    _bootstrap_database(app)
 
     return app
 
@@ -146,3 +150,29 @@ def _register_health(app: Flask) -> None:
             return jsonify(status), 503
 
         return jsonify(status), 200
+
+
+def _bootstrap_database(app: Flask) -> None:
+    """Crée les tables manquantes lors d'un premier déploiement sur une base vide.
+
+    Render Free ne lance pas de pré-deploy hook, donc on sécurise le premier
+    démarrage en créant automatiquement le schéma si des tables manquent.
+    """
+
+    if app.config.get("TESTING"):
+        return
+
+    try:
+        existing_tables = set(inspect(db.engine).get_table_names())
+        expected_tables = set(db.metadata.tables.keys())
+        missing_tables = expected_tables - existing_tables
+
+        if missing_tables:
+            app.logger.warning(
+                "Bootstrapping database schema, missing tables: %s",
+                ", ".join(sorted(missing_tables)),
+            )
+            db.create_all()
+    except Exception as exc:
+        app.logger.exception("Database bootstrap failed: %s", exc)
+        raise
